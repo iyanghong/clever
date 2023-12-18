@@ -1,0 +1,45 @@
+server:
+  port: 9502
+spring:
+  cloud:
+    nacos:
+      discovery:
+        password: Ts962464
+        server-addr: http://120.78.152.120:8848
+        username: root
+      config:
+        password: Ts962464
+        server-addr: http://120.78.152.120:8848
+        username: root
+  profiles:
+    active: dev
+  application:
+    name: clever-system
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#线程池
+clever:
+  threadPool:
+    corePoolSize: 30
+    maxPoolSize: 200
+    queueCapacity: 10000
+    keepAliveSeconds: 300
+    prefix: SYSTEM-SERVICE
+
+mybatis-plus:
+  global-config:
+    db-config:
+      table-undcomerline: false
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:com/clever/mapper/*.xml
