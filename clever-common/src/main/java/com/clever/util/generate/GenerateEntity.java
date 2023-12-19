@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 public class GenerateEntity extends BaseGenerator {
 
     private static final Logger log = LoggerFactory.getLogger(GenerateEntity.class);
+
 
     public GenerateEntity(GenerateConfig config) {
         super(config);
@@ -51,6 +53,12 @@ public class GenerateEntity extends BaseGenerator {
             if (tableMeta.getPrimaryKeyColumn() != null) {
                 sb.append("import com.baomidou.mybatisplus.annotation.IdType;\n");
                 sb.append("import com.baomidou.mybatisplus.annotation.TableId;\n");
+
+            }
+            // 如果有自动填充的列，则添加MyBatis Plus的注解
+            if (tableMeta.isHasColumnInList(config.getAutoUpdateFillField()) || tableMeta.isHasColumnInList(config.getAutoInsertFillField())){
+                sb.append("import com.baomidou.mybatisplus.annotation.TableField;\n");
+                sb.append("import com.baomidou.mybatisplus.annotation.FieldFill;\n");
             }
             // 如果表有日期类型的列，则添加Date类
             if (tableMeta.isHasDateTypeColumn()) {
@@ -83,6 +91,12 @@ public class GenerateEntity extends BaseGenerator {
                     } else {
                         sb.append("\t@TableId\n");
                     }
+                }
+                if (config.getAutoInsertFillField().contains(columnMeta.getColumnName())) {
+                    sb.append("\t@TableField(value = \"").append(columnMeta.getColumnName()).append("\", fill = FieldFill.INSERT)\n");
+                }
+                if (config.getAutoUpdateFillField().contains(columnMeta.getColumnName())) {
+                    sb.append("\t@TableField(value = \"").append(columnMeta.getColumnName()).append("\", fill = FieldFill.UPDATE)\n");
                 }
                 // 添加字段定义
                 sb.append("\tprivate ").append(columnMeta.getJavaType()).append(" ").append(toXTCamelCase(columnMeta.getColumnName())).append(";\n");

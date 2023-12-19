@@ -66,6 +66,20 @@ public class TableMeta {
     }
 
     /**
+     * 是否包含其中一个列
+     * @param columnName 列名列表
+     * @return 是否包含其中一个列
+     */
+    public boolean isHasColumnInList(List<String> columnName) {
+        for (ColumnMeta column : columns) {
+            if (columnName.contains(column.getColumnName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 检测是否存在某个字段名
      *
      * @param name 字段名

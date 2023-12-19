@@ -317,15 +317,15 @@ public class GenerateService extends BaseGenerator {
             implBuilder.append(String.format("\t\tif (StringUtils.isBlank(%s.getId())) {", xtName));
         }
         // 如果有创建者字段
-        if (tableMeta.isHasColumnName(config.getCreateUserColumndName())) {
-            implBuilder.append(String.format("\t\t\t%s.set%s(onlineUser.getId());\n", xtName, toDTCamelCase(config.getCreateUserColumndName())));
+        if (tableMeta.isHasColumnName(config.getCreatorFieldName())) {
+            implBuilder.append(String.format("\t\t\t%s.set%s(onlineUser.getId());\n", xtName, toDTCamelCase(config.getCreatorFieldName())));
         }
         implBuilder.append(String.format("\n\t\t\t%sMapper.insert(%s);\n", xtName, xtName));
         implBuilder.append(String.format("\t\t\tlog.info(\"%s, %s信息创建成功: userId={}, %sId={}\", onlineUser.getId(), %s.getId());\n", tableMeta.getTableComment(), tableMeta.getTableComment(), xtName, xtName));
         implBuilder.append("\t\t} else {\n");
         // 如果有修改者字段
-        if (tableMeta.isHasColumnName(config.getUpdateUserColumndName())) {
-            implBuilder.append(String.format("\t\t\t%s.set%s(onlineUser.getId());\n", xtName, toDTCamelCase(config.getUpdateUserColumndName())));
+        if (tableMeta.isHasColumnName(config.getCreatorFieldName())) {
+            implBuilder.append(String.format("\t\t\t%s.set%s(onlineUser.getId());\n", xtName, toDTCamelCase(config.getCreatorFieldName())));
         }
         implBuilder.append(String.format("\t\t\t%sMapper.updateById(%s);\n", xtName, xtName));
         implBuilder.append(String.format("\t\t\tlog.info(\"%s, %s信息修改成功: userId={}, %sId={}\", onlineUser.getId(), %s.getId());\n", tableMeta.getTableComment(), tableMeta.getTableComment(), xtName, xtName));
@@ -468,6 +468,7 @@ public class GenerateService extends BaseGenerator {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t/**\n");
         stringBuilder.append(String.format("\t * %s\n", description));
+        stringBuilder.append("\t *\n");
         for (Map.Entry<String, String> stringStringEntry : params.entrySet()) {
             stringBuilder.append(String.format("\t * @param %s %s\n", ((Map.Entry<?, ?>) stringStringEntry).getKey(), ((Map.Entry<?, ?>) stringStringEntry).getValue()));
         }

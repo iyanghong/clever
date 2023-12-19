@@ -40,7 +40,7 @@ public class GenerateMapper extends BaseGenerator {
             stringBuilder.append("import org.apache.ibatis.annotations.Mapper;\n");
             stringBuilder.append("import ").append(config.getEntityPackageName()).append(".").append(dtTableName).append(";\n\n");
             stringBuilder.append("\n/**\n");
-            stringBuilder.append(String.format(" * %sMapper\n", StringUtils.isNotBlank(tableMeta.getTableComment())?tableMeta.getTableComment():dtTableName));
+            stringBuilder.append(String.format(" * %sMapper\n", StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : dtTableName));
             stringBuilder.append(" *\n");
             stringBuilder.append(" * @Author xixi\n");
             stringBuilder.append(String.format(" * @Date %s\n", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())));
