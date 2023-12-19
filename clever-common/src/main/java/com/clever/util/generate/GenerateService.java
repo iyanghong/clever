@@ -311,7 +311,7 @@ public class GenerateService extends BaseGenerator {
         implBuilder.append(String.format("\tpublic void save(%s %s, OnlineUser onlineUser) {\n", dtName, xtName));
 
         // 判断是否有主键
-        if (tableMeta.getPrimaryKeyColumn() != null && tableMeta.getPrimaryKeyColumn().getJavaType().equals("Integer")) {
+        if (tableMeta.getPrimaryKeyColumn() != null && (tableMeta.getPrimaryKeyColumn().getJavaType().equals("Integer") || tableMeta.getPrimaryKeyColumn().getJavaType().equals("Long"))) {
             implBuilder.append(String.format("\t\tif (%s.getId() == null) {", xtName));
         } else {
             implBuilder.append(String.format("\t\tif (StringUtils.isBlank(%s.getId())) {", xtName));
@@ -413,9 +413,9 @@ public class GenerateService extends BaseGenerator {
 
         // 如果表元数据中存在主键列，则按照主键列进行排序
         if (tableMeta.getPrimaryKeyColumn() != null) {
-            implBuilder.append(".orderByAsc(\"").append(tableMeta.getPrimaryKeyColumn().getColumnName()).append("\"))");
+            implBuilder.append(".orderByAsc(\"").append(tableMeta.getPrimaryKeyColumn().getColumnName()).append("\")");
         }
-        implBuilder.append(";\n");
+        implBuilder.append(");\n");
         implBuilder.append("\t}\n");
     }
 
