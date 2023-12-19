@@ -9,7 +9,7 @@ import com.clever.bean.system.Role;
  * 系统角色服务接口
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:39
+ * @Date 2023-12-19 11:45:47
  */
 public interface RoleService {
 

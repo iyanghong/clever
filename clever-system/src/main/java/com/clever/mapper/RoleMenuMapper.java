@@ -9,7 +9,7 @@ import com.clever.bean.system.RoleMenu;
  * 角色菜单Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 @Mapper
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {

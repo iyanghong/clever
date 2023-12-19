@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * Village服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:39
+ * @Date 2023-12-19 11:45:47
  */
 @Service
 public class VillageServiceImpl implements VillageService {
@@ -116,7 +116,7 @@ public class VillageServiceImpl implements VillageService {
 	 */
 	@Override
 	public void save(Village village, OnlineUser onlineUser) {
-		if (StringUtils.isBlank(village.getId())) {
+		if (village.getId() == null) {
 			villageMapper.insert(village);
 			log.info(", 信息创建成功: userId={}, villageId={}", onlineUser.getId(), village.getId());
 		} else {

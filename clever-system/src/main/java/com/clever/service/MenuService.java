@@ -9,7 +9,7 @@ import com.clever.bean.system.Menu;
  * 导航菜单服务接口
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 public interface MenuService {
 

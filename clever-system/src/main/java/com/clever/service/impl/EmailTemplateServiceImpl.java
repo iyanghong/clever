@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 邮箱模板服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 @Service
 public class EmailTemplateServiceImpl implements EmailTemplateService {

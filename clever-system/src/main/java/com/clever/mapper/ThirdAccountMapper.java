@@ -9,7 +9,7 @@ import com.clever.bean.system.ThirdAccount;
  * 第三方平台账号Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 @Mapper
 public interface ThirdAccountMapper extends BaseMapper<ThirdAccount> {

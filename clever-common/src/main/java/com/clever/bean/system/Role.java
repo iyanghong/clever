@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 系统角色
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 public class Role implements Serializable {
 

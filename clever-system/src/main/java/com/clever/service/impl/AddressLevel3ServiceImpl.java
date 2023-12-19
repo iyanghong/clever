@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * VIEW服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:38:38
+ * @Date 2023-12-19 11:45:47
  */
 @Service
 public class AddressLevel3ServiceImpl implements AddressLevel3Service {
@@ -70,7 +70,7 @@ public class AddressLevel3ServiceImpl implements AddressLevel3Service {
 	 */
 	@Override
 	public List<AddressLevel3> getListByProvinceId(Integer provinceId) {
-		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("province_id", provinceId);
+		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("province_id", provinceId));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class AddressLevel3ServiceImpl implements AddressLevel3Service {
 	 */
 	@Override
 	public List<AddressLevel3> getListByCityId(Integer cityId) {
-		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("city_id", cityId);
+		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("city_id", cityId));
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class AddressLevel3ServiceImpl implements AddressLevel3Service {
 	 */
 	@Override
 	public List<AddressLevel3> getListByAreaId(Integer areaId) {
-		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("area_id", areaId);
+		return addressLevel3Mapper.selectList(new QueryWrapper<AddressLevel3>().eq("area_id", areaId));
 	}
 
 	/**
