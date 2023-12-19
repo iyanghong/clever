@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.util.Date;
 /**
  * @Author xixi
- * @Date 2023-12-18 03:01:51
+ * @Date 2023-12-19 11:38:38
  */
 public class SystemConfig implements Serializable {
 
@@ -159,6 +159,10 @@ public class SystemConfig implements Serializable {
 	 */
 	public Integer getEnable() {
 		return enable;
+	}
+
+	public boolean isEnable() {
+		return enable == 1;
 	}
 
 	public void setEnable(Integer enable) {

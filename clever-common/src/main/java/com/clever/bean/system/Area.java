@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 /**
  * 城区地址
  * @Author xixi
- * @Date 2023-12-18 03:01:51
+ * @Date 2023-12-19 11:38:38
  */
 public class Area implements Serializable {
 

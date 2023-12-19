@@ -244,9 +244,51 @@ CREATE TABLE IF NOT EXISTS system_config
 
 
 
+CREATE TABLE IF NOT EXISTS email_subject
+(
+    id           varchar(36)  not null comment 'id',
+    platform_id  int          not null comment '平台id',
+    driver       varchar(20)  NOT NULL DEFAULT 'smtp' COMMENT '邮箱驱动',
+    host         varchar(64)  NOT NULL COMMENT 'host',
+    port         int          NOT NULL DEFAULT 465 COMMENT '端口',
+    username     varchar(100) NOT NULL COMMENT '账号',
+    password     varchar(128) NOT NULL COMMENT '密码',
+    encryption   varchar(20)  NOT NULL DEFAULT 'ssl' COMMENT '加密',
+    address      varchar(100) NOT NULL COMMENT '邮箱地址',
+    subject_name varchar(100) NOT NULL COMMENT '发件人',
+    creator      varchar(36)  NOT NULL COMMENT '创建人',
+    created_at   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    updated_at   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB COMMENT = '邮箱主体'
+  ROW_FORMAT = Dynamic;
+
+
+
+CREATE TABLE IF NOT EXISTS email_template
+(
+    id          varchar(36)   not null comment 'id',
+    platform_id int           not null comment '平台id',
+    name        varchar(100)  NOT NULL COMMENT '邮件模板名称',
+    code        varchar(100)  NOT NULL COMMENT '模板key',
+    content     text          NULL COMMENT '模板内容',
+    placeholder varchar(1000) NULL     DEFAULT '{}' COMMENT '默认占位值',
+    subject_id  varchar(36)   NOT NULL COMMENT '邮箱主体',
+    creator     varchar(36)   NOT NULL COMMENT '模板创建者',
+    created_at  datetime      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at  datetime      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX `CREATOR_IDX` (`creator` ASC) USING BTREE COMMENT '创建者索引',
+    INDEX `SUBJECT_IDX` (`subject_id` ASC) USING BTREE COMMENT '邮箱主体索引',
+    INDEX `CODE_IDX` (`code` ASC) USING BTREE COMMENT '模板key'
+) ENGINE = InnoDB COMMENT = '邮箱模板'
+  ROW_FORMAT = Dynamic;
+
+
+
 CREATE TABLE IF NOT EXISTS province
 (
-    id            int         NOT NULL COMMENT '省份编号',
+    id   int         NOT NULL COMMENT '省份编号',
     name varchar(50) NOT NULL COMMENT '省份名称',
     PRIMARY KEY (id) USING BTREE,
     UNIQUE INDEX IDX_ID (id ASC) USING BTREE,
@@ -259,7 +301,7 @@ CREATE TABLE IF NOT EXISTS province
 CREATE TABLE IF NOT EXISTS city
 (
     id          int         NOT NULL COMMENT '城市编号',
-    name   varchar(50) NOT NULL COMMENT '城市名称',
+    name        varchar(50) NOT NULL COMMENT '城市名称',
     province_id int         NOT NULL COMMENT '省份编号',
     PRIMARY KEY (id) USING BTREE,
     UNIQUE INDEX IDX_ID (id ASC) USING BTREE,
@@ -273,7 +315,7 @@ CREATE TABLE IF NOT EXISTS city
 CREATE TABLE IF NOT EXISTS area
 (
     id          int         NOT NULL COMMENT '地区编号',
-    name   varchar(50) NOT NULL COMMENT '地区名称',
+    name        varchar(50) NOT NULL COMMENT '地区名称',
     city_id     int         NOT NULL COMMENT '城市编号',
     province_id int         NOT NULL COMMENT '省份编号',
     PRIMARY KEY (id) USING BTREE,
@@ -288,7 +330,7 @@ CREATE TABLE IF NOT EXISTS area
 CREATE TABLE IF NOT EXISTS street
 (
     id          int         NOT NULL COMMENT '街道编号',
-    name varchar(50) NOT NULL COMMENT '街道名称',
+    name        varchar(50) NOT NULL COMMENT '街道名称',
     area_id     int         NOT NULL COMMENT '地区编号',
     city_id     int         NOT NULL COMMENT '城市编号',
     province_id int         NOT NULL COMMENT '省份编号',
@@ -305,12 +347,12 @@ CREATE TABLE IF NOT EXISTS street
 
 CREATE TABLE IF NOT EXISTS village
 (
-    id           bigint       NOT NULL,
-    name varchar(200) NULL DEFAULT NULL,
-    street_id    int          NULL DEFAULT NULL,
-    province_id  int          NULL DEFAULT NULL,
-    city_id      int          NULL DEFAULT NULL,
-    area_id      int          NULL DEFAULT NULL,
+    id          bigint       NOT NULL,
+    name        varchar(200) NULL DEFAULT NULL,
+    street_id   int          NULL DEFAULT NULL,
+    province_id int          NULL DEFAULT NULL,
+    city_id     int          NULL DEFAULT NULL,
+    area_id     int          NULL DEFAULT NULL,
     PRIMARY KEY (id) USING BTREE,
     INDEX AREA_ID_IDX (area_id ASC) USING BTREE COMMENT '行政区id索引',
     INDEX STREET_ID_IDX (street_id ASC) USING BTREE COMMENT '街道id索引'
@@ -361,61 +403,56 @@ FROM area
 
 create view address_level4
 as
-SELECT
-    province.id as id,
-    province.id AS province_id,
-    province.name AS province_name,
-    NULL AS city_id,
-    NULL AS city_name,
-    NULL as area_id,
-    NULL as area_name,
-    NULL as street_id,
-    NULL as street_name
-FROM
-    province
+SELECT province.id   as id,
+       province.id   AS province_id,
+       province.name AS province_name,
+       NULL          AS city_id,
+       NULL          AS city_name,
+       NULL          as area_id,
+       NULL          as area_name,
+       NULL          as street_id,
+       NULL          as street_name
+FROM province
 
 UNION ALL
 
-SELECT
-    city.id as id,
-    province.id AS province_id,
-    province.name AS province_name,
-    city.id AS city_id,
-    city.name AS city_name,
-    NULL as area_id,
-    NULL as area_name,
-    NULL as street_id,
-    NULL as street_name
-FROM city LEFT JOIN province ON city.province_id = province.id
+SELECT city.id       as id,
+       province.id   AS province_id,
+       province.name AS province_name,
+       city.id       AS city_id,
+       city.name     AS city_name,
+       NULL          as area_id,
+       NULL          as area_name,
+       NULL          as street_id,
+       NULL          as street_name
+FROM city
+         LEFT JOIN province ON city.province_id = province.id
 
 UNION ALL
 
-SELECT
-    area.id as id,
-    province.id AS province_id,
-    province.name AS province_name,
-    city.id AS city_id,
-    city.name AS city_name,
-    area.id as area_id,
-    area.name as area_name,
-    NULL as street_id,
-    NULL as street_name
-FROM
-    area
-        LEFT JOIN city ON area.city_id = city.id
-        LEFT JOIN province ON city.province_id = province.id
+SELECT area.id       as id,
+       province.id   AS province_id,
+       province.name AS province_name,
+       city.id       AS city_id,
+       city.name     AS city_name,
+       area.id       as area_id,
+       area.name     as area_name,
+       NULL          as street_id,
+       NULL          as street_name
+FROM area
+         LEFT JOIN city ON area.city_id = city.id
+         LEFT JOIN province ON city.province_id = province.id
 UNION ALL
-SELECT
-    street.id as id,
-    province.id AS province_id,
-    province.name AS province_name,
-    city.id AS city_id,
-    city.name AS city_name,
-    area.id as area_id,
-    area.name as area_name,
-    street.id as street_id,
-    street.name as street_name
-FROM
-    street LEFT JOIN area on street.area_id = area.id
-           LEFT JOIN city ON area.city_id = city.id
-           LEFT JOIN province ON city.province_id = province.id;
+SELECT street.id     as id,
+       province.id   AS province_id,
+       province.name AS province_name,
+       city.id       AS city_id,
+       city.name     AS city_name,
+       area.id       as area_id,
+       area.name     as area_name,
+       street.id     as street_id,
+       street.name   as street_name
+FROM street
+         LEFT JOIN area on street.area_id = area.id
+         LEFT JOIN city ON area.city_id = city.id
+         LEFT JOIN province ON city.province_id = province.id;
