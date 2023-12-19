@@ -165,6 +165,9 @@ public class SystemConfig implements Serializable {
 		this.enable = enable;
 	}
 
+	public boolean isEnable() {
+		return enable == 1;
+	}
 	/**
 	 * 配置介绍
 	 */
