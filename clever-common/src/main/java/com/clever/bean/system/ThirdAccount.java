@@ -4,18 +4,19 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 /**
  * 第三方平台账号
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class ThirdAccount implements Serializable {
 
 	/**
 	 * id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 第三方平台：qq|weixin|dingtalk|sina|tiktok
@@ -28,10 +29,12 @@ public class ThirdAccount implements Serializable {
 	/**
 	 * 第三方平台昵称
 	 */
+	@NotBlank(message = "第三方平台昵称不能为空")
 	private String nickname;
 	/**
 	 * 第三方平台头像
 	 */
+	@NotBlank(message = "第三方平台头像不能为空")
 	private String header;
 	/**
 	 * 用户id

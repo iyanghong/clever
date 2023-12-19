@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 导航菜单服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -29,6 +29,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 分页查询导航菜单列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param platformId 平台ID
@@ -53,6 +54,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据id获取导航菜单信息
+	 *
 	 * @param id id
 	 * @return List<Menu> 导航菜单信息
 	 */
@@ -63,6 +65,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据平台ID获取导航菜单列表
+	 *
 	 * @param platformId 平台ID
 	 * @return List<Menu> 导航菜单列表
 	 */
@@ -73,6 +76,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 保存导航菜单信息
+	 *
 	 * @param menu 导航菜单实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -89,6 +93,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据id获取导航菜单列表
+	 *
 	 * @param id id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -100,6 +105,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据id列表删除导航菜单信息
+	 *
 	 * @param ids id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -111,6 +117,7 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据平台ID删除导航菜单
+	 *
 	 * @param platformId 平台ID
 	 * @param onlineUser 当前登录用户
 	 */

@@ -9,7 +9,7 @@ import com.clever.bean.system.AddressLevel4;
  * VIEWMapper
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Mapper
 public interface AddressLevel4Mapper extends BaseMapper<AddressLevel4> {

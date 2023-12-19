@@ -4,18 +4,21 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 /**
  * 导航菜单
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class Menu implements Serializable {
 
 	/**
 	 * id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 平台ID
@@ -28,14 +31,17 @@ public class Menu implements Serializable {
 	/**
 	 * 菜单Code
 	 */
+	@NotBlank(message = "菜单Code不能为空")
 	private String code;
 	/**
 	 * 菜单图标
 	 */
+	@NotBlank(message = "菜单图标不能为空")
 	private String icon;
 	/**
 	 * 菜单路径
 	 */
+	@NotBlank(message = "菜单路径不能为空")
 	private String view;
 	/**
 	 * 打开方式,1-当前标签,2-新标签
@@ -52,6 +58,7 @@ public class Menu implements Serializable {
 	/**
 	 * 创建人
 	 */
+	@TableField(value = "creator", fill = FieldFill.INSERT)
 	private String creator;
 	/**
 	 * 添加时间

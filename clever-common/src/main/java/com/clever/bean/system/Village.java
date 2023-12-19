@@ -4,18 +4,24 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import javax.validation.constraints.NotBlank;
 /**
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class Village implements Serializable {
 
 	@TableId
 	private Long id;
+	@NotBlank(message = "name不能为空")
 	private String name;
+	@NotBlank(message = "street_id不能为空")
 	private Integer streetId;
+	@NotBlank(message = "province_id不能为空")
 	private Integer provinceId;
+	@NotBlank(message = "city_id不能为空")
 	private Integer cityId;
+	@NotBlank(message = "area_id不能为空")
 	private Integer areaId;
 
 	public Long getId() {

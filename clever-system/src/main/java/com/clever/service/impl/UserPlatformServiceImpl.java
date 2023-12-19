@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 用户-平台服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 @Service
 public class UserPlatformServiceImpl implements UserPlatformService {
@@ -29,6 +29,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 分页查询用户-平台列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param userId 用户id
@@ -49,6 +50,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据id获取用户-平台信息
+	 *
 	 * @param id id
 	 * @return List<UserPlatform> 用户-平台信息
 	 */
@@ -59,6 +61,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据用户id获取用户-平台列表
+	 *
 	 * @param userId 用户id
 	 * @return List<UserPlatform> 用户-平台列表
 	 */
@@ -69,6 +72,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据平台id获取用户-平台列表
+	 *
 	 * @param platformId 平台id
 	 * @return List<UserPlatform> 用户-平台列表
 	 */
@@ -79,6 +83,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 保存用户-平台信息
+	 *
 	 * @param userPlatform 用户-平台实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -95,6 +100,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据id获取用户-平台列表
+	 *
 	 * @param id id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -106,6 +112,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据id列表删除用户-平台信息
+	 *
 	 * @param ids id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -117,6 +124,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据用户id删除用户-平台
+	 *
 	 * @param userId 用户id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -128,6 +136,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 
 	/**
 	 * 根据平台id删除用户-平台
+	 *
 	 * @param platformId 平台id
 	 * @param onlineUser 当前登录用户
 	 */

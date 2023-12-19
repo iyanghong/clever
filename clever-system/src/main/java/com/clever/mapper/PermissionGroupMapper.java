@@ -9,7 +9,7 @@ import com.clever.bean.system.PermissionGroup;
  * 系统权限组Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Mapper
 public interface PermissionGroupMapper extends BaseMapper<PermissionGroup> {

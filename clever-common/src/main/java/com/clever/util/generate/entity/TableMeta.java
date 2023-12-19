@@ -67,12 +67,27 @@ public class TableMeta {
 
     /**
      * 是否包含其中一个列
+     *
      * @param columnName 列名列表
      * @return 是否包含其中一个列
      */
     public boolean isHasColumnInList(List<String> columnName) {
         for (ColumnMeta column : columns) {
             if (columnName.contains(column.getColumnName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 是否存在需要判断不为空的字段
+     *
+     * @return 是否存在需要判断不为空的字段
+     */
+    public boolean isHasNeedNotBlankValidate() {
+        for (ColumnMeta column : columns) {
+            if (column.isHasNeedNotBlankValidate()) {
                 return true;
             }
         }

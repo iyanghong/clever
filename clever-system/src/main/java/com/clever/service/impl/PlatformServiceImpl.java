@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 平台服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Service
 public class PlatformServiceImpl implements PlatformService {
@@ -29,6 +29,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	/**
 	 * 分页查询平台列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param name 平台名称
@@ -45,6 +46,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	/**
 	 * 根据平台id获取平台信息
+	 *
 	 * @param id 平台id
 	 * @return List<Platform> 平台信息
 	 */
@@ -55,6 +57,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	/**
 	 * 保存平台信息
+	 *
 	 * @param platform 平台实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -71,6 +74,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	/**
 	 * 根据平台id获取平台列表
+	 *
 	 * @param id 平台id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -82,6 +86,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	/**
 	 * 根据平台id列表删除平台信息
+	 *
 	 * @param ids 平台id列表
 	 * @param onlineUser 当前登录用户
 	 */

@@ -4,18 +4,20 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import java.util.Date;
 /**
  * 系统权限组
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class PermissionGroup implements Serializable {
 
 	/**
 	 * 权限组id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 平台id
@@ -36,6 +38,7 @@ public class PermissionGroup implements Serializable {
 	/**
 	 * 创建者id
 	 */
+	@TableField(value = "creator", fill = FieldFill.INSERT)
 	private String creator;
 	/**
 	 * 排序号

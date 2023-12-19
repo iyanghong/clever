@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 /**
  * 平台
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class Platform implements Serializable {
 
@@ -24,6 +25,7 @@ public class Platform implements Serializable {
 	/**
 	 * 描述
 	 */
+	@NotBlank(message = "描述不能为空")
 	private String description;
 	/**
 	 * 平台管理人

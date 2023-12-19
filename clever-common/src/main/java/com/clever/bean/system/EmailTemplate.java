@@ -4,18 +4,21 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 /**
  * 邮箱模板
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class EmailTemplate implements Serializable {
 
 	/**
 	 * id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 平台id
@@ -32,6 +35,7 @@ public class EmailTemplate implements Serializable {
 	/**
 	 * 模板内容
 	 */
+	@NotBlank(message = "模板内容不能为空")
 	private String content;
 	/**
 	 * 默认占位值
@@ -44,6 +48,7 @@ public class EmailTemplate implements Serializable {
 	/**
 	 * 模板创建者
 	 */
+	@TableField(value = "creator", fill = FieldFill.INSERT)
 	private String creator;
 	/**
 	 * 创建时间

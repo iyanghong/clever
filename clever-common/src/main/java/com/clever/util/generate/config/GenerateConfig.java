@@ -155,8 +155,9 @@ public class GenerateConfig {
     }
 
     public List<String> getAutoInsertFillField() {
-        return Arrays.asList(this.idFieldName, this.creatorFieldName);
+        return Collections.singletonList(this.creatorFieldName);
     }
+
     public List<String> getAutoUpdateFillField() {
         return Collections.singletonList(this.modifierFieldName);
     }

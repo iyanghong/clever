@@ -8,14 +8,14 @@ import java.util.Date;
 /**
  * 用户-角色
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class UserRole implements Serializable {
 
 	/**
 	 * 用户角色中间表
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 用户

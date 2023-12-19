@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 系统角色服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -29,6 +29,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 分页查询系统角色列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param name 角色名
@@ -49,6 +50,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 根据角色id获取系统角色信息
+	 *
 	 * @param id 角色id
 	 * @return List<Role> 系统角色信息
 	 */
@@ -59,6 +61,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 根据平台id获取系统角色列表
+	 *
 	 * @param platformId 平台id
 	 * @return List<Role> 系统角色列表
 	 */
@@ -69,6 +72,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 保存系统角色信息
+	 *
 	 * @param role 系统角色实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -85,6 +89,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 根据角色id获取系统角色列表
+	 *
 	 * @param id 角色id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -96,6 +101,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 根据角色id列表删除系统角色信息
+	 *
 	 * @param ids 角色id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -107,6 +113,7 @@ public class RoleServiceImpl implements RoleService {
 
 	/**
 	 * 根据平台id删除系统角色
+	 *
 	 * @param platformId 平台id
 	 * @param onlineUser 当前登录用户
 	 */

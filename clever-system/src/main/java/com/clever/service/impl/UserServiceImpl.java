@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 用户服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 分页查询用户列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param account 账号
@@ -69,6 +70,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据用户id获取用户信息
+	 *
 	 * @param id 用户id
 	 * @return List<User> 用户信息
 	 */
@@ -79,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据磁盘id获取用户列表
+	 *
 	 * @param diskId 磁盘id
 	 * @return List<User> 用户列表
 	 */
@@ -89,6 +92,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 保存用户信息
+	 *
 	 * @param user 用户实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -105,6 +109,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据用户id获取用户列表
+	 *
 	 * @param id 用户id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -116,6 +121,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据用户id列表删除用户信息
+	 *
 	 * @param ids 用户id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -127,6 +133,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据磁盘id删除用户
+	 *
 	 * @param diskId 磁盘id
 	 * @param onlineUser 当前登录用户
 	 */

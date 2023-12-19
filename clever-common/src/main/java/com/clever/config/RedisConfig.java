@@ -1,5 +1,6 @@
 package com.clever.config;
 
+import com.clever.constant.CacheConstant;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,6 +26,7 @@ import java.time.Duration;
 
 /**
  * Redis配置类
+ *
  * @Author xixi
  * @Date 2023-12-18 10:32
  **/
@@ -36,7 +38,8 @@ public class RedisConfig {
 
     /**
      * 缓存管理器配置
-     * @param environment 环境配置
+     *
+     * @param environment   环境配置
      * @param redisTemplate Redis模板
      * @return 缓存管理器
      */
@@ -46,6 +49,7 @@ public class RedisConfig {
     public CacheManager cacheManager(ConfigurableEnvironment environment, RedisTemplate<String, Object> redisTemplate) {
         // 获取应用名称
         String name = environment.getProperty("spring.application.name");
+        CacheConstant.APP_NAME = name;
         // 创建并返回一个RedisCacheManager对象
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisTemplate.getConnectionFactory())
@@ -61,6 +65,7 @@ public class RedisConfig {
 
     /**
      * 缓存配置
+     *
      * @param name 应用名称
      * @return Redis缓存配置
      */

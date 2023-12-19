@@ -2,21 +2,30 @@ package com.clever.bean.system;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 /**
  * VIEW
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class AddressLevel4 implements Serializable {
 
 	private Integer id;
+	@NotBlank(message = "province_id不能为空")
 	private Integer provinceId;
+	@NotBlank(message = "province_name不能为空")
 	private String provinceName;
+	@NotBlank(message = "city_id不能为空")
 	private Integer cityId;
+	@NotBlank(message = "city_name不能为空")
 	private String cityName;
+	@NotBlank(message = "area_id不能为空")
 	private Integer areaId;
+	@NotBlank(message = "area_name不能为空")
 	private String areaName;
+	@NotBlank(message = "street_id不能为空")
 	private Integer streetId;
+	@NotBlank(message = "street_name不能为空")
 	private String streetName;
 
 	public Integer getId() {

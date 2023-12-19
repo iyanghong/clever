@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 系统权限服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -29,6 +29,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 分页查询系统权限列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param platformId 平台id
@@ -61,6 +62,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据权限id获取系统权限信息
+	 *
 	 * @param id 权限id
 	 * @return List<Permission> 系统权限信息
 	 */
@@ -71,6 +73,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据平台id获取系统权限列表
+	 *
 	 * @param platformId 平台id
 	 * @return List<Permission> 系统权限列表
 	 */
@@ -81,6 +84,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据权限组id获取系统权限列表
+	 *
 	 * @param groupId 权限组id
 	 * @return List<Permission> 系统权限列表
 	 */
@@ -91,6 +95,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 保存系统权限信息
+	 *
 	 * @param permission 系统权限实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -107,6 +112,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据权限id获取系统权限列表
+	 *
 	 * @param id 权限id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -118,6 +124,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据权限id列表删除系统权限信息
+	 *
 	 * @param ids 权限id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -129,6 +136,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据平台id删除系统权限
+	 *
 	 * @param platformId 平台id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -140,6 +148,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	/**
 	 * 根据权限组id删除系统权限
+	 *
 	 * @param groupId 权限组id
 	 * @param onlineUser 当前登录用户
 	 */

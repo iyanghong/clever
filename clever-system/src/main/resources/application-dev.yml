@@ -2,6 +2,9 @@ spring:
   application:
     url: "http://127.0.0.1:9502"
     client: "http://localhost:1000"
+    workerId: 1
+    datacenterId: 1
+    defaultOnlineUserId: 121212121212121212121212
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:

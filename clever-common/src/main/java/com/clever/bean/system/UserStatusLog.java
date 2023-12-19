@@ -7,14 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.util.Date;
 /**
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class UserStatusLog implements Serializable {
 
 	/**
 	 * 自增id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 用户

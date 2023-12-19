@@ -11,6 +11,7 @@ import java.util.List;
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
 import com.clever.util.generate.entity.TableMeta;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,10 +57,15 @@ public class GenerateEntity extends BaseGenerator {
 
             }
             // 如果有自动填充的列，则添加MyBatis Plus的注解
-            if (tableMeta.isHasColumnInList(config.getAutoUpdateFillField()) || tableMeta.isHasColumnInList(config.getAutoInsertFillField())){
+            if (tableMeta.isHasColumnInList(config.getAutoUpdateFillField()) || tableMeta.isHasColumnInList(config.getAutoInsertFillField())) {
                 sb.append("import com.baomidou.mybatisplus.annotation.TableField;\n");
                 sb.append("import com.baomidou.mybatisplus.annotation.FieldFill;\n");
             }
+            // 是否存在需要判断不为空的字段
+            if (tableMeta.isHasNeedNotBlankValidate()) {
+                sb.append("import javax.validation.constraints.NotBlank;\n");
+            }
+
             // 如果表有日期类型的列，则添加Date类
             if (tableMeta.isHasDateTypeColumn()) {
                 sb.append("import java.util.Date;\n");
@@ -87,10 +93,13 @@ public class GenerateEntity extends BaseGenerator {
                 // 如果列是主键，则添加MyBatis Plus的注解
                 if ("PRI".equals(columnMeta.getColumnKey())) {
                     if ("String".equals(columnMeta.getJavaType())) {
-                        sb.append("\t@TableId(type = IdType.ASSIGN_UUID)\n");
+                        sb.append("\t@TableId(type = IdType.ASSIGN_ID)\n");
                     } else {
                         sb.append("\t@TableId\n");
                     }
+                }
+                if (columnMeta.isHasNeedNotBlankValidate()) {
+                    sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(columnMeta.getColumnComment()) ? columnMeta.getColumnComment() : columnMeta.getColumnName()).append("不能为空\")\n");
                 }
                 if (config.getAutoInsertFillField().contains(columnMeta.getColumnName())) {
                     sb.append("\t@TableField(value = \"").append(columnMeta.getColumnName()).append("\", fill = FieldFill.INSERT)\n");

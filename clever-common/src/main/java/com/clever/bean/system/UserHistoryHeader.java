@@ -8,14 +8,14 @@ import java.util.Date;
 /**
  * 用户历史头像表
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class UserHistoryHeader implements Serializable {
 
 	/**
 	 * 历史头像id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 用户id

@@ -92,6 +92,22 @@ public class SpringUtil {
     }
 
     /**
+     * 获取当前在线用户,如果已登录的话
+     *
+     * @return 在线用户
+     */
+    public static OnlineUser getOnlineUserIfExist() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            OnlineUser onlineUser = (OnlineUser) requestAttributes.getAttribute("online", RequestAttributes.SCOPE_REQUEST);
+            if (onlineUser != null) {
+                return onlineUser;
+            }
+        }
+        return null;
+    }
+
+    /**
      * 生成随机uuid字符串
      *
      * @return uuid字符串

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 角色菜单服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 @Service
 public class RoleMenuServiceImpl implements RoleMenuService {
@@ -29,6 +29,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 分页查询角色菜单列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param menuId 菜单唯一标识
@@ -49,6 +50,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据编号获取角色菜单信息
+	 *
 	 * @param id 编号
 	 * @return List<RoleMenu> 角色菜单信息
 	 */
@@ -59,6 +61,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据菜单唯一标识获取角色菜单列表
+	 *
 	 * @param menuId 菜单唯一标识
 	 * @return List<RoleMenu> 角色菜单列表
 	 */
@@ -69,6 +72,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据角色唯一标识获取角色菜单列表
+	 *
 	 * @param roleId 角色唯一标识
 	 * @return List<RoleMenu> 角色菜单列表
 	 */
@@ -79,6 +83,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 保存角色菜单信息
+	 *
 	 * @param roleMenu 角色菜单实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -95,6 +100,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据编号获取角色菜单列表
+	 *
 	 * @param id 编号
 	 * @param onlineUser 当前登录用户
 	 */
@@ -106,6 +112,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据编号列表删除角色菜单信息
+	 *
 	 * @param ids 编号列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -117,6 +124,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据菜单唯一标识删除角色菜单
+	 *
 	 * @param menuId 菜单唯一标识
 	 * @param onlineUser 当前登录用户
 	 */
@@ -128,6 +136,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
 	/**
 	 * 根据角色唯一标识删除角色菜单
+	 *
 	 * @param roleId 角色唯一标识
 	 * @param onlineUser 当前登录用户
 	 */

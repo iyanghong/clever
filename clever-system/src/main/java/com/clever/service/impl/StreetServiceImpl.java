@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 街道服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 @Service
 public class StreetServiceImpl implements StreetService {
@@ -29,6 +29,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 分页查询街道列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param name 街道名称
@@ -57,6 +58,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据街道编号获取街道信息
+	 *
 	 * @param id 街道编号
 	 * @return List<Street> 街道信息
 	 */
@@ -67,6 +69,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据地区编号获取街道列表
+	 *
 	 * @param areaId 地区编号
 	 * @return List<Street> 街道列表
 	 */
@@ -77,6 +80,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据城市编号获取街道列表
+	 *
 	 * @param cityId 城市编号
 	 * @return List<Street> 街道列表
 	 */
@@ -87,6 +91,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据省份编号获取街道列表
+	 *
 	 * @param provinceId 省份编号
 	 * @return List<Street> 街道列表
 	 */
@@ -97,6 +102,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 保存街道信息
+	 *
 	 * @param street 街道实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -113,6 +119,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据街道编号获取街道列表
+	 *
 	 * @param id 街道编号
 	 * @param onlineUser 当前登录用户
 	 */
@@ -124,6 +131,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据街道编号列表删除街道信息
+	 *
 	 * @param ids 街道编号列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -135,6 +143,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据地区编号删除街道
+	 *
 	 * @param areaId 地区编号
 	 * @param onlineUser 当前登录用户
 	 */
@@ -146,6 +155,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据城市编号删除街道
+	 *
 	 * @param cityId 城市编号
 	 * @param onlineUser 当前登录用户
 	 */
@@ -157,6 +167,7 @@ public class StreetServiceImpl implements StreetService {
 
 	/**
 	 * 根据省份编号删除街道
+	 *
 	 * @param provinceId 省份编号
 	 * @param onlineUser 当前登录用户
 	 */

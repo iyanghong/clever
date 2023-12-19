@@ -4,18 +4,20 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import java.util.Date;
 /**
  * 邮箱主体
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class EmailSubject implements Serializable {
 
 	/**
 	 * id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 平台id
@@ -56,6 +58,7 @@ public class EmailSubject implements Serializable {
 	/**
 	 * 创建人
 	 */
+	@TableField(value = "creator", fill = FieldFill.INSERT)
 	private String creator;
 	/**
 	 * 添加时间

@@ -4,18 +4,19 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 /**
  * 用户
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class User implements Serializable {
 
 	/**
 	 * 用户id
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 账号
@@ -24,14 +25,17 @@ public class User implements Serializable {
 	/**
 	 * 邮箱
 	 */
+	@NotBlank(message = "邮箱不能为空")
 	private String email;
 	/**
 	 * 手机
 	 */
+	@NotBlank(message = "手机不能为空")
 	private String phone;
 	/**
 	 * 昵称
 	 */
+	@NotBlank(message = "昵称不能为空")
 	private String nickname;
 	/**
 	 * 密码
@@ -40,10 +44,12 @@ public class User implements Serializable {
 	/**
 	 * 头像
 	 */
+	@NotBlank(message = "头像不能为空")
 	private String header;
 	/**
 	 * 磁盘id
 	 */
+	@NotBlank(message = "磁盘id不能为空")
 	private String diskId;
 	/**
 	 * 账号状态：0-未激活,1-正常,2-密码冻结,3-违规,4-注销
@@ -56,18 +62,22 @@ public class User implements Serializable {
 	/**
 	 * 出生日期
 	 */
+	@NotBlank(message = "出生日期不能为空")
 	private Date birthday;
 	/**
 	 * 个性签名
 	 */
+	@NotBlank(message = "个性签名不能为空")
 	private String signature;
 	/**
 	 * 登录ip
 	 */
+	@NotBlank(message = "登录ip不能为空")
 	private String loginIp;
 	/**
 	 * 最后登陆时间
 	 */
+	@NotBlank(message = "最后登陆时间不能为空")
 	private Date lastLoginTime;
 	/**
 	 * 密码错误次数,最大为五
@@ -84,14 +94,17 @@ public class User implements Serializable {
 	/**
 	 * 用户地址中文
 	 */
+	@NotBlank(message = "用户地址中文不能为空")
 	private String addressText;
 	/**
 	 * 注册来源
 	 */
+	@NotBlank(message = "注册来源不能为空")
 	private String source;
 	/**
 	 * 来源平台
 	 */
+	@NotBlank(message = "来源平台不能为空")
 	private Integer sourcePlatform;
 	/**
 	 * 创建时间

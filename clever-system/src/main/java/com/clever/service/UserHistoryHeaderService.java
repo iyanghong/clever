@@ -9,12 +9,13 @@ import com.clever.bean.system.UserHistoryHeader;
  * 用户历史头像表服务接口
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 public interface UserHistoryHeaderService {
 
 	/**
 	 * 分页查询用户历史头像表列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param userId 用户id
@@ -25,6 +26,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据历史头像id获取用户历史头像表信息
+	 *
 	 * @param id 历史头像id
 	 * @return List<UserHistoryHeader> 用户历史头像表信息
 	 */
@@ -32,6 +34,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据用户id获取用户历史头像表列表
+	 *
 	 * @param userId 用户id
 	 * @return List<UserHistoryHeader> 用户历史头像表列表
 	 */
@@ -39,6 +42,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据磁盘id获取用户历史头像表列表
+	 *
 	 * @param diskId 磁盘id
 	 * @return List<UserHistoryHeader> 用户历史头像表列表
 	 */
@@ -46,6 +50,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 保存用户历史头像表信息
+	 *
 	 * @param userHistoryHeader 用户历史头像表实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -53,6 +58,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据历史头像id获取用户历史头像表列表
+	 *
 	 * @param id 历史头像id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -60,6 +66,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据历史头像id列表删除用户历史头像表信息
+	 *
 	 * @param ids 历史头像id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -67,6 +74,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据用户id删除用户历史头像表
+	 *
 	 * @param userId 用户id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -74,6 +82,7 @@ public interface UserHistoryHeaderService {
 
 	/**
 	 * 根据磁盘id删除用户历史头像表
+	 *
 	 * @param diskId 磁盘id
 	 * @param onlineUser 当前登录用户
 	 */

@@ -9,12 +9,13 @@ import com.clever.bean.system.EmailSubject;
  * 邮箱主体服务接口
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public interface EmailSubjectService {
 
 	/**
 	 * 分页查询邮箱主体列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param platformId 平台id
@@ -27,6 +28,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 根据id获取邮箱主体信息
+	 *
 	 * @param id id
 	 * @return List<EmailSubject> 邮箱主体信息
 	 */
@@ -34,6 +36,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 根据平台id获取邮箱主体列表
+	 *
 	 * @param platformId 平台id
 	 * @return List<EmailSubject> 邮箱主体列表
 	 */
@@ -41,6 +44,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 保存邮箱主体信息
+	 *
 	 * @param emailSubject 邮箱主体实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -48,6 +52,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 根据id获取邮箱主体列表
+	 *
 	 * @param id id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -55,6 +60,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 根据id列表删除邮箱主体信息
+	 *
 	 * @param ids id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -62,6 +68,7 @@ public interface EmailSubjectService {
 
 	/**
 	 * 根据平台id删除邮箱主体
+	 *
 	 * @param platformId 平台id
 	 * @param onlineUser 当前登录用户
 	 */

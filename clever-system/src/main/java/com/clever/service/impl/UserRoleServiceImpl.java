@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * 用户-角色服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -29,6 +29,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 分页查询用户-角色列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param userId 用户
@@ -49,6 +50,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据用户角色中间表获取用户-角色信息
+	 *
 	 * @param id 用户角色中间表
 	 * @return List<UserRole> 用户-角色信息
 	 */
@@ -59,6 +61,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据用户获取用户-角色列表
+	 *
 	 * @param userId 用户
 	 * @return List<UserRole> 用户-角色列表
 	 */
@@ -69,6 +72,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据角色获取用户-角色列表
+	 *
 	 * @param roleId 角色
 	 * @return List<UserRole> 用户-角色列表
 	 */
@@ -79,6 +83,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 保存用户-角色信息
+	 *
 	 * @param userRole 用户-角色实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -95,6 +100,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据用户角色中间表获取用户-角色列表
+	 *
 	 * @param id 用户角色中间表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -106,6 +112,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据用户角色中间表列表删除用户-角色信息
+	 *
 	 * @param ids 用户角色中间表列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -117,6 +124,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据用户删除用户-角色
+	 *
 	 * @param userId 用户
 	 * @param onlineUser 当前登录用户
 	 */
@@ -128,6 +136,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 根据角色删除用户-角色
+	 *
 	 * @param roleId 角色
 	 * @param onlineUser 当前登录用户
 	 */

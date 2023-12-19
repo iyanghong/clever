@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * SystemConfig服务
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:44
  */
 @Service
 public class SystemConfigServiceImpl implements SystemConfigService {
@@ -29,6 +29,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 分页查询列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param platformId 平台ID
@@ -63,6 +64,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 根据配置id获取信息
+	 *
 	 * @param id 配置id
 	 * @return List<SystemConfig> system_config信息
 	 */
@@ -73,6 +75,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 根据平台ID获取列表
+	 *
 	 * @param platformId 平台ID
 	 * @return List<SystemConfig> system_config列表
 	 */
@@ -83,6 +86,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 保存system_config信息
+	 *
 	 * @param systemConfig system_config实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -99,6 +103,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 根据配置id获取列表
+	 *
 	 * @param id 配置id
 	 * @param onlineUser 当前登录用户
 	 */
@@ -110,6 +115,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 根据配置id列表删除信息
+	 *
 	 * @param ids 配置id列表
 	 * @param onlineUser 当前登录用户
 	 */
@@ -121,6 +127,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	/**
 	 * 根据平台ID删除
+	 *
 	 * @param platformId 平台ID
 	 * @param onlineUser 当前登录用户
 	 */

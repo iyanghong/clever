@@ -1,5 +1,7 @@
 package com.clever.util.generate.entity;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author: xixi
  * @create: 2023-12-14 11:11
@@ -107,6 +109,15 @@ public class ColumnMeta {
 
     public boolean isNullable() {
         return nullable;
+    }
+
+    /**
+     * 是否需要非空校验
+     *
+     * @return 是否需要非空校验
+     */
+    public boolean isHasNeedNotBlankValidate() {
+        return !nullable && !"PRI".equals(columnKey) && StringUtils.isBlank(columnDefault);
     }
 
     public void setNullable(boolean nullable) {

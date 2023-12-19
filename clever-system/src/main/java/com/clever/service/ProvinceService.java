@@ -9,12 +9,13 @@ import com.clever.bean.system.Province;
  * 省份服务接口
  *
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public interface ProvinceService {
 
 	/**
 	 * 分页查询省份列表
+	 *
 	 * @param pageNumber 页码
 	 * @param pageSize 每页记录数
 	 * @param name 省份名称
@@ -24,6 +25,7 @@ public interface ProvinceService {
 
 	/**
 	 * 根据省份编号获取省份信息
+	 *
 	 * @param id 省份编号
 	 * @return List<Province> 省份信息
 	 */
@@ -31,6 +33,7 @@ public interface ProvinceService {
 
 	/**
 	 * 保存省份信息
+	 *
 	 * @param province 省份实体信息
 	 * @param onlineUser 当前登录用户
 	 */
@@ -38,6 +41,7 @@ public interface ProvinceService {
 
 	/**
 	 * 根据省份编号获取省份列表
+	 *
 	 * @param id 省份编号
 	 * @param onlineUser 当前登录用户
 	 */
@@ -45,6 +49,7 @@ public interface ProvinceService {
 
 	/**
 	 * 根据省份编号列表删除省份信息
+	 *
 	 * @param ids 省份编号列表
 	 * @param onlineUser 当前登录用户
 	 */

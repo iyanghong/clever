@@ -8,14 +8,14 @@ import java.util.Date;
 /**
  * 角色菜单
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class RoleMenu implements Serializable {
 
 	/**
 	 * 编号
 	 */
-	@TableId(type = IdType.ASSIGN_UUID)
+	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
 	/**
 	 * 菜单唯一标识

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 /**
  * 街道
  * @Author xixi
- * @Date 2023-12-19 11:45:47
+ * @Date 2023-12-19 05:52:43
  */
 public class Street implements Serializable {
 
