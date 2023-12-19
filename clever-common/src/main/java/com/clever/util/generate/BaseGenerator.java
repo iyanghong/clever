@@ -72,10 +72,12 @@ public class BaseGenerator implements IGenerator {
         try (Connection connection = DriverManager.getConnection(config.DB_URL, config.DB_USERNAME, config.DB_PASSWORD)) {
             PreparedStatement tablePreparedStatement = null;
             if (tableName != null && !tableName.isEmpty()) {
+                // 查询指定表的元数据
                 tablePreparedStatement = connection.prepareStatement("select TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA = ? and TABLE_NAME = ? group by TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT");
                 tablePreparedStatement.setString(1, config.DB_DATABASE);
                 tablePreparedStatement.setString(2, tableName);
             } else {
+                // 查询指定数据库的元数据
                 tablePreparedStatement = connection.prepareStatement("select TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA = ? group by TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT");
                 tablePreparedStatement.setString(1, config.DB_DATABASE);
             }

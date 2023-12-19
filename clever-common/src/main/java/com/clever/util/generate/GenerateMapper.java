@@ -2,12 +2,15 @@ package com.clever.util.generate;
 
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.TableMeta;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +39,12 @@ public class GenerateMapper extends BaseGenerator {
             stringBuilder.append("import com.baomidou.mybatisplus.core.mapper.BaseMapper;\n");
             stringBuilder.append("import org.apache.ibatis.annotations.Mapper;\n");
             stringBuilder.append("import ").append(config.getEntityPackageName()).append(".").append(dtTableName).append(";\n\n");
+            stringBuilder.append("\n/**\n");
+            stringBuilder.append(String.format(" * %sMapper\n", StringUtils.isNotBlank(tableMeta.getTableComment())?tableMeta.getTableComment():dtTableName));
+            stringBuilder.append(" *\n");
+            stringBuilder.append(" * @Author xixi\n");
+            stringBuilder.append(String.format(" * @Date %s\n", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())));
+            stringBuilder.append(" */\n");
             stringBuilder.append("@Mapper\n");
             stringBuilder.append(String.format("public interface %sMapper extends BaseMapper<%s> {", dtTableName, dtTableName));
             stringBuilder.append("\n}\n");
