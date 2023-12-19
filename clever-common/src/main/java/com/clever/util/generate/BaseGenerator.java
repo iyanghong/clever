@@ -97,7 +97,7 @@ public class BaseGenerator implements IGenerator {
                     columnMeta.setColumnName(columnResultSet.getString("COLUMN_NAME"));
                     columnMeta.setOrdinalPosition(columnResultSet.getInt("ORDINAL_POSITION"));
                     columnMeta.setColumnDefault(columnResultSet.getString("COLUMN_DEFAULT"));
-                    columnMeta.setNullable(columnResultSet.getString("IS_NULLABLE").equals("NO"));
+                    columnMeta.setNullable(columnResultSet.getString("IS_NULLABLE").equals("YES"));
                     columnMeta.setDataType(columnResultSet.getString("DATA_TYPE"));
                     columnMeta.setColumnKey(columnResultSet.getString("COLUMN_KEY"));
                     columnMeta.setColumnComment(columnResultSet.getString("COLUMN_COMMENT"));
