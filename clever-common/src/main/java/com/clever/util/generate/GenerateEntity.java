@@ -98,8 +98,17 @@ public class GenerateEntity extends BaseGenerator {
                         sb.append("\t@TableId\n");
                     }
                 }
-                if (columnMeta.isHasNeedNotBlankValidate()) {
-                    sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(columnMeta.getColumnComment()) ? columnMeta.getColumnComment() : columnMeta.getColumnName()).append("不能为空\")\n");
+                if (columnMeta.isHasNeedNotBlankValidate() && (!config.getAutoInsertFillField().contains(columnMeta.getColumnName()) || !config.getAutoUpdateFillField().contains(columnMeta.getColumnName()))) {
+                    String name = columnMeta.getColumnComment();
+                    if (StringUtils.isNotBlank(name)){
+                        name = name.replaceAll("：",":");
+                        String[] nameArr = name.split(":");
+                        if (nameArr.length > 0){
+                            name = nameArr[0];
+                        }
+                    }
+
+                    sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
                 }
                 if (config.getAutoInsertFillField().contains(columnMeta.getColumnName())) {
                     sb.append("\t@TableField(value = \"").append(columnMeta.getColumnName()).append("\", fill = FieldFill.INSERT)\n");

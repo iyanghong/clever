@@ -3,6 +3,7 @@ package com.clever.util.generate;
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
 import com.clever.util.generate.entity.TableMeta;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +101,12 @@ public class BaseGenerator implements IGenerator {
                     columnMeta.setNullable(columnResultSet.getString("IS_NULLABLE").equals("YES"));
                     columnMeta.setDataType(columnResultSet.getString("DATA_TYPE"));
                     columnMeta.setColumnKey(columnResultSet.getString("COLUMN_KEY"));
-                    columnMeta.setColumnComment(columnResultSet.getString("COLUMN_COMMENT"));
+
+                    String comment = columnResultSet.getString("COLUMN_COMMENT");
+                    if (StringUtils.isNotBlank(comment)){
+                        comment = comment.replaceAll("\r|\n", ",").replaceAll(",,",",").replaceAll("：,","：").replaceAll(":,",":");
+                    }
+                    columnMeta.setColumnComment(comment);
                     columnMeta.setJavaType(mapColumnType(columnMeta.getDataType()));
                     columnMetaList.add(columnMeta);
                 }
