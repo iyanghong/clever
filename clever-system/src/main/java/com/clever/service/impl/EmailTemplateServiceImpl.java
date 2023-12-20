@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱模板服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class EmailTemplateServiceImpl implements EmailTemplateService {
@@ -77,7 +77,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      * @return List<EmailTemplate> 邮箱模板列表
      */
     @Override
-    public List<EmailTemplate> getListByPlatformId(Integer platformId) {
+    public List<EmailTemplate> selectListByPlatformId(Integer platformId) {
         return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
@@ -88,7 +88,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      * @return List<EmailTemplate> 邮箱模板列表
      */
     @Override
-    public List<EmailTemplate> getListBySubjectId(String subjectId) {
+    public List<EmailTemplate> selectListBySubjectId(String subjectId) {
         return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("subject_id", subjectId).orderByAsc("id"));
     }
 

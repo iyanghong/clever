@@ -11,7 +11,7 @@ import com.clever.bean.system.Village;
  * Village服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface VillageService {
 
@@ -43,7 +43,7 @@ public interface VillageService {
      * @param streetId
      * @return List<Village> village列表
      */
-    List<Village> getListByStreetId(Integer streetId);
+    List<Village> selectListByStreetId(Integer streetId);
 
     /**
      * 根据province_id获取列表
@@ -51,7 +51,7 @@ public interface VillageService {
      * @param provinceId
      * @return List<Village> village列表
      */
-    List<Village> getListByProvinceId(Integer provinceId);
+    List<Village> selectListByProvinceId(Integer provinceId);
 
     /**
      * 根据city_id获取列表
@@ -59,7 +59,7 @@ public interface VillageService {
      * @param cityId
      * @return List<Village> village列表
      */
-    List<Village> getListByCityId(Integer cityId);
+    List<Village> selectListByCityId(Integer cityId);
 
     /**
      * 根据area_id获取列表
@@ -67,7 +67,7 @@ public interface VillageService {
      * @param areaId
      * @return List<Village> village列表
      */
-    List<Village> getListByAreaId(Integer areaId);
+    List<Village> selectListByAreaId(Integer areaId);
 
     /**
      * 保存village信息

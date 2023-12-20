@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱主体服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class EmailSubjectServiceImpl implements EmailSubjectService {
@@ -77,7 +77,7 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
      * @return List<EmailSubject> 邮箱主体列表
      */
     @Override
-    public List<EmailSubject> getListByPlatformId(Integer platformId) {
+    public List<EmailSubject> selectListByPlatformId(Integer platformId) {
         return emailSubjectMapper.selectList(new QueryWrapper<EmailSubject>().eq("platform_id", platformId).orderByAsc("id"));
     }
 

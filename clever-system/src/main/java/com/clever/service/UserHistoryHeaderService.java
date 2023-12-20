@@ -11,7 +11,7 @@ import com.clever.bean.system.UserHistoryHeader;
  * 用户历史头像表服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface UserHistoryHeaderService {
 
@@ -40,7 +40,7 @@ public interface UserHistoryHeaderService {
      * @param userId 用户id
      * @return List<UserHistoryHeader> 用户历史头像表列表
      */
-    List<UserHistoryHeader> getListByUserId(String userId);
+    List<UserHistoryHeader> selectListByUserId(String userId);
 
     /**
      * 根据磁盘id获取用户历史头像表列表
@@ -48,7 +48,7 @@ public interface UserHistoryHeaderService {
      * @param diskId 磁盘id
      * @return List<UserHistoryHeader> 用户历史头像表列表
      */
-    List<UserHistoryHeader> getListByDiskId(String diskId);
+    List<UserHistoryHeader> selectListByDiskId(String diskId);
 
     /**
      * 保存用户历史头像表信息

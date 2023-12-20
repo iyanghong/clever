@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 导航菜单服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -73,7 +73,7 @@ public class MenuServiceImpl implements MenuService {
      * @return List<Menu> 导航菜单列表
      */
     @Override
-    public List<Menu> getListByPlatformId(Integer platformId) {
+    public List<Menu> selectListByPlatformId(Integer platformId) {
         return menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("id"));
     }
 

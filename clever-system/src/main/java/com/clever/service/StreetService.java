@@ -11,7 +11,7 @@ import com.clever.bean.system.Street;
  * 街道服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface StreetService {
 
@@ -42,7 +42,7 @@ public interface StreetService {
      * @param areaId 地区编号
      * @return List<Street> 街道列表
      */
-    List<Street> getListByAreaId(Integer areaId);
+    List<Street> selectListByAreaId(Integer areaId);
 
     /**
      * 根据城市编号获取街道列表
@@ -50,7 +50,7 @@ public interface StreetService {
      * @param cityId 城市编号
      * @return List<Street> 街道列表
      */
-    List<Street> getListByCityId(Integer cityId);
+    List<Street> selectListByCityId(Integer cityId);
 
     /**
      * 根据省份编号获取街道列表
@@ -58,7 +58,7 @@ public interface StreetService {
      * @param provinceId 省份编号
      * @return List<Street> 街道列表
      */
-    List<Street> getListByProvinceId(Integer provinceId);
+    List<Street> selectListByProvinceId(Integer provinceId);
 
     /**
      * 保存街道信息

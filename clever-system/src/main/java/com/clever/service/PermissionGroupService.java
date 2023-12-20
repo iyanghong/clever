@@ -11,7 +11,7 @@ import com.clever.bean.system.PermissionGroup;
  * 系统权限组服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface PermissionGroupService {
 
@@ -42,7 +42,7 @@ public interface PermissionGroupService {
      * @param platformId 平台id
      * @return List<PermissionGroup> 系统权限组列表
      */
-    List<PermissionGroup> getListByPlatformId(String platformId);
+    List<PermissionGroup> selectListByPlatformId(String platformId);
 
     /**
      * 根据上级id获取系统权限组列表
@@ -50,7 +50,7 @@ public interface PermissionGroupService {
      * @param parentId 上级id
      * @return List<PermissionGroup> 系统权限组列表
      */
-    List<PermissionGroup> getListByParentId(String parentId);
+    List<PermissionGroup> selectListByParentId(String parentId);
 
     /**
      * 保存系统权限组信息

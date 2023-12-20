@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * VIEW服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class AddressLevel4ServiceImpl implements AddressLevel4Service {
@@ -82,7 +82,7 @@ public class AddressLevel4ServiceImpl implements AddressLevel4Service {
      * @return List<AddressLevel4> VIEW列表
      */
     @Override
-    public List<AddressLevel4> getListByProvinceId(Integer provinceId) {
+    public List<AddressLevel4> selectListByProvinceId(Integer provinceId) {
         return addressLevel4Mapper.selectList(new QueryWrapper<AddressLevel4>().eq("province_id", provinceId));
     }
 
@@ -93,7 +93,7 @@ public class AddressLevel4ServiceImpl implements AddressLevel4Service {
      * @return List<AddressLevel4> VIEW列表
      */
     @Override
-    public List<AddressLevel4> getListByCityId(Integer cityId) {
+    public List<AddressLevel4> selectListByCityId(Integer cityId) {
         return addressLevel4Mapper.selectList(new QueryWrapper<AddressLevel4>().eq("city_id", cityId));
     }
 
@@ -104,7 +104,7 @@ public class AddressLevel4ServiceImpl implements AddressLevel4Service {
      * @return List<AddressLevel4> VIEW列表
      */
     @Override
-    public List<AddressLevel4> getListByAreaId(Integer areaId) {
+    public List<AddressLevel4> selectListByAreaId(Integer areaId) {
         return addressLevel4Mapper.selectList(new QueryWrapper<AddressLevel4>().eq("area_id", areaId));
     }
 
@@ -115,7 +115,7 @@ public class AddressLevel4ServiceImpl implements AddressLevel4Service {
      * @return List<AddressLevel4> VIEW列表
      */
     @Override
-    public List<AddressLevel4> getListByStreetId(Integer streetId) {
+    public List<AddressLevel4> selectListByStreetId(Integer streetId) {
         return addressLevel4Mapper.selectList(new QueryWrapper<AddressLevel4>().eq("street_id", streetId));
     }
 

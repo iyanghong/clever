@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色菜单服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class RoleMenuServiceImpl implements RoleMenuService {
@@ -69,7 +69,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
      * @return List<RoleMenu> 角色菜单列表
      */
     @Override
-    public List<RoleMenu> getListByMenuId(String menuId) {
+    public List<RoleMenu> selectListByMenuId(String menuId) {
         return roleMenuMapper.selectList(new QueryWrapper<RoleMenu>().eq("menu_id", menuId).orderByAsc("id"));
     }
 
@@ -80,7 +80,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
      * @return List<RoleMenu> 角色菜单列表
      */
     @Override
-    public List<RoleMenu> getListByRoleId(String roleId) {
+    public List<RoleMenu> selectListByRoleId(String roleId) {
         return roleMenuMapper.selectList(new QueryWrapper<RoleMenu>().eq("role_id", roleId).orderByAsc("id"));
     }
 

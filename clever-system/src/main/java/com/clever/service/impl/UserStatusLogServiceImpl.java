@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * UserStatusLog服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class UserStatusLogServiceImpl implements UserStatusLogService {
@@ -73,7 +73,7 @@ public class UserStatusLogServiceImpl implements UserStatusLogService {
      * @return List<UserStatusLog> user_status_log列表
      */
     @Override
-    public List<UserStatusLog> getListByUserId(String userId) {
+    public List<UserStatusLog> selectListByUserId(String userId) {
         return userStatusLogMapper.selectList(new QueryWrapper<UserStatusLog>().eq("user_id", userId).orderByAsc("id"));
     }
 

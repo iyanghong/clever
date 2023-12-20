@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-角色服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -69,7 +69,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      * @return List<UserRole> 用户-角色列表
      */
     @Override
-    public List<UserRole> getListByUserId(String userId) {
+    public List<UserRole> selectListByUserId(String userId) {
         return userRoleMapper.selectList(new QueryWrapper<UserRole>().eq("user_id", userId).orderByAsc("id"));
     }
 
@@ -80,7 +80,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      * @return List<UserRole> 用户-角色列表
      */
     @Override
-    public List<UserRole> getListByRoleId(String roleId) {
+    public List<UserRole> selectListByRoleId(String roleId) {
         return userRoleMapper.selectList(new QueryWrapper<UserRole>().eq("role_id", roleId).orderByAsc("id"));
     }
 

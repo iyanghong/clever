@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户历史头像表服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
@@ -69,7 +69,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
      * @return List<UserHistoryHeader> 用户历史头像表列表
      */
     @Override
-    public List<UserHistoryHeader> getListByUserId(String userId) {
+    public List<UserHistoryHeader> selectListByUserId(String userId) {
         return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("user_id", userId).orderByAsc("id"));
     }
 
@@ -80,7 +80,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
      * @return List<UserHistoryHeader> 用户历史头像表列表
      */
     @Override
-    public List<UserHistoryHeader> getListByDiskId(String diskId) {
+    public List<UserHistoryHeader> selectListByDiskId(String diskId) {
         return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("disk_id", diskId).orderByAsc("id"));
     }
 

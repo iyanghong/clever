@@ -11,7 +11,7 @@ import com.clever.bean.system.User;
  * 用户服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface UserService {
 
@@ -45,7 +45,7 @@ public interface UserService {
      * @param diskId 磁盘id
      * @return List<User> 用户列表
      */
-    List<User> getListByDiskId(String diskId);
+    List<User> selectListByDiskId(String diskId);
 
     /**
      * 保存用户信息

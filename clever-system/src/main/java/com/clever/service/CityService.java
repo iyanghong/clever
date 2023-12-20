@@ -11,7 +11,7 @@ import com.clever.bean.system.City;
  * 城市服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface CityService {
 
@@ -40,7 +40,7 @@ public interface CityService {
      * @param provinceId 省份编号
      * @return List<City> 城市列表
      */
-    List<City> getListByProvinceId(Integer provinceId);
+    List<City> selectListByProvinceId(Integer provinceId);
 
     /**
      * 保存城市信息

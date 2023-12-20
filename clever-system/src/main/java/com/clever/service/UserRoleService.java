@@ -11,7 +11,7 @@ import com.clever.bean.system.UserRole;
  * 用户-角色服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface UserRoleService {
 
@@ -40,7 +40,7 @@ public interface UserRoleService {
      * @param userId 用户
      * @return List<UserRole> 用户-角色列表
      */
-    List<UserRole> getListByUserId(String userId);
+    List<UserRole> selectListByUserId(String userId);
 
     /**
      * 根据角色获取用户-角色列表
@@ -48,7 +48,7 @@ public interface UserRoleService {
      * @param roleId 角色
      * @return List<UserRole> 用户-角色列表
      */
-    List<UserRole> getListByRoleId(String roleId);
+    List<UserRole> selectListByRoleId(String roleId);
 
     /**
      * 保存用户-角色信息

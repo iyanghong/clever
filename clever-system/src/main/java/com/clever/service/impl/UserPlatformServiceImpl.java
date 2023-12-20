@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-平台服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class UserPlatformServiceImpl implements UserPlatformService {
@@ -69,7 +69,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
      * @return List<UserPlatform> 用户-平台列表
      */
     @Override
-    public List<UserPlatform> getListByUserId(String userId) {
+    public List<UserPlatform> selectListByUserId(String userId) {
         return userPlatformMapper.selectList(new QueryWrapper<UserPlatform>().eq("user_id", userId).orderByAsc("id"));
     }
 
@@ -80,7 +80,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
      * @return List<UserPlatform> 用户-平台列表
      */
     @Override
-    public List<UserPlatform> getListByPlatformId(Integer platformId) {
+    public List<UserPlatform> selectListByPlatformId(Integer platformId) {
         return userPlatformMapper.selectList(new QueryWrapper<UserPlatform>().eq("platform_id", platformId).orderByAsc("id"));
     }
 

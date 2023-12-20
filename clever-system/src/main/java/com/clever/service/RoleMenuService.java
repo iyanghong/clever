@@ -11,7 +11,7 @@ import com.clever.bean.system.RoleMenu;
  * 角色菜单服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface RoleMenuService {
 
@@ -40,7 +40,7 @@ public interface RoleMenuService {
      * @param menuId 菜单唯一标识
      * @return List<RoleMenu> 角色菜单列表
      */
-    List<RoleMenu> getListByMenuId(String menuId);
+    List<RoleMenu> selectListByMenuId(String menuId);
 
     /**
      * 根据角色唯一标识获取角色菜单列表
@@ -48,7 +48,7 @@ public interface RoleMenuService {
      * @param roleId 角色唯一标识
      * @return List<RoleMenu> 角色菜单列表
      */
-    List<RoleMenu> getListByRoleId(String roleId);
+    List<RoleMenu> selectListByRoleId(String roleId);
 
     /**
      * 保存角色菜单信息

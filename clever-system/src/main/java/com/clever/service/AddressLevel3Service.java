@@ -11,7 +11,7 @@ import com.clever.bean.system.AddressLevel3;
  * VIEW服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface AddressLevel3Service {
 
@@ -36,7 +36,7 @@ public interface AddressLevel3Service {
      * @param provinceId
      * @return List<AddressLevel3> VIEW列表
      */
-    List<AddressLevel3> getListByProvinceId(Integer provinceId);
+    List<AddressLevel3> selectListByProvinceId(Integer provinceId);
 
     /**
      * 根据city_id获取VIEW列表
@@ -44,7 +44,7 @@ public interface AddressLevel3Service {
      * @param cityId
      * @return List<AddressLevel3> VIEW列表
      */
-    List<AddressLevel3> getListByCityId(Integer cityId);
+    List<AddressLevel3> selectListByCityId(Integer cityId);
 
     /**
      * 根据area_id获取VIEW列表
@@ -52,7 +52,7 @@ public interface AddressLevel3Service {
      * @param areaId
      * @return List<AddressLevel3> VIEW列表
      */
-    List<AddressLevel3> getListByAreaId(Integer areaId);
+    List<AddressLevel3> selectListByAreaId(Integer areaId);
 
     /**
      * 根据province_id删除VIEW

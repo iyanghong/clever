@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 街道服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class StreetServiceImpl implements StreetService {
@@ -77,7 +77,7 @@ public class StreetServiceImpl implements StreetService {
      * @return List<Street> 街道列表
      */
     @Override
-    public List<Street> getListByAreaId(Integer areaId) {
+    public List<Street> selectListByAreaId(Integer areaId) {
         return streetMapper.selectList(new QueryWrapper<Street>().eq("area_id", areaId).orderByAsc("id"));
     }
 
@@ -88,7 +88,7 @@ public class StreetServiceImpl implements StreetService {
      * @return List<Street> 街道列表
      */
     @Override
-    public List<Street> getListByCityId(Integer cityId) {
+    public List<Street> selectListByCityId(Integer cityId) {
         return streetMapper.selectList(new QueryWrapper<Street>().eq("city_id", cityId).orderByAsc("id"));
     }
 
@@ -99,7 +99,7 @@ public class StreetServiceImpl implements StreetService {
      * @return List<Street> 街道列表
      */
     @Override
-    public List<Street> getListByProvinceId(Integer provinceId) {
+    public List<Street> selectListByProvinceId(Integer provinceId) {
         return streetMapper.selectList(new QueryWrapper<Street>().eq("province_id", provinceId).orderByAsc("id"));
     }
 

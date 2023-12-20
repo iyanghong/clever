@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统角色服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
      * @return List<Role> 系统角色列表
      */
     @Override
-    public List<Role> getListByPlatformId(Integer platformId) {
+    public List<Role> selectListByPlatformId(Integer platformId) {
         return roleMapper.selectList(new QueryWrapper<Role>().eq("platform_id", platformId).orderByAsc("id"));
     }
 

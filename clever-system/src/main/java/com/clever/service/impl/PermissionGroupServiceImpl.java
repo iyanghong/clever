@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限组服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class PermissionGroupServiceImpl implements PermissionGroupService {
@@ -77,7 +77,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      * @return List<PermissionGroup> 系统权限组列表
      */
     @Override
-    public List<PermissionGroup> getListByPlatformId(String platformId) {
+    public List<PermissionGroup> selectListByPlatformId(String platformId) {
         return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
@@ -88,7 +88,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      * @return List<PermissionGroup> 系统权限组列表
      */
     @Override
-    public List<PermissionGroup> getListByParentId(String parentId) {
+    public List<PermissionGroup> selectListByParentId(String parentId) {
         return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("parent_id", parentId).orderByAsc("id"));
     }
 

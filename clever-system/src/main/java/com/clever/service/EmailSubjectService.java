@@ -11,7 +11,7 @@ import com.clever.bean.system.EmailSubject;
  * 邮箱主体服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface EmailSubjectService {
 
@@ -42,7 +42,7 @@ public interface EmailSubjectService {
      * @param platformId 平台id
      * @return List<EmailSubject> 邮箱主体列表
      */
-    List<EmailSubject> getListByPlatformId(Integer platformId);
+    List<EmailSubject> selectListByPlatformId(Integer platformId);
 
     /**
      * 保存邮箱主体信息

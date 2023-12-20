@@ -11,7 +11,7 @@ import com.clever.bean.system.Platform;
  * 平台服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface PlatformService {
 

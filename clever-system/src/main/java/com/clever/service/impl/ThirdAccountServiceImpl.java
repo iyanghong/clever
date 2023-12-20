@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 第三方平台账号服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class ThirdAccountServiceImpl implements ThirdAccountService {
@@ -77,7 +77,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
      * @return List<ThirdAccount> 第三方平台账号列表
      */
     @Override
-    public List<ThirdAccount> getListByOpenId(String openId) {
+    public List<ThirdAccount> selectListByOpenId(String openId) {
         return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("open_id", openId).orderByAsc("id"));
     }
 
@@ -88,7 +88,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
      * @return List<ThirdAccount> 第三方平台账号列表
      */
     @Override
-    public List<ThirdAccount> getListByUserId(String userId) {
+    public List<ThirdAccount> selectListByUserId(String userId) {
         return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("user_id", userId).orderByAsc("id"));
     }
 

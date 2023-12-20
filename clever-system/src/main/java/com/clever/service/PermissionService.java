@@ -11,7 +11,7 @@ import com.clever.bean.system.Permission;
  * 系统权限服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface PermissionService {
 
@@ -43,7 +43,7 @@ public interface PermissionService {
      * @param platformId 平台id
      * @return List<Permission> 系统权限列表
      */
-    List<Permission> getListByPlatformId(String platformId);
+    List<Permission> selectListByPlatformId(String platformId);
 
     /**
      * 根据权限组id获取系统权限列表
@@ -51,7 +51,7 @@ public interface PermissionService {
      * @param groupId 权限组id
      * @return List<Permission> 系统权限列表
      */
-    List<Permission> getListByGroupId(String groupId);
+    List<Permission> selectListByGroupId(String groupId);
 
     /**
      * 保存系统权限信息

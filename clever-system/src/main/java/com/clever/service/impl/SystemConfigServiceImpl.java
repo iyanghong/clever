@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * SystemConfig服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class SystemConfigServiceImpl implements SystemConfigService {
@@ -77,7 +77,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
      * @return List<SystemConfig> system_config列表
      */
     @Override
-    public List<SystemConfig> getListByPlatformId(Integer platformId) {
+    public List<SystemConfig> selectListByPlatformId(Integer platformId) {
         return systemConfigMapper.selectList(new QueryWrapper<SystemConfig>().eq("platform_id", platformId).orderByAsc("id"));
     }
 

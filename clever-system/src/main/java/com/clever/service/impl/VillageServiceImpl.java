@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * Village服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class VillageServiceImpl implements VillageService {
@@ -81,7 +81,7 @@ public class VillageServiceImpl implements VillageService {
      * @return List<Village> village列表
      */
     @Override
-    public List<Village> getListByStreetId(Integer streetId) {
+    public List<Village> selectListByStreetId(Integer streetId) {
         return villageMapper.selectList(new QueryWrapper<Village>().eq("street_id", streetId).orderByAsc("id"));
     }
 
@@ -92,7 +92,7 @@ public class VillageServiceImpl implements VillageService {
      * @return List<Village> village列表
      */
     @Override
-    public List<Village> getListByProvinceId(Integer provinceId) {
+    public List<Village> selectListByProvinceId(Integer provinceId) {
         return villageMapper.selectList(new QueryWrapper<Village>().eq("province_id", provinceId).orderByAsc("id"));
     }
 
@@ -103,7 +103,7 @@ public class VillageServiceImpl implements VillageService {
      * @return List<Village> village列表
      */
     @Override
-    public List<Village> getListByCityId(Integer cityId) {
+    public List<Village> selectListByCityId(Integer cityId) {
         return villageMapper.selectList(new QueryWrapper<Village>().eq("city_id", cityId).orderByAsc("id"));
     }
 
@@ -114,7 +114,7 @@ public class VillageServiceImpl implements VillageService {
      * @return List<Village> village列表
      */
     @Override
-    public List<Village> getListByAreaId(Integer areaId) {
+    public List<Village> selectListByAreaId(Integer areaId) {
         return villageMapper.selectList(new QueryWrapper<Village>().eq("area_id", areaId).orderByAsc("id"));
     }
 

@@ -11,7 +11,7 @@ import com.clever.bean.system.UserStatusLog;
  * UserStatusLog服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface UserStatusLogService {
 
@@ -41,7 +41,7 @@ public interface UserStatusLogService {
      * @param userId 用户
      * @return List<UserStatusLog> user_status_log列表
      */
-    List<UserStatusLog> getListByUserId(String userId);
+    List<UserStatusLog> selectListByUserId(String userId);
 
     /**
      * 保存user_status_log信息

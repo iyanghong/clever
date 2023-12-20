@@ -11,7 +11,7 @@ import com.clever.bean.system.SystemConfig;
  * SystemConfig服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface SystemConfigService {
 
@@ -42,7 +42,7 @@ public interface SystemConfigService {
      * @param platformId 平台ID
      * @return List<SystemConfig> system_config列表
      */
-    List<SystemConfig> getListByPlatformId(Integer platformId);
+    List<SystemConfig> selectListByPlatformId(Integer platformId);
 
     /**
      * 保存system_config信息

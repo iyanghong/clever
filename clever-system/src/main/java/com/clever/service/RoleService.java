@@ -11,7 +11,7 @@ import com.clever.bean.system.Role;
  * 系统角色服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface RoleService {
 
@@ -40,7 +40,7 @@ public interface RoleService {
      * @param platformId 平台id
      * @return List<Role> 系统角色列表
      */
-    List<Role> getListByPlatformId(Integer platformId);
+    List<Role> selectListByPlatformId(Integer platformId);
 
     /**
      * 保存系统角色信息

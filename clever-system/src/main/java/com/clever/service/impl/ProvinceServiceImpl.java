@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 省份服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class ProvinceServiceImpl implements ProvinceService {

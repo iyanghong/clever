@@ -11,7 +11,7 @@ import com.clever.bean.system.Menu;
  * 导航菜单服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface MenuService {
 
@@ -41,7 +41,7 @@ public interface MenuService {
      * @param platformId 平台ID
      * @return List<Menu> 导航菜单列表
      */
-    List<Menu> getListByPlatformId(Integer platformId);
+    List<Menu> selectListByPlatformId(Integer platformId);
 
     /**
      * 保存导航菜单信息

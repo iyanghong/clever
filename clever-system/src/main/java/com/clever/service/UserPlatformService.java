@@ -11,7 +11,7 @@ import com.clever.bean.system.UserPlatform;
  * 用户-平台服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface UserPlatformService {
 
@@ -40,7 +40,7 @@ public interface UserPlatformService {
      * @param userId 用户id
      * @return List<UserPlatform> 用户-平台列表
      */
-    List<UserPlatform> getListByUserId(String userId);
+    List<UserPlatform> selectListByUserId(String userId);
 
     /**
      * 根据平台id获取用户-平台列表
@@ -48,7 +48,7 @@ public interface UserPlatformService {
      * @param platformId 平台id
      * @return List<UserPlatform> 用户-平台列表
      */
-    List<UserPlatform> getListByPlatformId(Integer platformId);
+    List<UserPlatform> selectListByPlatformId(Integer platformId);
 
     /**
      * 保存用户-平台信息

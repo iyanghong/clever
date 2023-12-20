@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
      * @return List<User> 用户列表
      */
     @Override
-    public List<User> getListByDiskId(String diskId) {
+    public List<User> selectListByDiskId(String diskId) {
         return userMapper.selectList(new QueryWrapper<User>().eq("disk_id", diskId).orderByAsc("id"));
     }
 

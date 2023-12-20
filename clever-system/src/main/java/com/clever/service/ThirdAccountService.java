@@ -11,7 +11,7 @@ import com.clever.bean.system.ThirdAccount;
  * 第三方平台账号服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-20 09:33:24
  */
 public interface ThirdAccountService {
 
@@ -42,7 +42,7 @@ public interface ThirdAccountService {
      * @param openId open_id
      * @return List<ThirdAccount> 第三方平台账号列表
      */
-    List<ThirdAccount> getListByOpenId(String openId);
+    List<ThirdAccount> selectListByOpenId(String openId);
 
     /**
      * 根据用户id获取第三方平台账号列表
@@ -50,7 +50,7 @@ public interface ThirdAccountService {
      * @param userId 用户id
      * @return List<ThirdAccount> 第三方平台账号列表
      */
-    List<ThirdAccount> getListByUserId(String userId);
+    List<ThirdAccount> selectListByUserId(String userId);
 
     /**
      * 保存第三方平台账号信息
