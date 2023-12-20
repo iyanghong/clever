@@ -11,6 +11,7 @@ import java.util.List;
  * @Date 2023-12-18 11:37
  **/
 public class GenerateConfig {
+    private String appName = "";
     // 数据库URL
     public final String DB_URL;
     // 数据库名称
@@ -25,6 +26,9 @@ public class GenerateConfig {
 
     // 映射类包名
     private String mapperPackageName;
+
+    // 服务类包名
+    private String servicePackageName;
 
     /**
      * id字段名
@@ -68,6 +72,14 @@ public class GenerateConfig {
         if (lastSlashIndex != -1 && lastSlashIndex < DB_URL.length() - 1) {
             this.DB_DATABASE = DB_URL.substring(lastSlashIndex + 1);
         }
+    }
+
+    public String getServicePackageName() {
+        return servicePackageName;
+    }
+
+    public void setServicePackageName(String servicePackageName) {
+        this.servicePackageName = servicePackageName;
     }
 
     /**
@@ -160,5 +172,13 @@ public class GenerateConfig {
 
     public List<String> getAutoUpdateFillField() {
         return Collections.singletonList(this.modifierFieldName);
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

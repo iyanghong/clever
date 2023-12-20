@@ -59,6 +59,9 @@ public class ColumnMeta {
 
     private String javaType;
 
+    private String lowerCamelCaseName;
+    private String upperCamelCaseName;
+
     public String getJavaType() {
         return javaType;
     }
@@ -154,5 +157,48 @@ public class ColumnMeta {
 
     public void setColumnComment(String columnComment) {
         this.columnComment = columnComment;
+    }
+
+    public String getLowerCamelCaseName() {
+        return lowerCamelCaseName;
+    }
+
+    public void setLowerCamelCaseName(String lowerCamelCaseName) {
+        this.lowerCamelCaseName = lowerCamelCaseName;
+    }
+
+    public String getUpperCamelCaseName() {
+        return upperCamelCaseName;
+    }
+
+    public void setUpperCamelCaseName(String upperCamelCaseName) {
+        this.upperCamelCaseName = upperCamelCaseName;
+    }
+
+    /**
+     * 获取注释或者名称
+     *
+     * @return 注释或者名称
+     */
+    public String getCommentOrName() {
+        return StringUtils.isNotBlank(columnComment) ? columnComment : columnName;
+    }
+
+    /**
+     * 获取注释或者大驼峰命名
+     *
+     * @return 注释或者大驼峰命名
+     */
+    public String getCommentOrUpperCamelCaseName() {
+        return StringUtils.isNotBlank(columnComment) ? columnComment : upperCamelCaseName;
+    }
+
+    /**
+     * 获取注释或者小驼峰命名
+     *
+     * @return 注释或者小驼峰命名
+     */
+    public String getCommentOrLowerCamelCaseName() {
+        return StringUtils.isNotBlank(columnComment) ? columnComment : lowerCamelCaseName;
     }
 }

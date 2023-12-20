@@ -33,6 +33,15 @@ public class TableMeta {
     private List<ColumnMeta> columns;
 
     /**
+     * 大驼峰名字
+     */
+    private String lowerCamelCaseName;
+    /**
+     * 小驼峰名字
+     */
+    private String upperCamelCaseName;
+
+    /**
      * 默认构造函数
      */
     public TableMeta() {
@@ -194,5 +203,56 @@ public class TableMeta {
      */
     public void setTableComment(String tableComment) {
         this.tableComment = tableComment;
+    }
+
+    public String getXtName() {
+        return lowerCamelCaseName;
+    }
+
+    public void setXtName(String lowerCamelCaseName) {
+        this.lowerCamelCaseName = lowerCamelCaseName;
+    }
+
+    /**
+     * 获取注释或者名称
+     *
+     * @return 注释或者名称
+     */
+    public String getCommentOrName() {
+        return StringUtils.isNotBlank(tableComment) ? tableComment : tableName;
+    }
+
+    /**
+     * 获取注释或者大驼峰命名
+     *
+     * @return 注释或者大驼峰命名
+     */
+    public String getCommentOrUpperCamelCaseName() {
+        return StringUtils.isNotBlank(tableComment) ? tableComment : upperCamelCaseName;
+    }
+
+    /**
+     * 获取注释或者小驼峰命名
+     *
+     * @return 注释或者小驼峰命名
+     */
+    public String getCommentOrLowerCamelCaseName() {
+        return StringUtils.isNotBlank(tableComment) ? tableComment : lowerCamelCaseName;
+    }
+
+    public String getLowerCamelCaseName() {
+        return lowerCamelCaseName;
+    }
+
+    public void setLowerCamelCaseName(String lowerCamelCaseName) {
+        this.lowerCamelCaseName = lowerCamelCaseName;
+    }
+
+    public String getUpperCamelCaseName() {
+        return upperCamelCaseName;
+    }
+
+    public void setUpperCamelCaseName(String upperCamelCaseName) {
+        this.upperCamelCaseName = upperCamelCaseName;
     }
 }

@@ -13,7 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xixi
@@ -85,6 +87,8 @@ public class BaseGenerator implements IGenerator {
             ResultSet resultSet = tablePreparedStatement.executeQuery();
             while (resultSet.next()) {
                 TableMeta tableMeta = new TableMeta(resultSet.getString("TABLE_SCHEMA"), resultSet.getString("TABLE_NAME"), resultSet.getString("TABLE_COMMENT"));
+                tableMeta.setUpperCamelCaseName(toDTCamelCase(tableMeta.getTableName()));
+                tableMeta.setLowerCamelCaseName(toXTCamelCase(tableMeta.getTableName()));
                 List<ColumnMeta> columnMetaList = new ArrayList<>();
                 PreparedStatement preparedStatement = connection.prepareStatement("select TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,COLUMN_DEFAULT,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,COLUMN_KEY,COLUMN_COMMENT from information_schema.COLUMNS where TABLE_SCHEMA = ? and TABLE_NAME = ? order by ORDINAL_POSITION");
                 // 设置参数值
@@ -103,11 +107,15 @@ public class BaseGenerator implements IGenerator {
                     columnMeta.setColumnKey(columnResultSet.getString("COLUMN_KEY"));
 
                     String comment = columnResultSet.getString("COLUMN_COMMENT");
-                    if (StringUtils.isNotBlank(comment)){
-                        comment = comment.replaceAll("\r|\n", ",").replaceAll(",,",",").replaceAll("：,","：").replaceAll(":,",":");
+                    if (StringUtils.isNotBlank(comment)) {
+                        comment = comment.replaceAll("\r|\n", ",").replaceAll(",,", ",").replaceAll("：,", "：").replaceAll(":,", ":");
                     }
                     columnMeta.setColumnComment(comment);
                     columnMeta.setJavaType(mapColumnType(columnMeta.getDataType()));
+
+                    columnMeta.setLowerCamelCaseName(toXTCamelCase(columnMeta.getColumnName()));
+                    columnMeta.setUpperCamelCaseName(toDTCamelCase(columnMeta.getColumnName()));
+
                     columnMetaList.add(columnMeta);
                 }
                 tableMeta.setColumns(columnMetaList);
@@ -207,5 +215,28 @@ public class BaseGenerator implements IGenerator {
             throw new RuntimeException(e);
         }
         return pathStr;
+    }
+
+    /**
+     * 获取函数注释
+     *
+     * @param description 函数描述
+     * @param params      参数列表
+     * @param returnStr   返回值
+     * @return 函数注释
+     */
+    protected String getFunctionComment(String description, LinkedHashMap<String, String> params, String returnStr) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t/**\n");
+        stringBuilder.append(String.format("\t * %s\n", description));
+        stringBuilder.append("\t *\n");
+        for (Map.Entry<String, String> stringStringEntry : params.entrySet()) {
+            stringBuilder.append(String.format("\t * @param %s %s\n", ((Map.Entry<?, ?>) stringStringEntry).getKey(), ((Map.Entry<?, ?>) stringStringEntry).getValue()));
+        }
+        if (!returnStr.equals("void")) {
+            stringBuilder.append(String.format("\t * @return %s\n", returnStr));
+        }
+        stringBuilder.append("\t */\n");
+        return stringBuilder.toString();
     }
 }
