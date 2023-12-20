@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色菜单服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class RoleMenuServiceImpl implements RoleMenuService {
@@ -55,7 +55,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
      * 根据编号获取角色菜单信息
      *
      * @param id 编号
-     * @return List<RoleMenu> 角色菜单信息
+     * @return RoleMenu 角色菜单信息
      */
     @Override
     public RoleMenu selectById(String id) {
@@ -102,7 +102,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
     }
 
     /**
-     * 根据编号获取角色菜单列表
+     * 根据编号删除角色菜单信息
      *
      * @param id         编号
      * @param onlineUser 当前登录用户

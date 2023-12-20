@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 导航菜单服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -41,9 +41,9 @@ public class MenuServiceImpl implements MenuService {
      * @return Page<Menu>
      */
     @Override
-    public Page<Menu> selectPage(Integer pageNumber, Integer pageSize, String platformId, String name, String code) {
+    public Page<Menu> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String name, String code) {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         if (StringUtils.isNotBlank(name)) {
@@ -59,7 +59,7 @@ public class MenuServiceImpl implements MenuService {
      * 根据id获取导航菜单信息
      *
      * @param id id
-     * @return List<Menu> 导航菜单信息
+     * @return Menu 导航菜单信息
      */
     @Override
     public Menu selectById(String id) {
@@ -95,7 +95,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 根据id获取导航菜单列表
+     * 根据id删除导航菜单信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

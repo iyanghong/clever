@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-角色服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -55,7 +55,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      * 根据用户角色中间表获取用户-角色信息
      *
      * @param id 用户角色中间表
-     * @return List<UserRole> 用户-角色信息
+     * @return UserRole 用户-角色信息
      */
     @Override
     public UserRole selectById(String id) {
@@ -102,7 +102,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     /**
-     * 根据用户角色中间表获取用户-角色列表
+     * 根据用户角色中间表删除用户-角色信息
      *
      * @param id         用户角色中间表
      * @param onlineUser 当前登录用户

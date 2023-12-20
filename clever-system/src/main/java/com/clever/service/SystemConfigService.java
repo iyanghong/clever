@@ -11,7 +11,7 @@ import com.clever.bean.system.SystemConfig;
  * SystemConfig服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface SystemConfigService {
 
@@ -26,7 +26,7 @@ public interface SystemConfigService {
      * @param type       类型：0-字符串,1-数组,2-json对象,3-数字,4-布尔值,5-加密
      * @return Page<SystemConfig>
      */
-    Page<SystemConfig> selectPage(Integer pageNumber, Integer pageSize, String platformId, String name, String code, String type);
+    Page<SystemConfig> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String name, String code, Integer type);
 
     /**
      * 根据配置id获取信息
@@ -34,15 +34,7 @@ public interface SystemConfigService {
      * @param id 配置id
      * @return SystemConfig system_config信息
      */
-    SystemConfig selectById(Integer platformId, String id);
-
-    /**
-     * 根据配置code获取信息
-     *
-     * @param code 配置code
-     * @return SystemConfig system_config信息
-     */
-    SystemConfig selectByCode(Integer platformId, String code);
+    SystemConfig selectById(String id);
 
     /**
      * 根据平台ID获取列表
@@ -61,7 +53,7 @@ public interface SystemConfigService {
     void save(SystemConfig systemConfig, OnlineUser onlineUser);
 
     /**
-     * 根据配置id获取列表
+     * 根据配置id删除信息
      *
      * @param id         配置id
      * @param onlineUser 当前登录用户
@@ -83,11 +75,4 @@ public interface SystemConfigService {
      * @param onlineUser 当前登录用户
      */
     void deleteByPlatformId(String platformId, OnlineUser onlineUser);
-
-    /**
-     * 更新指定code的缓存
-     *
-     * @param code 配置code
-     */
-    void updateSysConfigCache(Integer platformId, String code);
 }

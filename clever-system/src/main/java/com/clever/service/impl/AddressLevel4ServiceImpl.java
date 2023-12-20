@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * VIEW服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class AddressLevel4ServiceImpl implements AddressLevel4Service {
@@ -46,27 +46,27 @@ public class AddressLevel4ServiceImpl implements AddressLevel4Service {
      * @return Page<AddressLevel4>
      */
     @Override
-    public Page<AddressLevel4> selectPage(Integer pageNumber, Integer pageSize, String provinceId, String provinceName, String cityId, String cityName, String areaId, String areaName, String streetId, String streetName) {
+    public Page<AddressLevel4> selectPage(Integer pageNumber, Integer pageSize, Integer provinceId, String provinceName, Integer cityId, String cityName, Integer areaId, String areaName, Integer streetId, String streetName) {
         QueryWrapper<AddressLevel4> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
         if (StringUtils.isNotBlank(provinceName)) {
             queryWrapper.eq("province_name", provinceName);
         }
-        if (StringUtils.isNotBlank(cityId)) {
+        if (cityId != null) {
             queryWrapper.eq("city_id", cityId);
         }
         if (StringUtils.isNotBlank(cityName)) {
             queryWrapper.eq("city_name", cityName);
         }
-        if (StringUtils.isNotBlank(areaId)) {
+        if (areaId != null) {
             queryWrapper.eq("area_id", areaId);
         }
         if (StringUtils.isNotBlank(areaName)) {
             queryWrapper.eq("area_name", areaName);
         }
-        if (StringUtils.isNotBlank(streetId)) {
+        if (streetId != null) {
             queryWrapper.eq("street_id", streetId);
         }
         if (StringUtils.isNotBlank(streetName)) {

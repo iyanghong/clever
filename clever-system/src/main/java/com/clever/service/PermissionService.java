@@ -6,13 +6,12 @@ import com.clever.bean.model.OnlineUser;
 import java.util.List;
 
 import com.clever.bean.system.Permission;
-import com.clever.bean.system.Role;
 
 /**
  * 系统权限服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface PermissionService {
 
@@ -34,7 +33,7 @@ public interface PermissionService {
      * 根据权限id获取系统权限信息
      *
      * @param id 权限id
-     * @return List<Permission> 系统权限信息
+     * @return Permission 系统权限信息
      */
     Permission selectById(String id);
 
@@ -63,7 +62,7 @@ public interface PermissionService {
     void save(Permission permission, OnlineUser onlineUser);
 
     /**
-     * 根据权限id获取系统权限列表
+     * 根据权限id删除系统权限信息
      *
      * @param id         权限id
      * @param onlineUser 当前登录用户
@@ -93,12 +92,4 @@ public interface PermissionService {
      * @param onlineUser 当前登录用户
      */
     void deleteByGroupId(String groupId, OnlineUser onlineUser);
-
-    /**
-     * 根据角色列表获取权限列表
-     *
-     * @param roles 角色列表
-     * @return List<String> 权限列表
-     */
-    List<String> selectPermissionByRoles(List<Role> roles);
 }

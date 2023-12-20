@@ -11,7 +11,7 @@ import com.clever.bean.system.Street;
  * 街道服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface StreetService {
 
@@ -26,13 +26,13 @@ public interface StreetService {
      * @param provinceId 省份编号
      * @return Page<Street>
      */
-    Page<Street> selectPage(Integer pageNumber, Integer pageSize, String name, String areaId, String cityId, String provinceId);
+    Page<Street> selectPage(Integer pageNumber, Integer pageSize, String name, Integer areaId, Integer cityId, Integer provinceId);
 
     /**
      * 根据街道编号获取街道信息
      *
      * @param id 街道编号
-     * @return List<Street> 街道信息
+     * @return Street 街道信息
      */
     Street selectById(Integer id);
 
@@ -69,7 +69,7 @@ public interface StreetService {
     void save(Street street, OnlineUser onlineUser);
 
     /**
-     * 根据街道编号获取街道列表
+     * 根据街道编号删除街道信息
      *
      * @param id         街道编号
      * @param onlineUser 当前登录用户

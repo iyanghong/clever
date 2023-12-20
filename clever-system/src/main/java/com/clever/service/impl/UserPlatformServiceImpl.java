@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-平台服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class UserPlatformServiceImpl implements UserPlatformService {
@@ -40,12 +40,12 @@ public class UserPlatformServiceImpl implements UserPlatformService {
      * @return Page<UserPlatform>
      */
     @Override
-    public Page<UserPlatform> selectPage(Integer pageNumber, Integer pageSize, String userId, String platformId) {
+    public Page<UserPlatform> selectPage(Integer pageNumber, Integer pageSize, String userId, Integer platformId) {
         QueryWrapper<UserPlatform> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(userId)) {
             queryWrapper.eq("user_id", userId);
         }
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         return userPlatformMapper.selectPage(new Page<UserPlatform>(pageNumber, pageSize), queryWrapper);
@@ -55,7 +55,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
      * 根据id获取用户-平台信息
      *
      * @param id id
-     * @return List<UserPlatform> 用户-平台信息
+     * @return UserPlatform 用户-平台信息
      */
     @Override
     public UserPlatform selectById(String id) {
@@ -102,7 +102,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
     }
 
     /**
-     * 根据id获取用户-平台列表
+     * 根据id删除用户-平台信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

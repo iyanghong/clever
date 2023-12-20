@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限组服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class PermissionGroupServiceImpl implements PermissionGroupService {
@@ -42,7 +42,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      * @return Page<PermissionGroup>
      */
     @Override
-    public Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, String platformId, String parentId, String name, String sortCode) {
+    public Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, String platformId, String parentId, String name, Integer sortCode) {
         QueryWrapper<PermissionGroup> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(platformId)) {
             queryWrapper.eq("platform_id", platformId);
@@ -53,7 +53,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(sortCode)) {
+        if (sortCode != null) {
             queryWrapper.eq("sort_code", sortCode);
         }
         return permissionGroupMapper.selectPage(new Page<PermissionGroup>(pageNumber, pageSize), queryWrapper);
@@ -63,7 +63,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      * 根据权限组id获取系统权限组信息
      *
      * @param id 权限组id
-     * @return List<PermissionGroup> 系统权限组信息
+     * @return PermissionGroup 系统权限组信息
      */
     @Override
     public PermissionGroup selectById(String id) {
@@ -110,7 +110,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
     }
 
     /**
-     * 根据权限组id获取系统权限组列表
+     * 根据权限组id删除系统权限组信息
      *
      * @param id         权限组id
      * @param onlineUser 当前登录用户

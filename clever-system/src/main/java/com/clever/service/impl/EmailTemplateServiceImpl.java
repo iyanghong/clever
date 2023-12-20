@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱模板服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class EmailTemplateServiceImpl implements EmailTemplateService {
@@ -42,9 +42,9 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      * @return Page<EmailTemplate>
      */
     @Override
-    public Page<EmailTemplate> selectPage(Integer pageNumber, Integer pageSize, String platformId, String name, String code, String subjectId) {
+    public Page<EmailTemplate> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String name, String code, String subjectId) {
         QueryWrapper<EmailTemplate> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         if (StringUtils.isNotBlank(name)) {
@@ -63,7 +63,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      * 根据id获取邮箱模板信息
      *
      * @param id id
-     * @return List<EmailTemplate> 邮箱模板信息
+     * @return EmailTemplate 邮箱模板信息
      */
     @Override
     public EmailTemplate selectById(String id) {
@@ -110,7 +110,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     }
 
     /**
-     * 根据id获取邮箱模板列表
+     * 根据id删除邮箱模板信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

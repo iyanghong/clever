@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * Village服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class VillageServiceImpl implements VillageService {
@@ -43,21 +43,21 @@ public class VillageServiceImpl implements VillageService {
      * @return Page<Village>
      */
     @Override
-    public Page<Village> selectPage(Integer pageNumber, Integer pageSize, String name, String streetId, String provinceId, String cityId, String areaId) {
+    public Page<Village> selectPage(Integer pageNumber, Integer pageSize, String name, Integer streetId, Integer provinceId, Integer cityId, Integer areaId) {
         QueryWrapper<Village> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(streetId)) {
+        if (streetId != null) {
             queryWrapper.eq("street_id", streetId);
         }
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
-        if (StringUtils.isNotBlank(cityId)) {
+        if (cityId != null) {
             queryWrapper.eq("city_id", cityId);
         }
-        if (StringUtils.isNotBlank(areaId)) {
+        if (areaId != null) {
             queryWrapper.eq("area_id", areaId);
         }
         return villageMapper.selectPage(new Page<Village>(pageNumber, pageSize), queryWrapper);
@@ -67,7 +67,7 @@ public class VillageServiceImpl implements VillageService {
      * 根据id获取信息
      *
      * @param id
-     * @return List<Village> village信息
+     * @return Village village信息
      */
     @Override
     public Village selectById(Long id) {
@@ -136,7 +136,7 @@ public class VillageServiceImpl implements VillageService {
     }
 
     /**
-     * 根据id获取列表
+     * 根据id删除信息
      *
      * @param id
      * @param onlineUser 当前登录用户

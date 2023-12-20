@@ -11,7 +11,7 @@ import com.clever.bean.system.Area;
  * 城区地址服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface AreaService {
 
@@ -25,13 +25,13 @@ public interface AreaService {
      * @param provinceId 省份编号
      * @return Page<Area>
      */
-    Page<Area> selectPage(Integer pageNumber, Integer pageSize, String name, String cityId, String provinceId);
+    Page<Area> selectPage(Integer pageNumber, Integer pageSize, String name, Integer cityId, Integer provinceId);
 
     /**
      * 根据地区编号获取城区地址信息
      *
      * @param id 地区编号
-     * @return List<Area> 城区地址信息
+     * @return Area 城区地址信息
      */
     Area selectById(Integer id);
 
@@ -60,7 +60,7 @@ public interface AreaService {
     void save(Area area, OnlineUser onlineUser);
 
     /**
-     * 根据地区编号获取城区地址列表
+     * 根据地区编号删除城区地址信息
      *
      * @param id         地区编号
      * @param onlineUser 当前登录用户

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 第三方平台账号服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class ThirdAccountServiceImpl implements ThirdAccountService {
@@ -63,7 +63,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
      * 根据id获取第三方平台账号信息
      *
      * @param id id
-     * @return List<ThirdAccount> 第三方平台账号信息
+     * @return ThirdAccount 第三方平台账号信息
      */
     @Override
     public ThirdAccount selectById(String id) {
@@ -110,7 +110,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
     }
 
     /**
-     * 根据id获取第三方平台账号列表
+     * 根据id删除第三方平台账号信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

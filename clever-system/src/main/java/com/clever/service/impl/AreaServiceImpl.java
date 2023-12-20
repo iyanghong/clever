@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城区地址服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class AreaServiceImpl implements AreaService {
@@ -41,15 +41,15 @@ public class AreaServiceImpl implements AreaService {
      * @return Page<Area>
      */
     @Override
-    public Page<Area> selectPage(Integer pageNumber, Integer pageSize, String name, String cityId, String provinceId) {
+    public Page<Area> selectPage(Integer pageNumber, Integer pageSize, String name, Integer cityId, Integer provinceId) {
         QueryWrapper<Area> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(cityId)) {
+        if (cityId != null) {
             queryWrapper.eq("city_id", cityId);
         }
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
         return areaMapper.selectPage(new Page<Area>(pageNumber, pageSize), queryWrapper);
@@ -59,7 +59,7 @@ public class AreaServiceImpl implements AreaService {
      * 根据地区编号获取城区地址信息
      *
      * @param id 地区编号
-     * @return List<Area> 城区地址信息
+     * @return Area 城区地址信息
      */
     @Override
     public Area selectById(Integer id) {
@@ -106,7 +106,7 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
-     * 根据地区编号获取城区地址列表
+     * 根据地区编号删除城区地址信息
      *
      * @param id         地区编号
      * @param onlineUser 当前登录用户

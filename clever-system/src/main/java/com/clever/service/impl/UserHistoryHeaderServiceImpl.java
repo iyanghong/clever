@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户历史头像表服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
@@ -55,7 +55,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
      * 根据历史头像id获取用户历史头像表信息
      *
      * @param id 历史头像id
-     * @return List<UserHistoryHeader> 用户历史头像表信息
+     * @return UserHistoryHeader 用户历史头像表信息
      */
     @Override
     public UserHistoryHeader selectById(String id) {
@@ -102,7 +102,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
     }
 
     /**
-     * 根据历史头像id获取用户历史头像表列表
+     * 根据历史头像id删除用户历史头像表信息
      *
      * @param id         历史头像id
      * @param onlineUser 当前登录用户

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * VIEW服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:02
  */
 @Service
 public class AddressLevel3ServiceImpl implements AddressLevel3Service {
@@ -44,21 +44,21 @@ public class AddressLevel3ServiceImpl implements AddressLevel3Service {
      * @return Page<AddressLevel3>
      */
     @Override
-    public Page<AddressLevel3> selectPage(Integer pageNumber, Integer pageSize, String provinceId, String provinceName, String cityId, String cityName, String areaId, String areaName) {
+    public Page<AddressLevel3> selectPage(Integer pageNumber, Integer pageSize, Integer provinceId, String provinceName, Integer cityId, String cityName, Integer areaId, String areaName) {
         QueryWrapper<AddressLevel3> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
         if (StringUtils.isNotBlank(provinceName)) {
             queryWrapper.eq("province_name", provinceName);
         }
-        if (StringUtils.isNotBlank(cityId)) {
+        if (cityId != null) {
             queryWrapper.eq("city_id", cityId);
         }
         if (StringUtils.isNotBlank(cityName)) {
             queryWrapper.eq("city_name", cityName);
         }
-        if (StringUtils.isNotBlank(areaId)) {
+        if (areaId != null) {
             queryWrapper.eq("area_id", areaId);
         }
         if (StringUtils.isNotBlank(areaName)) {

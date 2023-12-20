@@ -11,7 +11,7 @@ import com.clever.bean.system.Village;
  * Village服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface VillageService {
 
@@ -27,13 +27,13 @@ public interface VillageService {
      * @param areaId
      * @return Page<Village>
      */
-    Page<Village> selectPage(Integer pageNumber, Integer pageSize, String name, String streetId, String provinceId, String cityId, String areaId);
+    Page<Village> selectPage(Integer pageNumber, Integer pageSize, String name, Integer streetId, Integer provinceId, Integer cityId, Integer areaId);
 
     /**
      * 根据id获取信息
      *
      * @param id
-     * @return List<Village> village信息
+     * @return Village village信息
      */
     Village selectById(Long id);
 
@@ -78,7 +78,7 @@ public interface VillageService {
     void save(Village village, OnlineUser onlineUser);
 
     /**
-     * 根据id获取列表
+     * 根据id删除信息
      *
      * @param id
      * @param onlineUser 当前登录用户

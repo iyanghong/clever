@@ -11,7 +11,7 @@ import com.clever.bean.system.User;
  * 用户服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface UserService {
 
@@ -29,13 +29,13 @@ public interface UserService {
      * @param gender     性别：0-未知,1-男,2-女
      * @return Page<User>
      */
-    Page<User> selectPage(Integer pageNumber, Integer pageSize, String account, String email, String phone, String nickname, String diskId, String status, String gender);
+    Page<User> selectPage(Integer pageNumber, Integer pageSize, String account, String email, String phone, String nickname, String diskId, Integer status, Integer gender);
 
     /**
      * 根据用户id获取用户信息
      *
      * @param id 用户id
-     * @return List<User> 用户信息
+     * @return User 用户信息
      */
     User selectById(String id);
 
@@ -56,7 +56,7 @@ public interface UserService {
     void save(User user, OnlineUser onlineUser);
 
     /**
-     * 根据用户id获取用户列表
+     * 根据用户id删除用户信息
      *
      * @param id         用户id
      * @param onlineUser 当前登录用户
@@ -78,14 +78,4 @@ public interface UserService {
      * @param onlineUser 当前登录用户
      */
     void deleteByDiskId(String diskId, OnlineUser onlineUser);
-
-
-    /**
-     * 用户登录
-     *
-     * @param account  账户(可为邮箱或者系统账号)
-     * @param password 密码
-     * @return user
-     */
-    OnlineUser login(String account, String password);
 }

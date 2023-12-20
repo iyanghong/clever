@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 街道服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class StreetServiceImpl implements StreetService {
@@ -42,18 +42,18 @@ public class StreetServiceImpl implements StreetService {
      * @return Page<Street>
      */
     @Override
-    public Page<Street> selectPage(Integer pageNumber, Integer pageSize, String name, String areaId, String cityId, String provinceId) {
+    public Page<Street> selectPage(Integer pageNumber, Integer pageSize, String name, Integer areaId, Integer cityId, Integer provinceId) {
         QueryWrapper<Street> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(areaId)) {
+        if (areaId != null) {
             queryWrapper.eq("area_id", areaId);
         }
-        if (StringUtils.isNotBlank(cityId)) {
+        if (cityId != null) {
             queryWrapper.eq("city_id", cityId);
         }
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
         return streetMapper.selectPage(new Page<Street>(pageNumber, pageSize), queryWrapper);
@@ -63,7 +63,7 @@ public class StreetServiceImpl implements StreetService {
      * 根据街道编号获取街道信息
      *
      * @param id 街道编号
-     * @return List<Street> 街道信息
+     * @return Street 街道信息
      */
     @Override
     public Street selectById(Integer id) {
@@ -121,7 +121,7 @@ public class StreetServiceImpl implements StreetService {
     }
 
     /**
-     * 根据街道编号获取街道列表
+     * 根据街道编号删除街道信息
      *
      * @param id         街道编号
      * @param onlineUser 当前登录用户

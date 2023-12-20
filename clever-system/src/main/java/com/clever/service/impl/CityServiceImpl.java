@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城市服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class CityServiceImpl implements CityService {
@@ -40,12 +40,12 @@ public class CityServiceImpl implements CityService {
      * @return Page<City>
      */
     @Override
-    public Page<City> selectPage(Integer pageNumber, Integer pageSize, String name, String provinceId) {
+    public Page<City> selectPage(Integer pageNumber, Integer pageSize, String name, Integer provinceId) {
         QueryWrapper<City> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(provinceId)) {
+        if (provinceId != null) {
             queryWrapper.eq("province_id", provinceId);
         }
         return cityMapper.selectPage(new Page<City>(pageNumber, pageSize), queryWrapper);
@@ -55,7 +55,7 @@ public class CityServiceImpl implements CityService {
      * 根据城市编号获取城市信息
      *
      * @param id 城市编号
-     * @return List<City> 城市信息
+     * @return City 城市信息
      */
     @Override
     public City selectById(Integer id) {
@@ -91,7 +91,7 @@ public class CityServiceImpl implements CityService {
     }
 
     /**
-     * 根据城市编号获取城市列表
+     * 根据城市编号删除城市信息
      *
      * @param id         城市编号
      * @param onlineUser 当前登录用户

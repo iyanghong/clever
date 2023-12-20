@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统角色服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -40,12 +40,12 @@ public class RoleServiceImpl implements RoleService {
      * @return Page<Role>
      */
     @Override
-    public Page<Role> selectPage(Integer pageNumber, Integer pageSize, String name, String platformId) {
+    public Page<Role> selectPage(Integer pageNumber, Integer pageSize, String name, Integer platformId) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name)) {
             queryWrapper.eq("name", name);
         }
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         return roleMapper.selectPage(new Page<Role>(pageNumber, pageSize), queryWrapper);
@@ -55,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
      * 根据角色id获取系统角色信息
      *
      * @param id 角色id
-     * @return List<Role> 系统角色信息
+     * @return Role 系统角色信息
      */
     @Override
     public Role selectById(String id) {
@@ -91,7 +91,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * 根据角色id获取系统角色列表
+     * 根据角色id删除系统角色信息
      *
      * @param id         角色id
      * @param onlineUser 当前登录用户
@@ -124,16 +124,5 @@ public class RoleServiceImpl implements RoleService {
     public void deleteByPlatformId(String platformId, OnlineUser onlineUser) {
         roleMapper.delete(new QueryWrapper<Role>().eq("platform_id", platformId));
         log.info("系统角色, 系统角色信息根据平台id删除成功: userId={}, platformId={}", onlineUser.getId(), platformId);
-    }
-
-    /**
-     * 根据用户id获取角色列表
-     *
-     * @param userId 用户id
-     * @return List<Role> 角色列表
-     */
-    @Override
-    public List<Role> selectRolesByUserId(String userId) {
-        return roleMapper.selectRolesByUserId(userId);
     }
 }

@@ -11,7 +11,7 @@ import com.clever.bean.system.Role;
  * 系统角色服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface RoleService {
 
@@ -24,13 +24,13 @@ public interface RoleService {
      * @param platformId 平台id
      * @return Page<Role>
      */
-    Page<Role> selectPage(Integer pageNumber, Integer pageSize, String name, String platformId);
+    Page<Role> selectPage(Integer pageNumber, Integer pageSize, String name, Integer platformId);
 
     /**
      * 根据角色id获取系统角色信息
      *
      * @param id 角色id
-     * @return List<Role> 系统角色信息
+     * @return Role 系统角色信息
      */
     Role selectById(String id);
 
@@ -51,7 +51,7 @@ public interface RoleService {
     void save(Role role, OnlineUser onlineUser);
 
     /**
-     * 根据角色id获取系统角色列表
+     * 根据角色id删除系统角色信息
      *
      * @param id         角色id
      * @param onlineUser 当前登录用户
@@ -73,12 +73,4 @@ public interface RoleService {
      * @param onlineUser 当前登录用户
      */
     void deleteByPlatformId(String platformId, OnlineUser onlineUser);
-
-    /**
-     * 根据用户id获取角色列表
-     *
-     * @param userId 用户id
-     * @return List<Role> 角色列表
-     */
-    List<Role> selectRolesByUserId(String userId);
 }

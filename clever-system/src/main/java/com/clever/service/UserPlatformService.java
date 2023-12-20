@@ -11,7 +11,7 @@ import com.clever.bean.system.UserPlatform;
  * 用户-平台服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface UserPlatformService {
 
@@ -24,13 +24,13 @@ public interface UserPlatformService {
      * @param platformId 平台id
      * @return Page<UserPlatform>
      */
-    Page<UserPlatform> selectPage(Integer pageNumber, Integer pageSize, String userId, String platformId);
+    Page<UserPlatform> selectPage(Integer pageNumber, Integer pageSize, String userId, Integer platformId);
 
     /**
      * 根据id获取用户-平台信息
      *
      * @param id id
-     * @return List<UserPlatform> 用户-平台信息
+     * @return UserPlatform 用户-平台信息
      */
     UserPlatform selectById(String id);
 
@@ -59,7 +59,7 @@ public interface UserPlatformService {
     void save(UserPlatform userPlatform, OnlineUser onlineUser);
 
     /**
-     * 根据id获取用户-平台列表
+     * 根据id删除用户-平台信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

@@ -11,7 +11,7 @@ import com.clever.bean.system.PermissionGroup;
  * 系统权限组服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface PermissionGroupService {
 
@@ -26,13 +26,13 @@ public interface PermissionGroupService {
      * @param sortCode   排序号
      * @return Page<PermissionGroup>
      */
-    Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, String platformId, String parentId, String name, String sortCode);
+    Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, String platformId, String parentId, String name, Integer sortCode);
 
     /**
      * 根据权限组id获取系统权限组信息
      *
      * @param id 权限组id
-     * @return List<PermissionGroup> 系统权限组信息
+     * @return PermissionGroup 系统权限组信息
      */
     PermissionGroup selectById(String id);
 
@@ -61,7 +61,7 @@ public interface PermissionGroupService {
     void save(PermissionGroup permissionGroup, OnlineUser onlineUser);
 
     /**
-     * 根据权限组id获取系统权限组列表
+     * 根据权限组id删除系统权限组信息
      *
      * @param id         权限组id
      * @param onlineUser 当前登录用户

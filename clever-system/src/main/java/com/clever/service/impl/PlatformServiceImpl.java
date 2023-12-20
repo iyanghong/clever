@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 平台服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class PlatformServiceImpl implements PlatformService {
@@ -51,7 +51,7 @@ public class PlatformServiceImpl implements PlatformService {
      * 根据平台id获取平台信息
      *
      * @param id 平台id
-     * @return List<Platform> 平台信息
+     * @return Platform 平台信息
      */
     @Override
     public Platform selectById(Integer id) {
@@ -76,7 +76,7 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     /**
-     * 根据平台id获取平台列表
+     * 根据平台id删除平台信息
      *
      * @param id         平台id
      * @param onlineUser 当前登录用户

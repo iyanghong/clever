@@ -11,7 +11,7 @@ import com.clever.bean.system.Platform;
  * 平台服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface PlatformService {
 
@@ -29,7 +29,7 @@ public interface PlatformService {
      * 根据平台id获取平台信息
      *
      * @param id 平台id
-     * @return List<Platform> 平台信息
+     * @return Platform 平台信息
      */
     Platform selectById(Integer id);
 
@@ -42,7 +42,7 @@ public interface PlatformService {
     void save(Platform platform, OnlineUser onlineUser);
 
     /**
-     * 根据平台id获取平台列表
+     * 根据平台id删除平台信息
      *
      * @param id         平台id
      * @param onlineUser 当前登录用户

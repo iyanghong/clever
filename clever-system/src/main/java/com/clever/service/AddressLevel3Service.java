@@ -11,7 +11,7 @@ import com.clever.bean.system.AddressLevel3;
  * VIEW服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:02
  */
 public interface AddressLevel3Service {
 
@@ -28,7 +28,7 @@ public interface AddressLevel3Service {
      * @param areaName
      * @return Page<AddressLevel3>
      */
-    Page<AddressLevel3> selectPage(Integer pageNumber, Integer pageSize, String provinceId, String provinceName, String cityId, String cityName, String areaId, String areaName);
+    Page<AddressLevel3> selectPage(Integer pageNumber, Integer pageSize, Integer provinceId, String provinceName, Integer cityId, String cityName, Integer areaId, String areaName);
 
     /**
      * 根据province_id获取VIEW列表

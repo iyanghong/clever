@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 省份服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class ProvinceServiceImpl implements ProvinceService {
@@ -51,7 +51,7 @@ public class ProvinceServiceImpl implements ProvinceService {
      * 根据省份编号获取省份信息
      *
      * @param id 省份编号
-     * @return List<Province> 省份信息
+     * @return Province 省份信息
      */
     @Override
     public Province selectById(Integer id) {
@@ -76,7 +76,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     /**
-     * 根据省份编号获取省份列表
+     * 根据省份编号删除省份信息
      *
      * @param id         省份编号
      * @param onlineUser 当前登录用户

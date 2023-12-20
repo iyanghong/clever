@@ -11,7 +11,7 @@ import com.clever.bean.system.Menu;
  * 导航菜单服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface MenuService {
 
@@ -25,13 +25,13 @@ public interface MenuService {
      * @param code       菜单Code
      * @return Page<Menu>
      */
-    Page<Menu> selectPage(Integer pageNumber, Integer pageSize, String platformId, String name, String code);
+    Page<Menu> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String name, String code);
 
     /**
      * 根据id获取导航菜单信息
      *
      * @param id id
-     * @return List<Menu> 导航菜单信息
+     * @return Menu 导航菜单信息
      */
     Menu selectById(String id);
 
@@ -52,7 +52,7 @@ public interface MenuService {
     void save(Menu menu, OnlineUser onlineUser);
 
     /**
-     * 根据id获取导航菜单列表
+     * 根据id删除导航菜单信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

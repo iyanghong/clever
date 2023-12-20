@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱主体服务
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 @Service
 public class EmailSubjectServiceImpl implements EmailSubjectService {
@@ -42,9 +42,9 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
      * @return Page<EmailSubject>
      */
     @Override
-    public Page<EmailSubject> selectPage(Integer pageNumber, Integer pageSize, String platformId, String host, String username, String subjectName) {
+    public Page<EmailSubject> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String host, String username, String subjectName) {
         QueryWrapper<EmailSubject> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         if (StringUtils.isNotBlank(host)) {
@@ -63,7 +63,7 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
      * 根据id获取邮箱主体信息
      *
      * @param id id
-     * @return List<EmailSubject> 邮箱主体信息
+     * @return EmailSubject 邮箱主体信息
      */
     @Override
     public EmailSubject selectById(String id) {
@@ -99,7 +99,7 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
     }
 
     /**
-     * 根据id获取邮箱主体列表
+     * 根据id删除邮箱主体信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户

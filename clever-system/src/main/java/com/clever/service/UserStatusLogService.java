@@ -3,7 +3,6 @@ package com.clever.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
 
-import java.util.Date;
 import java.util.List;
 
 import com.clever.bean.system.UserStatusLog;
@@ -12,7 +11,7 @@ import com.clever.bean.system.UserStatusLog;
  * UserStatusLog服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface UserStatusLogService {
 
@@ -26,13 +25,13 @@ public interface UserStatusLogService {
      * @param changeStatus  变更后状态
      * @return Page<UserStatusLog>
      */
-    Page<UserStatusLog> selectPage(Integer pageNumber, Integer pageSize, String userId, String currentStatus, String changeStatus);
+    Page<UserStatusLog> selectPage(Integer pageNumber, Integer pageSize, String userId, Integer currentStatus, Integer changeStatus);
 
     /**
      * 根据自增id获取信息
      *
      * @param id 自增id
-     * @return List<UserStatusLog> user_status_log信息
+     * @return UserStatusLog user_status_log信息
      */
     UserStatusLog selectById(String id);
 
@@ -53,7 +52,7 @@ public interface UserStatusLogService {
     void save(UserStatusLog userStatusLog, OnlineUser onlineUser);
 
     /**
-     * 根据自增id获取列表
+     * 根据自增id删除信息
      *
      * @param id         自增id
      * @param onlineUser 当前登录用户
@@ -75,14 +74,4 @@ public interface UserStatusLogService {
      * @param onlineUser 当前登录用户
      */
     void deleteByUserId(String userId, OnlineUser onlineUser);
-
-    /**
-     * 记录用户状态变更
-     *
-     * @param userId       用户
-     * @param changeStatus 更改的壮观
-     * @param duration     结束时间
-     * @param remake       备注
-     */
-    void logUserStatusChange(String userId, Integer changeStatus, Date duration, String remake);
 }

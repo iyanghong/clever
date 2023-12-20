@@ -11,7 +11,7 @@ import com.clever.bean.system.EmailTemplate;
  * 邮箱模板服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 09:33:24
+ * @Date 2023-12-20 05:02:03
  */
 public interface EmailTemplateService {
 
@@ -26,13 +26,13 @@ public interface EmailTemplateService {
      * @param subjectId  邮箱主体
      * @return Page<EmailTemplate>
      */
-    Page<EmailTemplate> selectPage(Integer pageNumber, Integer pageSize, String platformId, String name, String code, String subjectId);
+    Page<EmailTemplate> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String name, String code, String subjectId);
 
     /**
      * 根据id获取邮箱模板信息
      *
      * @param id id
-     * @return List<EmailTemplate> 邮箱模板信息
+     * @return EmailTemplate 邮箱模板信息
      */
     EmailTemplate selectById(String id);
 
@@ -61,7 +61,7 @@ public interface EmailTemplateService {
     void save(EmailTemplate emailTemplate, OnlineUser onlineUser);
 
     /**
-     * 根据id获取邮箱模板列表
+     * 根据id删除邮箱模板信息
      *
      * @param id         id
      * @param onlineUser 当前登录用户
