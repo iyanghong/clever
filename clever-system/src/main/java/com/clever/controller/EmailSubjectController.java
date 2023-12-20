@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 邮箱主体接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/EmailSubject")
+@RequestMapping("/emailSubject")
 @AuthGroup(name = "邮箱主体模块", description = "邮箱主体模块权限组")
 public class EmailSubjectController {
 

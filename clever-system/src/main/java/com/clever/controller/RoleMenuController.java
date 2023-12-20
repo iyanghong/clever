@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 角色菜单接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/RoleMenu")
+@RequestMapping("/roleMenu")
 @AuthGroup(name = "角色菜单模块", description = "角色菜单模块权限组")
 public class RoleMenuController {
 

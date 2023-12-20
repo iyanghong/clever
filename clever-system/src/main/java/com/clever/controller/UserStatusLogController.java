@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * UserStatusLog接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/UserStatusLog")
+@RequestMapping("/userStatusLog")
 @AuthGroup(name = "user_status_log模块", description = "user_status_log模块权限组")
 public class UserStatusLogController {
 

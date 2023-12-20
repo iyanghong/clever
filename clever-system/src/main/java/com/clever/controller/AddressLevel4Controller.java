@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * VIEW接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/AddressLevel4")
+@RequestMapping("/addressLevel4")
 @AuthGroup(name = "VIEW模块", description = "VIEW模块权限组")
 public class AddressLevel4Controller {
 
@@ -97,19 +97,6 @@ public class AddressLevel4Controller {
     @Auth(value = "clever-system.addressLevel4.getByStreetId", name = "根据street_id获取VIEW列表", description = "VIEW列表接口")
     public Result<List<AddressLevel4>> selectByStreetId(@PathVariable("streetId") Integer streetId) {
         return new Result<>(addressLevel4Service.selectListByStreetId(streetId), "查询成功");
-    }
-
-    /**
-     * 保存VIEW信息
-     *
-     * @param addressLevel4 VIEW实体信息
-     */
-    @PostMapping("/save")
-    @Auth(value = "clever-system.addressLevel4.save", name = "保存VIEW", description = "保存VIEW信息接口")
-    public Result<String> save(AddressLevel4 addressLevel4) {
-        OnlineUser onlineUser = SpringUtil.getOnlineUser();
-        addressLevel4Service.save(addressLevel4, onlineUser);
-        return Result.ofSuccess("保存成功");
     }
 
 }

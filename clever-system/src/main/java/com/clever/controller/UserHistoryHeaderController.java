@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 用户历史头像表接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/UserHistoryHeader")
+@RequestMapping("/userHistoryHeader")
 @AuthGroup(name = "用户历史头像表模块", description = "用户历史头像表模块权限组")
 public class UserHistoryHeaderController {
 

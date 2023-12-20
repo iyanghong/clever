@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 用户-平台接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/UserPlatform")
+@RequestMapping("/userPlatform")
 @AuthGroup(name = "用户-平台模块", description = "用户-平台模块权限组")
 public class UserPlatformController {
 

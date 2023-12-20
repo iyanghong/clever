@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 第三方平台账号接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/ThirdAccount")
+@RequestMapping("/thirdAccount")
 @AuthGroup(name = "第三方平台账号模块", description = "第三方平台账号模块权限组")
 public class ThirdAccountController {
 

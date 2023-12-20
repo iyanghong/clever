@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * SystemConfig接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/SystemConfig")
+@RequestMapping("/systemConfig")
 @AuthGroup(name = "system_config模块", description = "system_config模块权限组")
 public class SystemConfigController {
 

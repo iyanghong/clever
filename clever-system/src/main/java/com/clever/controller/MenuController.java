@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 导航菜单接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/Menu")
+@RequestMapping("/menu")
 @AuthGroup(name = "导航菜单模块", description = "导航菜单模块权限组")
 public class MenuController {
 

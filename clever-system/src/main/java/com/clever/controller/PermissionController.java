@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 系统权限接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/Permission")
+@RequestMapping("/permission")
 @AuthGroup(name = "系统权限模块", description = "系统权限模块权限组")
 public class PermissionController {
 

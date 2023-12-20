@@ -11,7 +11,7 @@ import com.clever.bean.system.UserHistoryHeader;
  * 用户历史头像表服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 public interface UserHistoryHeaderService {
 

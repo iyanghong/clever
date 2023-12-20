@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * 城市接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/City")
+@RequestMapping("/city")
 @AuthGroup(name = "城市模块", description = "城市模块权限组")
 public class CityController {
 

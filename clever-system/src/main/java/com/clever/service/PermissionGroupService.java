@@ -11,7 +11,7 @@ import com.clever.bean.system.PermissionGroup;
  * 系统权限组服务接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 public interface PermissionGroupService {
 

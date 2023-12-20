@@ -19,10 +19,10 @@ import javax.annotation.Resource;
  * Village接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @RestController
-@RequestMapping("/Village")
+@RequestMapping("/village")
 @AuthGroup(name = "village模块", description = "village模块权限组")
 public class VillageController {
 

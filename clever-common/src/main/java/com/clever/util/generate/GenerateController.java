@@ -99,7 +99,7 @@ public class GenerateController extends BaseGenerator {
         stringBuilder.append(" */\n");
 
         stringBuilder.append("@RestController\n");
-        stringBuilder.append("@RequestMapping(\"").append("/").append(tableMeta.getUpperCamelCaseName()).append("\")\n");
+        stringBuilder.append("@RequestMapping(\"").append("/").append(tableMeta.getLowerCamelCaseName()).append("\")\n");
 
         stringBuilder.append("@AuthGroup(name = \"").append(tableMeta.getCommentOrName()).append("模块\", description = \"").append(tableMeta.getCommentOrName()).append("模块权限组\")\n");
         stringBuilder.append(String.format("public class %sController {\n\n", tableMeta.getUpperCamelCaseName()));
@@ -181,6 +181,7 @@ public class GenerateController extends BaseGenerator {
     }
 
     private void buildSave(StringBuilder stringBuilder, TableMeta tableMeta) {
+        if (tableMeta.getPrimaryKeyColumn() == null) return;
         LinkedHashMap<String, String> saveParamMap = new LinkedHashMap<>();
         saveParamMap.put(tableMeta.getLowerCamelCaseName(), String.format("%s实体信息", tableMeta.getCommentOrName()));
         String functionComment = getFunctionComment(String.format("保存%s信息", tableMeta.getCommentOrName()), saveParamMap, "void");

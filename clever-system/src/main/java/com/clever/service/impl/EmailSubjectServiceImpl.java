@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱主体服务
  *
  * @Author xixi
- * @Date 2023-12-20 05:02:03
+ * @Date 2023-12-20 05:08:09
  */
 @Service
 public class EmailSubjectServiceImpl implements EmailSubjectService {
