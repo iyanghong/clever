@@ -3,11 +3,13 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.clever.mapper.PermissionMapper;
@@ -159,5 +161,20 @@ public class PermissionServiceImpl implements PermissionService {
     public void deleteByGroupId(String groupId, OnlineUser onlineUser) {
         permissionMapper.delete(new QueryWrapper<Permission>().eq("group_id", groupId));
         log.info("系统权限, 系统权限信息根据权限组id删除成功: userId={}, groupId={}", onlineUser.getId(), groupId);
+    }
+
+    /**
+     * 根据角色列表获取权限列表
+     *
+     * @param roles 角色列表
+     * @return List<String> 权限列表
+     */
+    @Override
+    public List<String> selectPermissionByRoles(List<Role> roles) {
+        List<String> roleIds = new ArrayList<>(roles.size());
+        for (Role role : roles) {
+            roleIds.add(role.getId());
+        }
+        return permissionMapper.selectPermissionsByRoles(roleIds);
     }
 }

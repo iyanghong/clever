@@ -2,7 +2,11 @@ package com.clever.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.SystemConfigConstant;
 import com.clever.bean.model.OnlineUser;
+import com.clever.enums.SystemConfigType;
+import com.clever.service.RedisService;
+import com.clever.util.DesUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +33,8 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Resource
     private SystemConfigMapper systemConfigMapper;
-
+    @Resource
+    private RedisService redis;
     /**
      * 分页查询列表
      *
@@ -69,7 +74,17 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     public SystemConfig selectById(String id) {
         return systemConfigMapper.selectById(id);
     }
-
+    /**
+     * 根据配置code获取信息
+     *
+     * @param code 配置code
+     * @return SystemConfig system_config信息
+     */
+    @Override
+    public SystemConfig selectByCode(Integer platformId, String code) {
+        QueryWrapper<SystemConfig> queryWrapper = new QueryWrapper<SystemConfig>().eq("code", code).eq("platform_id", platformId);
+        return systemConfigMapper.selectOne(queryWrapper);
+    }
     /**
      * 根据平台ID获取列表
      *
@@ -89,6 +104,14 @@ public class SystemConfigServiceImpl implements SystemConfigService {
      */
     @Override
     public void save(SystemConfig systemConfig, OnlineUser onlineUser) {
+        //如果是加密类型，先加密再入库
+        if (systemConfig.getType().equals(SystemConfigType.ENCRYPT_STRING.type)) {
+            SystemConfig oldConfig = this.selectByCode(systemConfig.getPlatformId(), systemConfig.getCode());
+            //防止重复加密
+            if (oldConfig == null || !oldConfig.getValue().equals(systemConfig.getValue())) {
+                systemConfig.setValue(DesUtil.safeEncrypt(systemConfig.getValue(), SystemConfigConstant.ENCRYPTION_KEY));
+            }
+        }
         if (StringUtils.isBlank(systemConfig.getId())) {
             systemConfigMapper.insert(systemConfig);
             log.info(", 信息创建成功: userId={}, systemConfigId={}", onlineUser.getId(), systemConfig.getId());
@@ -132,5 +155,20 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     public void deleteByPlatformId(String platformId, OnlineUser onlineUser) {
         systemConfigMapper.delete(new QueryWrapper<SystemConfig>().eq("platform_id", platformId));
         log.info(", 信息根据平台ID删除成功: userId={}, platformId={}", onlineUser.getId(), platformId);
+    }
+
+
+    /**
+     * 更新指定code的缓存
+     *
+     * @param platformId 平台ID
+     * @param code       配置code
+     */
+    @Override
+    public void updateSysConfigCache(Integer platformId, String code) {
+        SystemConfig systemConfig = systemConfigMapper.selectOne(new QueryWrapper<SystemConfig>().eq("code", code).eq("platform_id", platformId));
+        if (systemConfig != null) {
+            redis.setString(systemConfig.getCode(), systemConfig);
+        }
     }
 }

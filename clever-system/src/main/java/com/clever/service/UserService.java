@@ -78,4 +78,13 @@ public interface UserService {
      * @param onlineUser 当前登录用户
      */
     void deleteByDiskId(String diskId, OnlineUser onlineUser);
+    /**
+     * 用户登录
+     *
+     * @param account  账户(可为邮箱或者系统账号)
+     * @param password 密码
+     * @return user
+     */
+    OnlineUser login(String account, String password);
+
 }

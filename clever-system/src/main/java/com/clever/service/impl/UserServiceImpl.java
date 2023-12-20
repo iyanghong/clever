@@ -2,19 +2,33 @@ package com.clever.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.SystemConfigConstant;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.Role;
+import com.clever.bean.system.SystemConfig;
+import com.clever.constant.CacheConstant;
+import com.clever.enums.UserStatus;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
+import com.clever.service.*;
+import com.clever.util.RegularUtil;
+import com.clever.util.SpringUtil;
+import com.clever.util.StringEncryptUtil;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.clever.mapper.UserMapper;
 import com.clever.bean.system.User;
-import com.clever.service.UserService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户服务
@@ -29,6 +43,16 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private RedisService redis;
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private PermissionService permissionService;
+
+    @Resource
+    private UserStatusLogService userStatusLogService;
 
     /**
      * 分页查询用户列表
@@ -144,5 +168,89 @@ public class UserServiceImpl implements UserService {
     public void deleteByDiskId(String diskId, OnlineUser onlineUser) {
         userMapper.delete(new QueryWrapper<User>().eq("disk_id", diskId));
         log.info("用户, 用户信息根据磁盘id删除成功: userId={}, diskId={}", onlineUser.getId(), diskId);
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param account  账户(可为邮箱或者系统账号)
+     * @param password 密码
+     * @return user
+     */
+    @Override
+    public OnlineUser login(String account, String password) {
+        Date now = new Date();
+        HttpServletRequest request = SpringUtil.getRequest();
+        String ip = request.getRemoteAddr();
+        log.info("用户登录, 用户开始登陆: account={}, ip={}", account, ip);
+        //连续密码错误检查
+        String passwordErrorManyKey = redis.formatKey("User", "passwordErrorMany", account);
+        if (StringUtils.isNotBlank(redis.getString(passwordErrorManyKey))) {
+            throw new BaseException(ConstantException.USER_PASSWORD_ERROR_SO_MANY);
+        }
+        // 判断用户使用什么登录
+        String loginField = "account";
+        if (RegularUtil.isMatching(RegularUtil.REGULAR_EMAIL, account)) {
+            loginField = "email"; // 使用邮箱登录
+        } else if (RegularUtil.isMatching(RegularUtil.REGULAR_PHONE, account)) {
+            loginField = "phone"; // 使用手机登录
+        }
+
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq(loginField, account).between("status", UserStatus.AVAILABLE.getStatus(), UserStatus.VIOLATION.getStatus()));
+        //账号不存在
+        if (user == null) {
+            log.error("用户登录, 用户不存在: account={}, ip={}", account, ip);
+            throw new BaseException(ConstantException.USER_ACCOUNT_NOT_FOUND);
+        }
+        // 密码不正确
+        if (!StringEncryptUtil.sha256Encrypt(password).equals(user.getPassword())) {
+            log.error("用户登录, 密码不正确: account={}, ip={}", account, ip);
+            SystemConfig systemConfig = redis.getString(SystemConfigConstant.USER_LOGIN_MAX_ERROR_COUNT);
+            int maxErrorNum = 5;
+            if (systemConfig != null && systemConfig.isEnable()) {
+                maxErrorNum = Integer.parseInt(systemConfig.getValue());
+            }
+            if (user.getPasswordErrorNum() < maxErrorNum) {
+                userMapper.updatePasswordErrorCount(user.getId());
+                throw new BaseException(ConstantException.USER_LOGIN_PASSWORD_ERROR);
+            } else {
+                //错误次数过多设置30分钟登录限制
+                redis.setString(passwordErrorManyKey, user.getAccount(), 60 * 30);
+                redis.setString(passwordErrorManyKey, user.getEmail(), 60 * 30);
+                Date duration = DateUtils.addMinutes(now, 30);
+                userStatusLogService.logUserStatusChange(user.getId(), UserStatus.FREEZE.getStatus(), duration, "用户登录密码错误次数过多");
+                log.error("用户登录, 用户密码错误次数过多, 已锁定: account={}, ip={}", account, ip);
+                throw new BaseException(ConstantException.USER_LOGIN_PASSWORD_ERROR);
+            }
+        }
+
+        //删除限制登录缓存
+        redis.delKeys(passwordErrorManyKey);
+        // 生成token
+        String token = String.format("%s-%s", user.getId(), SpringUtil.getUuid());
+        // 更新用户登录时间
+        user.setLastLoginTime(now);
+        // 更新用户登录ip
+        user.setLoginIp(ip);
+        // 重置错误次数
+        user.setPasswordErrorNum(0);
+        // 获取用户角色
+        List<Role> roles = roleService.selectRolesByUserId(user.getId());
+        // 获取用户权限
+        List<String> permissions = permissionService.selectPermissionByRoles(roles);
+        // 创建在线用户
+        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions);
+        // 设置在线用户
+        redis.setString(CacheConstant.getOnlineKeyName(token), onlineUser, user.getOnlineTime(), TimeUnit.HOURS);
+
+        // 更新用户信息
+        User updateUser = new User();
+        updateUser.setId(user.getId());
+        updateUser.setLastLoginTime(now);
+        updateUser.setLoginIp(ip);
+        updateUser.setPasswordErrorNum(0);
+        userMapper.updateById(updateUser);
+        log.info("用户登录, 用户登录成功: account={}, ip={}", account, ip);
+        return onlineUser;
     }
 }

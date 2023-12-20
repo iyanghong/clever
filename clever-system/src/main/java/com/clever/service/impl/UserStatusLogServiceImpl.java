@@ -3,11 +3,14 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.User;
+import com.clever.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.clever.mapper.UserStatusLogMapper;
@@ -30,6 +33,8 @@ public class UserStatusLogServiceImpl implements UserStatusLogService {
     @Resource
     private UserStatusLogMapper userStatusLogMapper;
 
+    @Resource
+    private UserMapper userMapper;
     /**
      * 分页查询列表
      *
@@ -128,5 +133,33 @@ public class UserStatusLogServiceImpl implements UserStatusLogService {
     public void deleteByUserId(String userId, OnlineUser onlineUser) {
         userStatusLogMapper.delete(new QueryWrapper<UserStatusLog>().eq("user_id", userId));
         log.info(", 信息根据用户删除成功: userId={}, userId={}", onlineUser.getId(), userId);
+    }
+
+
+    /**
+     * 记录用户状态变更
+     *
+     * @param userId       用户
+     * @param changeStatus 更改的壮观
+     * @param duration     结束时间
+     * @param remake       备注
+     */
+    @Override
+    public void logUserStatusChange(String userId, Integer changeStatus, Date duration, String remake) {
+        User user = userMapper.selectById(userId);
+        UserStatusLog statusLog = new UserStatusLog();
+        statusLog.setUserId(userId);
+        statusLog.setDuration(duration);
+        statusLog.setRemark(remake);
+        statusLog.setCurrentStatus(user.getStatus());
+        statusLog.setChangeStatus(changeStatus);
+        //记录状态变更记录
+        userStatusLogMapper.insert(statusLog);
+        //修改用户状态
+        User updateUser = new User();
+        updateUser.setId(user.getId());
+        updateUser.setStatus(changeStatus);
+        userMapper.updateById(updateUser);
+        log.info("用户状态记录, 用户状态修改: user={}, currentStatus={}, changeStatus={}", userId, user.getStatus(), changeStatus);
     }
 }
