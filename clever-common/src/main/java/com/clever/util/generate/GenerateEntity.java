@@ -98,7 +98,7 @@ public class GenerateEntity extends BaseGenerator {
                         sb.append("\t@TableId\n");
                     }
                 }
-                if (columnMeta.isHasNeedNotBlankValidate() && (!config.getAutoInsertFillField().contains(columnMeta.getColumnName()) || !config.getAutoUpdateFillField().contains(columnMeta.getColumnName()))) {
+                if (columnMeta.isHasNeedNotBlankValidate() && (!config.getAutoInsertFillField().contains(columnMeta.getColumnName()) && !config.getAutoUpdateFillField().contains(columnMeta.getColumnName()))) {
                     String name = columnMeta.getColumnComment();
                     if (StringUtils.isNotBlank(name)){
                         name = name.replaceAll("：",":");
