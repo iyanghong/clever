@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @create: 2023-12-13 16:34
  **/
 public class Result<T> implements Serializable {
+    public static final int SUCCESS_CODE = 0;
     /**
      * 状态码
      */
@@ -25,15 +26,15 @@ public class Result<T> implements Serializable {
     }
 
     public Result(int code) {
-        this(0, null, null);
+        this(SUCCESS_CODE, null, null);
     }
 
     public Result(T data) {
-        this(0, data, "操作成功");
+        this(SUCCESS_CODE, data, "操作成功");
     }
 
     public Result(T data, String message) {
-        this(0, data, message);
+        this(SUCCESS_CODE, data, message);
     }
 
     public Result(int code, String message) {
@@ -41,7 +42,7 @@ public class Result<T> implements Serializable {
     }
 
     public static Result<String> ofMessage(String message) {
-        return new Result<>(0, null, message);
+        return new Result<>(SUCCESS_CODE, null, message);
     }
 
     public static Result<String> ofFail(int code, String message) {
@@ -49,19 +50,19 @@ public class Result<T> implements Serializable {
     }
 
     public static Result<String> ofSuccess(String message) {
-        return new Result<>(0, null, message);
+        return new Result<>(SUCCESS_CODE, null, message);
     }
 
     public static Result<String> ofSuccess() {
-        return new Result<>(0, null, "操作成功");
+        return new Result<>(SUCCESS_CODE, null, "操作成功");
     }
 
     public static Result<Object> ofSuccess(Object data) {
-        return new Result<>(0, data, "操作成功");
+        return new Result<>(SUCCESS_CODE, data, "操作成功");
     }
 
     public static Result<Object> ofSuccess(String message, Object data) {
-        return new Result<>(0, data, message);
+        return new Result<>(SUCCESS_CODE, data, message);
     }
 
     public Result(int code, T data, String message) {
