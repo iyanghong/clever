@@ -9,7 +9,7 @@ import com.clever.bean.system.Role;
  * 系统角色Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {

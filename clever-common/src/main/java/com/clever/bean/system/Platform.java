@@ -4,106 +4,110 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+
 /**
  * 平台
+ *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 public class Platform implements Serializable {
 
-	/**
-	 * 平台id
-	 */
-	@TableId
-	private Integer id;
-	/**
-	 * 平台名称
-	 */
-	private String name;
-	/**
-	 * 描述
-	 */
-	@NotBlank(message = "描述不能为空")
-	private String description;
-	/**
-	 * 平台管理人
-	 */
-	private String master;
-	/**
-	 * 创建时间
-	 */
-	private Date createdAt;
-	/**
-	 * 修改时间
-	 */
-	private Date updatedAt;
+    /**
+     * 平台id
+     */
+    @TableId
+    private Integer id;
+    /**
+     * 平台名称
+     */
+    @NotBlank(message = "平台名称不能为空")
+    private String name;
+    /**
+     * 描述
+     */
+    private String description;
+    /**
+     * 平台管理人
+     */
+    @NotBlank(message = "平台管理人不能为空")
+    private String master;
+    /**
+     * 创建时间
+     */
+    private Date createdAt;
+    /**
+     * 修改时间
+     */
+    private Date updatedAt;
 
-	/**
-	 * 平台id
-	 */
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * 平台id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	/**
-	 * 平台名称
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * 平台名称
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * 描述
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * 描述
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/**
-	 * 平台管理人
-	 */
-	public String getMaster() {
-		return master;
-	}
+    /**
+     * 平台管理人
+     */
+    public String getMaster() {
+        return master;
+    }
 
-	public void setMaster(String master) {
-		this.master = master;
-	}
+    public void setMaster(String master) {
+        this.master = master;
+    }
 
-	/**
-	 * 创建时间
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * 创建时间
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * 修改时间
-	 */
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    /**
+     * 修改时间
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
 }

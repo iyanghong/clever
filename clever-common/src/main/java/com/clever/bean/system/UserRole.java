@@ -4,74 +4,80 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
+
 /**
  * 用户-角色
+ *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 public class UserRole implements Serializable {
 
-	/**
-	 * 用户角色中间表
-	 */
-	@TableId(type = IdType.ASSIGN_ID)
-	private String id;
-	/**
-	 * 用户
-	 */
-	private String userId;
-	/**
-	 * 角色
-	 */
-	private String roleId;
-	/**
-	 * 授权时间
-	 */
-	private Date createdAt;
+    /**
+     * 用户角色中间表
+     */
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
+    /**
+     * 用户
+     */
+    @NotBlank(message = "用户不能为空")
+    private String userId;
+    /**
+     * 角色
+     */
+    @NotBlank(message = "角色不能为空")
+    private String roleId;
+    /**
+     * 授权时间
+     */
+    private Date createdAt;
 
-	/**
-	 * 用户角色中间表
-	 */
-	public String getId() {
-		return id;
-	}
+    /**
+     * 用户角色中间表
+     */
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * 用户
-	 */
-	public String getUserId() {
-		return userId;
-	}
+    /**
+     * 用户
+     */
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	/**
-	 * 角色
-	 */
-	public String getRoleId() {
-		return roleId;
-	}
+    /**
+     * 角色
+     */
+    public String getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
-	/**
-	 * 授权时间
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * 授权时间
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
 }

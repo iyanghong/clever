@@ -80,7 +80,7 @@ public class WebConfigurer implements WebMvcConfigurer {
      * @return id生成器
      */
     @Bean
-    public IdentifierGenerator identifierGenerator(){
+    public IdentifierGenerator identifierGenerator() {
         return new CustomIdGenerator();
     }
 }

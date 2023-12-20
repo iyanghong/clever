@@ -9,7 +9,7 @@ import com.clever.bean.system.EmailTemplate;
  * 邮箱模板Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 @Mapper
 public interface EmailTemplateMapper extends BaseMapper<EmailTemplate> {

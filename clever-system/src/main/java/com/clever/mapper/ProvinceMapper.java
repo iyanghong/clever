@@ -9,7 +9,7 @@ import com.clever.bean.system.Province;
  * 省份Mapper
  *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 @Mapper
 public interface ProvinceMapper extends BaseMapper<Province> {

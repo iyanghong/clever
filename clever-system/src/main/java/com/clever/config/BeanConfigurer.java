@@ -20,7 +20,7 @@ import javax.validation.ValidatorFactory;
 public class BeanConfigurer {
 
     @Bean
-    public ModelFieldAutoFillHandler metaObjectHandler(){
+    public ModelFieldAutoFillHandler metaObjectHandler() {
         return new ModelFieldAutoFillHandler();
     }
 

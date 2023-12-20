@@ -6,199 +6,201 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+
 /**
  * 导航菜单
+ *
  * @Author xixi
- * @Date 2023-12-19 05:52:43
+ * @Date 2023-12-20 09:27:12
  */
 public class Menu implements Serializable {
 
-	/**
-	 * id
-	 */
-	@TableId(type = IdType.ASSIGN_ID)
-	private String id;
-	/**
-	 * 平台ID
-	 */
-	private Integer platformId;
-	/**
-	 * 菜单名称
-	 */
-	private String name;
-	/**
-	 * 菜单Code
-	 */
-	@NotBlank(message = "菜单Code不能为空")
-	private String code;
-	/**
-	 * 菜单图标
-	 */
-	@NotBlank(message = "菜单图标不能为空")
-	private String icon;
-	/**
-	 * 菜单路径
-	 */
-	@NotBlank(message = "菜单路径不能为空")
-	private String view;
-	/**
-	 * 打开方式,1-当前标签,2-新标签
-	 */
-	private Integer target;
-	/**
-	 * 上级菜单
-	 */
-	private String parent;
-	/**
-	 * 权重
-	 */
-	private Integer sort;
-	/**
-	 * 创建人
-	 */
-	@TableField(value = "creator", fill = FieldFill.INSERT)
-	private String creator;
-	/**
-	 * 添加时间
-	 */
-	private Date createdAt;
-	/**
-	 * 修改时间
-	 */
-	private Date updatedAt;
+    /**
+     * id
+     */
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
+    /**
+     * 平台ID
+     */
+    @NotBlank(message = "平台ID不能为空")
+    private Integer platformId;
+    /**
+     * 菜单名称
+     */
+    @NotBlank(message = "菜单名称不能为空")
+    private String name;
+    /**
+     * 菜单Code
+     */
+    private String code;
+    /**
+     * 菜单图标
+     */
+    private String icon;
+    /**
+     * 菜单路径
+     */
+    private String view;
+    /**
+     * 打开方式,1-当前标签,2-新标签
+     */
+    private Integer target;
+    /**
+     * 上级菜单
+     */
+    private String parent;
+    /**
+     * 权重
+     */
+    private Integer sort;
+    /**
+     * 创建人
+     */
+    @TableField(value = "creator", fill = FieldFill.INSERT)
+    private String creator;
+    /**
+     * 添加时间
+     */
+    private Date createdAt;
+    /**
+     * 修改时间
+     */
+    private Date updatedAt;
 
-	/**
-	 * id
-	 */
-	public String getId() {
-		return id;
-	}
+    /**
+     * id
+     */
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * 平台ID
-	 */
-	public Integer getPlatformId() {
-		return platformId;
-	}
+    /**
+     * 平台ID
+     */
+    public Integer getPlatformId() {
+        return platformId;
+    }
 
-	public void setPlatformId(Integer platformId) {
-		this.platformId = platformId;
-	}
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
+    }
 
-	/**
-	 * 菜单名称
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * 菜单名称
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * 菜单Code
-	 */
-	public String getCode() {
-		return code;
-	}
+    /**
+     * 菜单Code
+     */
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * 菜单图标
-	 */
-	public String getIcon() {
-		return icon;
-	}
+    /**
+     * 菜单图标
+     */
+    public String getIcon() {
+        return icon;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	/**
-	 * 菜单路径
-	 */
-	public String getView() {
-		return view;
-	}
+    /**
+     * 菜单路径
+     */
+    public String getView() {
+        return view;
+    }
 
-	public void setView(String view) {
-		this.view = view;
-	}
+    public void setView(String view) {
+        this.view = view;
+    }
 
-	/**
-	 * 打开方式,1-当前标签,2-新标签
-	 */
-	public Integer getTarget() {
-		return target;
-	}
+    /**
+     * 打开方式,1-当前标签,2-新标签
+     */
+    public Integer getTarget() {
+        return target;
+    }
 
-	public void setTarget(Integer target) {
-		this.target = target;
-	}
+    public void setTarget(Integer target) {
+        this.target = target;
+    }
 
-	/**
-	 * 上级菜单
-	 */
-	public String getParent() {
-		return parent;
-	}
+    /**
+     * 上级菜单
+     */
+    public String getParent() {
+        return parent;
+    }
 
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
 
-	/**
-	 * 权重
-	 */
-	public Integer getSort() {
-		return sort;
-	}
+    /**
+     * 权重
+     */
+    public Integer getSort() {
+        return sort;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	/**
-	 * 创建人
-	 */
-	public String getCreator() {
-		return creator;
-	}
+    /**
+     * 创建人
+     */
+    public String getCreator() {
+        return creator;
+    }
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
-	/**
-	 * 添加时间
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * 添加时间
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * 修改时间
-	 */
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    /**
+     * 修改时间
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
 }
