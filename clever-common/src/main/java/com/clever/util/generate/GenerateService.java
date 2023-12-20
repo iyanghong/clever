@@ -402,13 +402,13 @@ public class GenerateService extends BaseGenerator {
         // 将函数注释添加到接口构建器中
         interfaceBuilder.append("\n").append(functionComment);
         // 构建接口
-        interfaceBuilder.append(String.format("\tList<%s> getListBy%s(%s %s);\n", dtName, dtColumnName, columnMeta.getJavaType(), xtColumnName));
+        interfaceBuilder.append(String.format("\tList<%s> selectListBy%s(%s %s);\n", dtName, dtColumnName, columnMeta.getJavaType(), xtColumnName));
 
         // 将函数注释添加到实现构建器中
         implBuilder.append("\n").append(functionComment);
         // 构建实现
         implBuilder.append("\t@Override\n");
-        implBuilder.append(String.format("\tpublic List<%s> getListBy%s(%s %s) {\n", dtName, dtColumnName, columnMeta.getJavaType(), xtColumnName));
+        implBuilder.append(String.format("\tpublic List<%s> selectListBy%s(%s %s) {\n", dtName, dtColumnName, columnMeta.getJavaType(), xtColumnName));
         implBuilder.append(String.format("\t\treturn %sMapper.selectList(new QueryWrapper<%s>().eq(\"%s\", %s)", xtName, dtName, columnMeta.getColumnName(), xtColumnName));
 
         // 如果表元数据中存在主键列，则按照主键列进行排序
