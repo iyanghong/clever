@@ -166,7 +166,19 @@ CREATE TABLE IF NOT EXISTS permission
   COLLATE = utf8_general_ci COMMENT = '系统权限'
   ROW_FORMAT = DYNAMIC;
 
-
+CREATE TABLE IF NOT EXISTS role_permission
+(
+    id            varchar(36) NOT NULL COMMENT '角色权限中间表',
+    role_id       varchar(36) NOT NULL COMMENT '角色',
+    permission_id varchar(36) NOT NULL COMMENT '权限',
+    created_at    datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '授权时间',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX ROLE_IDX (role_id ASC) USING BTREE COMMENT '角色id索引',
+    INDEX PERMISSION_IDX (permission_id ASC) USING BTREE COMMENT '权限id索引'
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '角色-权限'
+  ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS user_status_log
 (

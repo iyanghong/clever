@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import com.clever.bean.system.Role;
 
+import java.util.List;
+
 
 /**
  * 系统角色Mapper
@@ -13,4 +15,5 @@ import com.clever.bean.system.Role;
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
+    List<Role> selectRolesByUserId(String userId);
 }

@@ -32,9 +32,17 @@ public interface SystemConfigService {
      * 根据配置id获取信息
      *
      * @param id 配置id
-     * @return List<SystemConfig> system_config信息
+     * @return SystemConfig system_config信息
      */
-    SystemConfig selectById(String id);
+    SystemConfig selectById(Integer platformId, String id);
+
+    /**
+     * 根据配置code获取信息
+     *
+     * @param code 配置code
+     * @return SystemConfig system_config信息
+     */
+    SystemConfig selectByCode(Integer platformId, String code);
 
     /**
      * 根据平台ID获取列表
@@ -75,4 +83,11 @@ public interface SystemConfigService {
      * @param onlineUser 当前登录用户
      */
     void deleteByPlatformId(String platformId, OnlineUser onlineUser);
+
+    /**
+     * 更新指定code的缓存
+     *
+     * @param code 配置code
+     */
+    void updateSysConfigCache(Integer platformId, String code);
 }

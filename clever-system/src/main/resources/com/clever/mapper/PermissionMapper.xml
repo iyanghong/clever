@@ -2,5 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clever.mapper.PermissionMapper">
-
+    <select id="selectPermissionsByRoles" resultType="java.lang.String">
+        select p.value
+        from role_permission rp
+        left join permission p on rp.permission = p.uuid
+        where rp.role in (
+        <foreach collection="roleIds" item="roleId" separator=",">
+            #{roleId}
+        </foreach>
+        ) group by p.uuid, p.value
+    </select>
 </mapper>
