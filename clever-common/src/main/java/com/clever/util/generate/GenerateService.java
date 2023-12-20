@@ -229,7 +229,7 @@ public class GenerateService extends BaseGenerator {
         // 遍历允许搜索的列
         for (ColumnMeta columnMeta : allowSearchColumns) {
             // 将允许搜索的列名添加到接口构建器中
-            interfaceBuilder.append(String.format(", String %s", toXTCamelCase(columnMeta.getColumnName())));
+            interfaceBuilder.append(String.format(", %s %s",columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
         }
 
         // 将接口构建器中的代码添加换行符
@@ -244,13 +244,17 @@ public class GenerateService extends BaseGenerator {
         // 遍历允许搜索的列
         for (ColumnMeta columnMeta : allowSearchColumns) {
             // 将允许搜索的列名添加到实现构建器中
-            implBuilder.append(String.format(", String %s", toXTCamelCase(columnMeta.getColumnName())));
+            implBuilder.append(String.format(", %s %s",columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
         }
         implBuilder.append(") {\n");
         implBuilder.append(String.format("\t\tQueryWrapper<%s> queryWrapper = new QueryWrapper<>();\n", upperCamelCaseName));
         // 遍历允许搜索的列
         for (ColumnMeta columnMeta : allowSearchColumns) {
-            implBuilder.append(String.format("\t\tif (StringUtils.isNotBlank(%s)) {\n", toXTCamelCase(columnMeta.getColumnName())));
+            if (columnMeta.getJavaType().equals("String")) {
+                implBuilder.append(String.format("\t\tif (StringUtils.isNotBlank(%s)) {\n", toXTCamelCase(columnMeta.getColumnName())));
+            }else{
+                implBuilder.append(String.format("\t\tif (%s != null) {\n", toXTCamelCase(columnMeta.getColumnName())));
+            }
             implBuilder.append(String.format("\t\t\tqueryWrapper.eq(\"%s\", %s);\n", columnMeta.getColumnName(), toXTCamelCase(columnMeta.getColumnName())));
             implBuilder.append("\t\t}\n");
         }
@@ -273,7 +277,7 @@ public class GenerateService extends BaseGenerator {
         String xtColumnName = toXTCamelCase(primaryKeyColumn.getColumnName());
         LinkedHashMap<String, String> columnMap = new LinkedHashMap<>();
         columnMap.put(xtColumnName, primaryKeyColumn.getColumnComment());
-        String functionComment = getFunctionComment(String.format("根据%s获取%s信息", StringUtils.isNotBlank(primaryKeyColumn.getColumnComment()) ? primaryKeyColumn.getColumnComment() : primaryKeyColumn.getColumnName(), tableMeta.getTableComment()), columnMap, String.format("List<%s> %s信息", upperCamelCaseName, StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : tableMeta.getTableName()));
+        String functionComment = getFunctionComment(String.format("根据%s获取%s信息", StringUtils.isNotBlank(primaryKeyColumn.getColumnComment()) ? primaryKeyColumn.getColumnComment() : primaryKeyColumn.getColumnName(), tableMeta.getTableComment()), columnMap, String.format("%s %s信息", upperCamelCaseName, StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : tableMeta.getTableName()));
 
         interfaceBuilder.append("\n").append(functionComment);
         interfaceBuilder.append(String.format("\t%s selectById(%s %s);\n", upperCamelCaseName, primaryKeyColumn.getJavaType(), xtColumnName));
