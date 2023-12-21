@@ -87,6 +87,7 @@ public class GenerateController extends BaseGenerator {
         stringBuilder.append("import java.util.List;\n");
         stringBuilder.append(String.format("import %s.%s;\n", config.getEntityPackageName(), tableMeta.getUpperCamelCaseName()));
         stringBuilder.append(String.format("import %s.%sService;\n", config.getServicePackageName(), tableMeta.getUpperCamelCaseName()));
+        stringBuilder.append("import org.springframework.validation.annotation.Validated;\n");
         stringBuilder.append("import org.springframework.web.bind.annotation.*;\n");
         stringBuilder.append("\nimport javax.annotation.Resource;\n");
 
@@ -188,7 +189,7 @@ public class GenerateController extends BaseGenerator {
         stringBuilder.append("\n").append(functionComment);
         stringBuilder.append("\t@PostMapping(\"/save\")\n");
         stringBuilder.append("\t@Auth(value = \"").append(config.getAppName()).append(".").append(tableMeta.getXtName()).append(".save\", name = \"保存").append(tableMeta.getCommentOrName()).append("\", description = \"保存").append(tableMeta.getCommentOrName()).append("信息接口\")\n");
-        stringBuilder.append(String.format("\tpublic Result<String> save(%s %s) {\n", tableMeta.getUpperCamelCaseName(), tableMeta.getLowerCamelCaseName()));
+        stringBuilder.append(String.format("\tpublic Result<String> save(@Validated %s %s) {\n", tableMeta.getUpperCamelCaseName(), tableMeta.getLowerCamelCaseName()));
         stringBuilder.append("\t\tOnlineUser onlineUser = SpringUtil.getOnlineUser();\n");
         stringBuilder.append(String.format("\t\t%sService.save(%s, onlineUser);\n", tableMeta.getLowerCamelCaseName(), tableMeta.getLowerCamelCaseName()));
         stringBuilder.append("\t\treturn Result.ofSuccess(\"保存成功\");\n");
