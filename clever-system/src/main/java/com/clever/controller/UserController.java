@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 用户接口
@@ -23,6 +24,7 @@ import javax.annotation.Resource;
  * @Date 2023-12-21 05:07:38
  */
 @RestController
+@Validated
 @RequestMapping("/user")
 @AuthGroup(name = "用户模块", description = "用户模块权限组")
 public class UserController {
@@ -98,6 +100,19 @@ public class UserController {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         userService.delete(id, onlineUser);
         return Result.ofSuccess("删除成功");
+    }
+
+    /**
+     * 登录
+     *
+     * @param account    账号
+     * @param password   密码
+     * @param platformId 平台id
+     * @return 登录用户信息
+     */
+    @PostMapping("/login")
+    public Result<OnlineUser> login(@NotBlank(message = "登录账号不能为空") String account, @NotBlank(message = "登录密码不能为空") String password, Integer platformId) {
+        return new Result<OnlineUser>(userService.login(account, password, platformId), "登录成功");
     }
 
 }

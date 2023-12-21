@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.SystemConfigConstant;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.Platform;
 import com.clever.bean.system.Role;
 import com.clever.bean.system.SystemConfig;
 import com.clever.constant.CacheConstant;
@@ -53,6 +54,12 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserStatusLogService userStatusLogService;
+
+    @Resource
+    private PlatformService platformService;
+
+    @Resource
+    private SystemConfigService systemConfigService;
 
     /**
      * 分页查询用户列表
@@ -173,12 +180,13 @@ public class UserServiceImpl implements UserService {
     /**
      * 用户登录
      *
-     * @param account  账户(可为邮箱或者系统账号)
-     * @param password 密码
+     * @param account    账户(可为邮箱或者系统账号)
+     * @param password   密码
+     * @param platformId 平台id
      * @return user
      */
     @Override
-    public OnlineUser login(String account, String password) {
+    public OnlineUser login(String account, String password, Integer platformId) {
         Date now = new Date();
         HttpServletRequest request = SpringUtil.getRequest();
         String ip = request.getRemoteAddr();
@@ -202,10 +210,19 @@ public class UserServiceImpl implements UserService {
             log.error("用户登录, 用户不存在: account={}, ip={}", account, ip);
             throw new BaseException(ConstantException.USER_ACCOUNT_NOT_FOUND);
         }
+        List<Platform> platformList = platformService.selectByUserId(user.getId());
+
         // 密码不正确
         if (!StringEncryptUtil.sha256Encrypt(password).equals(user.getPassword())) {
-            log.error("用户登录, 密码不正确: account={}, ip={}", account, ip);
-            SystemConfig systemConfig = redis.getString(SystemConfigConstant.USER_LOGIN_MAX_ERROR_COUNT);
+            log.error("用户登录, 密码不正确: account={}, password={}, ip={}", account,StringEncryptUtil.sha256Encrypt(password), ip);
+            if (platformId == null) {
+                if (platformList != null && !platformList.isEmpty()) {
+                    platformId = platformList.get(0).getId();
+                } else {
+                    platformId = -1;
+                }
+            }
+            SystemConfig systemConfig = systemConfigService.selectByCode(platformId, SystemConfigConstant.USER_LOGIN_MAX_ERROR_COUNT);
             int maxErrorNum = 5;
             if (systemConfig != null && systemConfig.ifEnable()) {
                 maxErrorNum = Integer.parseInt(systemConfig.getValue());
@@ -239,7 +256,7 @@ public class UserServiceImpl implements UserService {
         // 获取用户权限
         List<String> permissions = permissionService.selectPermissionByRoles(roles);
         // 创建在线用户
-        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions);
+        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions, platformList);
         // 设置在线用户
         redis.setString(CacheConstant.getOnlineKeyName(token), onlineUser, user.getOnlineTime(), TimeUnit.HOURS);
 

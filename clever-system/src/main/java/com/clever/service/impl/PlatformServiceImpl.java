@@ -98,4 +98,15 @@ public class PlatformServiceImpl implements PlatformService {
         platformMapper.deleteBatchIds(ids);
         log.info("平台, 平台信息批量删除成功: userId={}, count={}, platformIds={}", onlineUser.getId(), ids.size(), ids.toString());
     }
+
+    /**
+     * 根据用户id获取平台列表
+     *
+     * @param userId 用户id
+     * @return List<Platform> 平台列表
+     */
+    @Override
+    public List<Platform> selectByUserId(String userId) {
+        return platformMapper.selectByUserId(userId);
+    }
 }

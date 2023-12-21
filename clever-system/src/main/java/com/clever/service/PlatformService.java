@@ -56,4 +56,12 @@ public interface PlatformService {
      * @param onlineUser 当前登录用户
      */
     void deleteBatchIds(List<Integer> ids, OnlineUser onlineUser);
+
+    /**
+     * 根据用户id查询平台列表
+     *
+     * @param userId 用户id
+     * @return 平台列表
+     */
+    List<Platform> selectByUserId(String userId);
 }

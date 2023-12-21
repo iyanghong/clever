@@ -171,6 +171,7 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public List<String> selectPermissionByRoles(List<Role> roles) {
+        if (roles.isEmpty()) return new ArrayList<>(0);
         List<String> roleIds = new ArrayList<>(roles.size());
         for (Role role : roles) {
             roleIds.add(role.getId());

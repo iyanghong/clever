@@ -1,9 +1,11 @@
 package com.clever.bean.model;
 
+import com.clever.bean.system.Platform;
 import com.clever.bean.system.Role;
 import com.clever.bean.system.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,10 +112,15 @@ public class OnlineUser implements Serializable {
      */
     private List<String> permissions;
 
+    /**
+     * 所有平台信息
+     */
+    private List<Platform> platforms;
+
     public OnlineUser() {
     }
 
-    public OnlineUser(User user, String token, List<Role> roles, List<String> permissions) {
+    public OnlineUser(User user, String token, List<Role> roles, List<String> permissions, List<Platform> platforms) {
         this.id = user.getId();
         this.account = user.getAccount();
         this.email = user.getEmail();
@@ -140,6 +147,7 @@ public class OnlineUser implements Serializable {
         this.token = token;
         this.roles = roles;
         this.permissions = permissions;
+        this.platforms = platforms;
     }
 
 
@@ -333,5 +341,13 @@ public class OnlineUser implements Serializable {
 
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
     }
 }
