@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱模板接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/emailTemplate")
@@ -97,7 +97,7 @@ public class EmailTemplateController {
     }
 
     /**
-     * 根据id获取邮箱模板列表
+     * 根据id删除邮箱模板信息
      *
      * @param id id
      */

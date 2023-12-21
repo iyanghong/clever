@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱主体接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/emailSubject")
@@ -85,7 +85,7 @@ public class EmailSubjectController {
     }
 
     /**
-     * 根据id获取邮箱主体列表
+     * 根据id删除邮箱主体信息
      *
      * @param id id
      */

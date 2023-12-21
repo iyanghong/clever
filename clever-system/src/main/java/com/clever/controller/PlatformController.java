@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 平台接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/platform")
@@ -70,7 +70,7 @@ public class PlatformController {
     }
 
     /**
-     * 根据平台id获取平台列表
+     * 根据平台id删除平台信息
      *
      * @param id 平台id
      */

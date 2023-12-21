@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * UserStatusLog接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/userStatusLog")
@@ -84,7 +84,7 @@ public class UserStatusLogController {
     }
 
     /**
-     * 根据自增id获取user_status_log列表
+     * 根据自增id删除user_status_log信息
      *
      * @param id 自增id
      */

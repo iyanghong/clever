@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/permission")
@@ -98,7 +98,7 @@ public class PermissionController {
     }
 
     /**
-     * 根据权限id获取系统权限列表
+     * 根据权限id删除系统权限信息
      *
      * @param id 权限id
      */

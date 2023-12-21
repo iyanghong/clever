@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统角色接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/role")
@@ -83,7 +83,7 @@ public class RoleController {
     }
 
     /**
-     * 根据角色id获取系统角色列表
+     * 根据角色id删除系统角色信息
      *
      * @param id 角色id
      */

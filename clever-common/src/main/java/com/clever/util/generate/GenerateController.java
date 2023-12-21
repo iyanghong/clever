@@ -201,7 +201,7 @@ public class GenerateController extends BaseGenerator {
         if (primaryKeyColumn == null) return;
         LinkedHashMap<String, String> deleteParamMap = new LinkedHashMap<>();
         deleteParamMap.put(primaryKeyColumn.getLowerCamelCaseName(), primaryKeyColumn.getCommentOrLowerCamelCaseName());
-        String functionComment = getFunctionComment(String.format("根据%s获取%s列表", primaryKeyColumn.getCommentOrName(), tableMeta.getCommentOrName()), deleteParamMap, "void");
+        String functionComment = getFunctionComment(String.format("根据%s删除%s信息", primaryKeyColumn.getCommentOrName(), tableMeta.getCommentOrName()), deleteParamMap, "void");
         stringBuilder.append("\n").append(functionComment);
         stringBuilder.append("\t@DeleteMapping(\"/delete/{").append(primaryKeyColumn.getLowerCamelCaseName()).append("}\")\n");
         stringBuilder.append("\t@Auth(value = \"").append(config.getAppName()).append(".").append(tableMeta.getXtName()).append(".delete\", name = \"删除").append(tableMeta.getCommentOrName()).append("\", description = \"删除").append(tableMeta.getCommentOrName()).append("信息接口\")\n");

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统配置接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/systemConfig")
@@ -60,6 +60,18 @@ public class SystemConfigController {
     }
 
     /**
+     * 根据配置code和平台id获取系统配置信息
+     *
+     * @param platformId 平台ID
+     * @param code       缓存key
+     * @return 系统配置信息
+     */
+    @GetMapping("/getByCode/{platformId}/{code}")
+    public Result<SystemConfig> selectByCode(@PathVariable("platformId") Integer platformId, @PathVariable("code") String code) {
+        return new Result<>(systemConfigService.selectByCode(platformId, code), "查询成功");
+    }
+
+    /**
      * 根据平台ID获取系统配置列表
      *
      * @param platformId 平台ID
@@ -85,7 +97,7 @@ public class SystemConfigController {
     }
 
     /**
-     * 根据配置id获取系统配置列表
+     * 根据配置id删除系统配置信息
      *
      * @param id 配置id
      */

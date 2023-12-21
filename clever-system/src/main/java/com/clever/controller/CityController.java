@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城市接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/city")
@@ -83,7 +83,7 @@ public class CityController {
     }
 
     /**
-     * 根据城市编号获取城市列表
+     * 根据城市编号删除城市信息
      *
      * @param id 城市编号
      */

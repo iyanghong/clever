@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-平台接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/userPlatform")
@@ -95,7 +95,7 @@ public class UserPlatformController {
     }
 
     /**
-     * 根据id获取用户-平台列表
+     * 根据id删除用户-平台信息
      *
      * @param id id
      */

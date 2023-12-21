@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-角色接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/userRole")
@@ -95,7 +95,7 @@ public class UserRoleController {
     }
 
     /**
-     * 根据用户角色中间表获取用户-角色列表
+     * 根据用户角色中间表删除用户-角色信息
      *
      * @param id 用户角色中间表
      */

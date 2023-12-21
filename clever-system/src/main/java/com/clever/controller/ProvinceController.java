@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 省份接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/province")
@@ -70,7 +70,7 @@ public class ProvinceController {
     }
 
     /**
-     * 根据省份编号获取省份列表
+     * 根据省份编号删除省份信息
      *
      * @param id 省份编号
      */

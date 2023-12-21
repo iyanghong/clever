@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户历史头像表接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/userHistoryHeader")
@@ -95,7 +95,7 @@ public class UserHistoryHeaderController {
     }
 
     /**
-     * 根据历史头像id获取用户历史头像表列表
+     * 根据历史头像id删除用户历史头像表信息
      *
      * @param id 历史头像id
      */

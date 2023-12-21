@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 第三方平台账号接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/thirdAccount")
@@ -97,7 +97,7 @@ public class ThirdAccountController {
     }
 
     /**
-     * 根据id获取第三方平台账号列表
+     * 根据id删除第三方平台账号信息
      *
      * @param id id
      */

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 导航菜单接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/menu")
@@ -84,7 +84,7 @@ public class MenuController {
     }
 
     /**
-     * 根据id获取导航菜单列表
+     * 根据id删除导航菜单信息
      *
      * @param id id
      */

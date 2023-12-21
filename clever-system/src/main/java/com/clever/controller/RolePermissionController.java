@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色-权限接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/rolePermission")
@@ -95,7 +95,7 @@ public class RolePermissionController {
     }
 
     /**
-     * 根据角色权限中间表获取角色-权限列表
+     * 根据角色权限中间表删除角色-权限信息
      *
      * @param id 角色权限中间表
      */

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城区地址接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/area")
@@ -96,7 +96,7 @@ public class AreaController {
     }
 
     /**
-     * 根据地区编号获取城区地址列表
+     * 根据地区编号删除城区地址信息
      *
      * @param id 地区编号
      */

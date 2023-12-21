@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色菜单接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:41:46
+ * @Date 2023-12-21 05:07:38
  */
 @RestController
 @RequestMapping("/roleMenu")
@@ -95,7 +95,7 @@ public class RoleMenuController {
     }
 
     /**
-     * 根据编号获取角色菜单列表
+     * 根据编号删除角色菜单信息
      *
      * @param id 编号
      */
