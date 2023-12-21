@@ -45,10 +45,10 @@ public class SystemConfigServiceImpl implements SystemConfigService {
         for (SystemConfig config : configs) {
             // 初始化顶层全局config
             if (config.getPlatformId() == -1) {
-                redis.setString(String.format("config:%s", config.getCode()), config);
+                redis.setString(CacheConstant.formatKey("config", config.getCode()), config);
             } else {
                 // 初始化各个平台config
-                redis.setString(String.format("config:%s:%s", config.getPlatformId(), config.getCode()), config);
+                redis.setString(CacheConstant.formatKey("config", String.format("%s:%s", config.getPlatformId(), config.getCode())), config);
             }
         }
     }
@@ -229,13 +229,13 @@ public class SystemConfigServiceImpl implements SystemConfigService {
      */
     @Override
     public void updateSysConfigCache(Integer platformId, String code) {
-        SystemConfig systemConfig = systemConfigMapper.selectOne(new QueryWrapper<SystemConfig>().eq("code", code).eq("platform_id", platformId));
-        if (systemConfig != null) {
-            if (systemConfig.getPlatformId() == -1) {
-                redis.setString(String.format("config:%s", systemConfig.getCode()), systemConfig);
+        SystemConfig config = systemConfigMapper.selectOne(new QueryWrapper<SystemConfig>().eq("code", code).eq("platform_id", platformId));
+        if (config != null) {
+            if (config.getPlatformId() == -1) {
+                redis.setString(CacheConstant.formatKey("config", config.getCode()), config);
             } else {
                 // 初始化各个平台config
-                redis.setString(String.format("config:%s:%s", systemConfig.getPlatformId(), systemConfig.getCode()), systemConfig);
+                redis.setString(CacheConstant.formatKey("config", String.format("%s:%s", config.getPlatformId(), config.getCode())), config);
             }
         }
     }
