@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService {
             log.error("用户登录, 密码不正确: account={}, ip={}", account, ip);
             SystemConfig systemConfig = redis.getString(SystemConfigConstant.USER_LOGIN_MAX_ERROR_COUNT);
             int maxErrorNum = 5;
-            if (systemConfig != null && systemConfig.isEnable()) {
+            if (systemConfig != null && systemConfig.ifEnable()) {
                 maxErrorNum = Integer.parseInt(systemConfig.getValue());
             }
             if (user.getPasswordErrorNum() < maxErrorNum) {
