@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱模板接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/emailTemplate")
@@ -65,9 +65,9 @@ public class EmailTemplateController {
      * @param platformId 平台id
      * @return 邮箱模板列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.emailTemplate.getByPlatformId", name = "根据platform_id获取邮箱模板列表", description = "邮箱模板列表接口")
-    public Result<List<EmailTemplate>> selectByPlatformId(@PathVariable("platformId") Integer platformId) {
+    public Result<List<EmailTemplate>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
         return new Result<>(emailTemplateService.selectListByPlatformId(platformId), "查询成功");
     }
 
@@ -77,9 +77,9 @@ public class EmailTemplateController {
      * @param subjectId 邮箱主体
      * @return 邮箱模板列表
      */
-    @GetMapping("/getBySubjectId/{subjectId}")
+    @GetMapping("/getListBySubjectId/{subjectId}")
     @Auth(value = "clever-system.emailTemplate.getBySubjectId", name = "根据subject_id获取邮箱模板列表", description = "邮箱模板列表接口")
-    public Result<List<EmailTemplate>> selectBySubjectId(@PathVariable("subjectId") String subjectId) {
+    public Result<List<EmailTemplate>> selectListBySubjectId(@PathVariable("subjectId") String subjectId) {
         return new Result<>(emailTemplateService.selectListBySubjectId(subjectId), "查询成功");
     }
 

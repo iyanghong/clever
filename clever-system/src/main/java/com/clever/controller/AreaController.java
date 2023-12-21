@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城区地址接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/area")
@@ -64,9 +64,9 @@ public class AreaController {
      * @param cityId 城市编号
      * @return 城区地址列表
      */
-    @GetMapping("/getByCityId/{cityId}")
+    @GetMapping("/getListByCityId/{cityId}")
     @Auth(value = "clever-system.area.getByCityId", name = "根据city_id获取城区地址列表", description = "城区地址列表接口")
-    public Result<List<Area>> selectByCityId(@PathVariable("cityId") Integer cityId) {
+    public Result<List<Area>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
         return new Result<>(areaService.selectListByCityId(cityId), "查询成功");
     }
 
@@ -76,9 +76,9 @@ public class AreaController {
      * @param provinceId 省份编号
      * @return 城区地址列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.area.getByProvinceId", name = "根据province_id获取城区地址列表", description = "城区地址列表接口")
-    public Result<List<Area>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<Area>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(areaService.selectListByProvinceId(provinceId), "查询成功");
     }
 

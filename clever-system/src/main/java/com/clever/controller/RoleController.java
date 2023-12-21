@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统角色接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/role")
@@ -63,9 +63,9 @@ public class RoleController {
      * @param platformId 平台id
      * @return 系统角色列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.role.getByPlatformId", name = "根据platform_id获取系统角色列表", description = "系统角色列表接口")
-    public Result<List<Role>> selectByPlatformId(@PathVariable("platformId") Integer platformId) {
+    public Result<List<Role>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
         return new Result<>(roleService.selectListByPlatformId(platformId), "查询成功");
     }
 

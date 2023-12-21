@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 街道接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/street")
@@ -65,9 +65,9 @@ public class StreetController {
      * @param areaId 地区编号
      * @return 街道列表
      */
-    @GetMapping("/getByAreaId/{areaId}")
+    @GetMapping("/getListByAreaId/{areaId}")
     @Auth(value = "clever-system.street.getByAreaId", name = "根据area_id获取街道列表", description = "街道列表接口")
-    public Result<List<Street>> selectByAreaId(@PathVariable("areaId") Integer areaId) {
+    public Result<List<Street>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
         return new Result<>(streetService.selectListByAreaId(areaId), "查询成功");
     }
 
@@ -77,9 +77,9 @@ public class StreetController {
      * @param cityId 城市编号
      * @return 街道列表
      */
-    @GetMapping("/getByCityId/{cityId}")
+    @GetMapping("/getListByCityId/{cityId}")
     @Auth(value = "clever-system.street.getByCityId", name = "根据city_id获取街道列表", description = "街道列表接口")
-    public Result<List<Street>> selectByCityId(@PathVariable("cityId") Integer cityId) {
+    public Result<List<Street>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
         return new Result<>(streetService.selectListByCityId(cityId), "查询成功");
     }
 
@@ -89,9 +89,9 @@ public class StreetController {
      * @param provinceId 省份编号
      * @return 街道列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.street.getByProvinceId", name = "根据province_id获取街道列表", description = "街道列表接口")
-    public Result<List<Street>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<Street>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(streetService.selectListByProvinceId(provinceId), "查询成功");
     }
 

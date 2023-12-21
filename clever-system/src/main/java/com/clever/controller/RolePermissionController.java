@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色-权限接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/rolePermission")
@@ -63,9 +63,9 @@ public class RolePermissionController {
      * @param roleId 角色
      * @return 角色-权限列表
      */
-    @GetMapping("/getByRoleId/{roleId}")
+    @GetMapping("/getListByRoleId/{roleId}")
     @Auth(value = "clever-system.rolePermission.getByRoleId", name = "根据role_id获取角色-权限列表", description = "角色-权限列表接口")
-    public Result<List<RolePermission>> selectByRoleId(@PathVariable("roleId") String roleId) {
+    public Result<List<RolePermission>> selectListByRoleId(@PathVariable("roleId") String roleId) {
         return new Result<>(rolePermissionService.selectListByRoleId(roleId), "查询成功");
     }
 
@@ -75,9 +75,9 @@ public class RolePermissionController {
      * @param permissionId 权限
      * @return 角色-权限列表
      */
-    @GetMapping("/getByPermissionId/{permissionId}")
+    @GetMapping("/getListByPermissionId/{permissionId}")
     @Auth(value = "clever-system.rolePermission.getByPermissionId", name = "根据permission_id获取角色-权限列表", description = "角色-权限列表接口")
-    public Result<List<RolePermission>> selectByPermissionId(@PathVariable("permissionId") String permissionId) {
+    public Result<List<RolePermission>> selectListByPermissionId(@PathVariable("permissionId") String permissionId) {
         return new Result<>(rolePermissionService.selectListByPermissionId(permissionId), "查询成功");
     }
 

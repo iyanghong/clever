@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * VIEW接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/addressLevel3")
@@ -56,9 +56,9 @@ public class AddressLevel3Controller {
      * @param provinceId province_id
      * @return VIEW列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.addressLevel3.getByProvinceId", name = "根据province_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel3>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<AddressLevel3>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(addressLevel3Service.selectListByProvinceId(provinceId), "查询成功");
     }
 
@@ -68,9 +68,9 @@ public class AddressLevel3Controller {
      * @param cityId city_id
      * @return VIEW列表
      */
-    @GetMapping("/getByCityId/{cityId}")
+    @GetMapping("/getListByCityId/{cityId}")
     @Auth(value = "clever-system.addressLevel3.getByCityId", name = "根据city_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel3>> selectByCityId(@PathVariable("cityId") Integer cityId) {
+    public Result<List<AddressLevel3>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
         return new Result<>(addressLevel3Service.selectListByCityId(cityId), "查询成功");
     }
 
@@ -80,9 +80,9 @@ public class AddressLevel3Controller {
      * @param areaId area_id
      * @return VIEW列表
      */
-    @GetMapping("/getByAreaId/{areaId}")
+    @GetMapping("/getListByAreaId/{areaId}")
     @Auth(value = "clever-system.addressLevel3.getByAreaId", name = "根据area_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel3>> selectByAreaId(@PathVariable("areaId") Integer areaId) {
+    public Result<List<AddressLevel3>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
         return new Result<>(addressLevel3Service.selectListByAreaId(areaId), "查询成功");
     }
 

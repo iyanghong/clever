@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-角色接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/userRole")
@@ -63,9 +63,9 @@ public class UserRoleController {
      * @param userId 用户
      * @return 用户-角色列表
      */
-    @GetMapping("/getByUserId/{userId}")
+    @GetMapping("/getListByUserId/{userId}")
     @Auth(value = "clever-system.userRole.getByUserId", name = "根据user_id获取用户-角色列表", description = "用户-角色列表接口")
-    public Result<List<UserRole>> selectByUserId(@PathVariable("userId") String userId) {
+    public Result<List<UserRole>> selectListByUserId(@PathVariable("userId") String userId) {
         return new Result<>(userRoleService.selectListByUserId(userId), "查询成功");
     }
 
@@ -75,9 +75,9 @@ public class UserRoleController {
      * @param roleId 角色
      * @return 用户-角色列表
      */
-    @GetMapping("/getByRoleId/{roleId}")
+    @GetMapping("/getListByRoleId/{roleId}")
     @Auth(value = "clever-system.userRole.getByRoleId", name = "根据role_id获取用户-角色列表", description = "用户-角色列表接口")
-    public Result<List<UserRole>> selectByRoleId(@PathVariable("roleId") String roleId) {
+    public Result<List<UserRole>> selectListByRoleId(@PathVariable("roleId") String roleId) {
         return new Result<>(userRoleService.selectListByRoleId(roleId), "查询成功");
     }
 

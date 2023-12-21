@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * UserStatusLog接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/userStatusLog")
@@ -64,9 +64,9 @@ public class UserStatusLogController {
      * @param userId 用户
      * @return user_status_log列表
      */
-    @GetMapping("/getByUserId/{userId}")
+    @GetMapping("/getListByUserId/{userId}")
     @Auth(value = "clever-system.userStatusLog.getByUserId", name = "根据user_id获取user_status_log列表", description = "user_status_log列表接口")
-    public Result<List<UserStatusLog>> selectByUserId(@PathVariable("userId") String userId) {
+    public Result<List<UserStatusLog>> selectListByUserId(@PathVariable("userId") String userId) {
         return new Result<>(userStatusLogService.selectListByUserId(userId), "查询成功");
     }
 

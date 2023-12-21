@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 城市接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/city")
@@ -63,9 +63,9 @@ public class CityController {
      * @param provinceId 省份编号
      * @return 城市列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.city.getByProvinceId", name = "根据province_id获取城市列表", description = "城市列表接口")
-    public Result<List<City>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<City>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(cityService.selectListByProvinceId(provinceId), "查询成功");
     }
 

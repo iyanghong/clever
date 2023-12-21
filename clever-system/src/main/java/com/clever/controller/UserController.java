@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/user")
@@ -68,9 +68,9 @@ public class UserController {
      * @param diskId 磁盘id
      * @return 用户列表
      */
-    @GetMapping("/getByDiskId/{diskId}")
+    @GetMapping("/getListByDiskId/{diskId}")
     @Auth(value = "clever-system.user.getByDiskId", name = "根据disk_id获取用户列表", description = "用户列表接口")
-    public Result<List<User>> selectByDiskId(@PathVariable("diskId") String diskId) {
+    public Result<List<User>> selectListByDiskId(@PathVariable("diskId") String diskId) {
         return new Result<>(userService.selectListByDiskId(diskId), "查询成功");
     }
 

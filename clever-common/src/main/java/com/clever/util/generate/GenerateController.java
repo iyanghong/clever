@@ -174,9 +174,9 @@ public class GenerateController extends BaseGenerator {
         // 获取函数注释
         String functionComment = getFunctionComment(String.format("根据%s获取%s列表", columnMeta.getCommentOrName(), tableMeta.getCommentOrName()), columnMap, String.format("%s列表", tableMeta.getCommentOrName()));
         stringBuilder.append("\n").append(functionComment);
-        stringBuilder.append("\t@GetMapping(\"/getBy").append(columnMeta.getUpperCamelCaseName()).append("/{").append(columnMeta.getLowerCamelCaseName()).append("}\")\n");
+        stringBuilder.append("\t@GetMapping(\"/getListBy").append(columnMeta.getUpperCamelCaseName()).append("/{").append(columnMeta.getLowerCamelCaseName()).append("}\")\n");
         stringBuilder.append("\t@Auth(value = \"").append(config.getAppName()).append(".").append(tableMeta.getXtName()).append(".getBy").append(columnMeta.getUpperCamelCaseName()).append("\", name = \"根据").append(columnMeta.getColumnName()).append("获取").append(tableMeta.getCommentOrName()).append("列表\", description = \"").append(tableMeta.getCommentOrName()).append("列表接口\")\n");
-        stringBuilder.append("\tpublic Result<List<").append(tableMeta.getUpperCamelCaseName()).append(">> selectBy").append(columnMeta.getUpperCamelCaseName()).append("(@PathVariable(\"").append(columnMeta.getLowerCamelCaseName()).append("\") ").append(columnMeta.getJavaType()).append(" ").append(columnMeta.getLowerCamelCaseName()).append(") {\n");
+        stringBuilder.append("\tpublic Result<List<").append(tableMeta.getUpperCamelCaseName()).append(">> selectListBy").append(columnMeta.getUpperCamelCaseName()).append("(@PathVariable(\"").append(columnMeta.getLowerCamelCaseName()).append("\") ").append(columnMeta.getJavaType()).append(" ").append(columnMeta.getLowerCamelCaseName()).append(") {\n");
         stringBuilder.append(String.format("\t\treturn new Result<>(%sService.selectListBy%s(%s), \"查询成功\");\n", tableMeta.getLowerCamelCaseName(), columnMeta.getUpperCamelCaseName(), columnMeta.getLowerCamelCaseName()));
         stringBuilder.append("\t}\n");
     }

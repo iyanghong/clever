@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 角色菜单接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/roleMenu")
@@ -63,9 +63,9 @@ public class RoleMenuController {
      * @param menuId 菜单唯一标识
      * @return 角色菜单列表
      */
-    @GetMapping("/getByMenuId/{menuId}")
+    @GetMapping("/getListByMenuId/{menuId}")
     @Auth(value = "clever-system.roleMenu.getByMenuId", name = "根据menu_id获取角色菜单列表", description = "角色菜单列表接口")
-    public Result<List<RoleMenu>> selectByMenuId(@PathVariable("menuId") String menuId) {
+    public Result<List<RoleMenu>> selectListByMenuId(@PathVariable("menuId") String menuId) {
         return new Result<>(roleMenuService.selectListByMenuId(menuId), "查询成功");
     }
 
@@ -75,9 +75,9 @@ public class RoleMenuController {
      * @param roleId 角色唯一标识
      * @return 角色菜单列表
      */
-    @GetMapping("/getByRoleId/{roleId}")
+    @GetMapping("/getListByRoleId/{roleId}")
     @Auth(value = "clever-system.roleMenu.getByRoleId", name = "根据role_id获取角色菜单列表", description = "角色菜单列表接口")
-    public Result<List<RoleMenu>> selectByRoleId(@PathVariable("roleId") String roleId) {
+    public Result<List<RoleMenu>> selectListByRoleId(@PathVariable("roleId") String roleId) {
         return new Result<>(roleMenuService.selectListByRoleId(roleId), "查询成功");
     }
 

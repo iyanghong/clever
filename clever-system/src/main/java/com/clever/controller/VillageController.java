@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * Village接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/village")
@@ -66,9 +66,9 @@ public class VillageController {
      * @param streetId street_id
      * @return village列表
      */
-    @GetMapping("/getByStreetId/{streetId}")
+    @GetMapping("/getListByStreetId/{streetId}")
     @Auth(value = "clever-system.village.getByStreetId", name = "根据street_id获取village列表", description = "village列表接口")
-    public Result<List<Village>> selectByStreetId(@PathVariable("streetId") Integer streetId) {
+    public Result<List<Village>> selectListByStreetId(@PathVariable("streetId") Integer streetId) {
         return new Result<>(villageService.selectListByStreetId(streetId), "查询成功");
     }
 
@@ -78,9 +78,9 @@ public class VillageController {
      * @param provinceId province_id
      * @return village列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.village.getByProvinceId", name = "根据province_id获取village列表", description = "village列表接口")
-    public Result<List<Village>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<Village>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(villageService.selectListByProvinceId(provinceId), "查询成功");
     }
 
@@ -90,9 +90,9 @@ public class VillageController {
      * @param cityId city_id
      * @return village列表
      */
-    @GetMapping("/getByCityId/{cityId}")
+    @GetMapping("/getListByCityId/{cityId}")
     @Auth(value = "clever-system.village.getByCityId", name = "根据city_id获取village列表", description = "village列表接口")
-    public Result<List<Village>> selectByCityId(@PathVariable("cityId") Integer cityId) {
+    public Result<List<Village>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
         return new Result<>(villageService.selectListByCityId(cityId), "查询成功");
     }
 
@@ -102,9 +102,9 @@ public class VillageController {
      * @param areaId area_id
      * @return village列表
      */
-    @GetMapping("/getByAreaId/{areaId}")
+    @GetMapping("/getListByAreaId/{areaId}")
     @Auth(value = "clever-system.village.getByAreaId", name = "根据area_id获取village列表", description = "village列表接口")
-    public Result<List<Village>> selectByAreaId(@PathVariable("areaId") Integer areaId) {
+    public Result<List<Village>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
         return new Result<>(villageService.selectListByAreaId(areaId), "查询成功");
     }
 

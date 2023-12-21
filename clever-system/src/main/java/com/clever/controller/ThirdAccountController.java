@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 第三方平台账号接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/thirdAccount")
@@ -65,9 +65,9 @@ public class ThirdAccountController {
      * @param openId open_id
      * @return 第三方平台账号列表
      */
-    @GetMapping("/getByOpenId/{openId}")
+    @GetMapping("/getListByOpenId/{openId}")
     @Auth(value = "clever-system.thirdAccount.getByOpenId", name = "根据open_id获取第三方平台账号列表", description = "第三方平台账号列表接口")
-    public Result<List<ThirdAccount>> selectByOpenId(@PathVariable("openId") String openId) {
+    public Result<List<ThirdAccount>> selectListByOpenId(@PathVariable("openId") String openId) {
         return new Result<>(thirdAccountService.selectListByOpenId(openId), "查询成功");
     }
 
@@ -77,9 +77,9 @@ public class ThirdAccountController {
      * @param userId 用户id
      * @return 第三方平台账号列表
      */
-    @GetMapping("/getByUserId/{userId}")
+    @GetMapping("/getListByUserId/{userId}")
     @Auth(value = "clever-system.thirdAccount.getByUserId", name = "根据user_id获取第三方平台账号列表", description = "第三方平台账号列表接口")
-    public Result<List<ThirdAccount>> selectByUserId(@PathVariable("userId") String userId) {
+    public Result<List<ThirdAccount>> selectListByUserId(@PathVariable("userId") String userId) {
         return new Result<>(thirdAccountService.selectListByUserId(userId), "查询成功");
     }
 

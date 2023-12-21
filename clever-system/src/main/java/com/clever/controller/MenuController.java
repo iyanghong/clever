@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 导航菜单接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/menu")
@@ -64,9 +64,9 @@ public class MenuController {
      * @param platformId 平台ID
      * @return 导航菜单列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.menu.getByPlatformId", name = "根据platform_id获取导航菜单列表", description = "导航菜单列表接口")
-    public Result<List<Menu>> selectByPlatformId(@PathVariable("platformId") Integer platformId) {
+    public Result<List<Menu>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
         return new Result<>(menuService.selectListByPlatformId(platformId), "查询成功");
     }
 

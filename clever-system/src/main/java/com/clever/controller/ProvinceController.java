@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 省份接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/province")

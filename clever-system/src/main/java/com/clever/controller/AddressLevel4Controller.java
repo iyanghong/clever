@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * VIEW接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/addressLevel4")
@@ -58,9 +58,9 @@ public class AddressLevel4Controller {
      * @param provinceId province_id
      * @return VIEW列表
      */
-    @GetMapping("/getByProvinceId/{provinceId}")
+    @GetMapping("/getListByProvinceId/{provinceId}")
     @Auth(value = "clever-system.addressLevel4.getByProvinceId", name = "根据province_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel4>> selectByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+    public Result<List<AddressLevel4>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
         return new Result<>(addressLevel4Service.selectListByProvinceId(provinceId), "查询成功");
     }
 
@@ -70,9 +70,9 @@ public class AddressLevel4Controller {
      * @param cityId city_id
      * @return VIEW列表
      */
-    @GetMapping("/getByCityId/{cityId}")
+    @GetMapping("/getListByCityId/{cityId}")
     @Auth(value = "clever-system.addressLevel4.getByCityId", name = "根据city_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel4>> selectByCityId(@PathVariable("cityId") Integer cityId) {
+    public Result<List<AddressLevel4>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
         return new Result<>(addressLevel4Service.selectListByCityId(cityId), "查询成功");
     }
 
@@ -82,9 +82,9 @@ public class AddressLevel4Controller {
      * @param areaId area_id
      * @return VIEW列表
      */
-    @GetMapping("/getByAreaId/{areaId}")
+    @GetMapping("/getListByAreaId/{areaId}")
     @Auth(value = "clever-system.addressLevel4.getByAreaId", name = "根据area_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel4>> selectByAreaId(@PathVariable("areaId") Integer areaId) {
+    public Result<List<AddressLevel4>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
         return new Result<>(addressLevel4Service.selectListByAreaId(areaId), "查询成功");
     }
 
@@ -94,9 +94,9 @@ public class AddressLevel4Controller {
      * @param streetId street_id
      * @return VIEW列表
      */
-    @GetMapping("/getByStreetId/{streetId}")
+    @GetMapping("/getListByStreetId/{streetId}")
     @Auth(value = "clever-system.addressLevel4.getByStreetId", name = "根据street_id获取VIEW列表", description = "VIEW列表接口")
-    public Result<List<AddressLevel4>> selectByStreetId(@PathVariable("streetId") Integer streetId) {
+    public Result<List<AddressLevel4>> selectListByStreetId(@PathVariable("streetId") Integer streetId) {
         return new Result<>(addressLevel4Service.selectListByStreetId(streetId), "查询成功");
     }
 

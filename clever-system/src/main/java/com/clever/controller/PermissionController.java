@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/permission")
@@ -66,9 +66,9 @@ public class PermissionController {
      * @param platformId 平台id
      * @return 系统权限列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.permission.getByPlatformId", name = "根据platform_id获取系统权限列表", description = "系统权限列表接口")
-    public Result<List<Permission>> selectByPlatformId(@PathVariable("platformId") String platformId) {
+    public Result<List<Permission>> selectListByPlatformId(@PathVariable("platformId") String platformId) {
         return new Result<>(permissionService.selectListByPlatformId(platformId), "查询成功");
     }
 
@@ -78,9 +78,9 @@ public class PermissionController {
      * @param groupId 权限组id
      * @return 系统权限列表
      */
-    @GetMapping("/getByGroupId/{groupId}")
+    @GetMapping("/getListByGroupId/{groupId}")
     @Auth(value = "clever-system.permission.getByGroupId", name = "根据group_id获取系统权限列表", description = "系统权限列表接口")
-    public Result<List<Permission>> selectByGroupId(@PathVariable("groupId") String groupId) {
+    public Result<List<Permission>> selectListByGroupId(@PathVariable("groupId") String groupId) {
         return new Result<>(permissionService.selectListByGroupId(groupId), "查询成功");
     }
 

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限组接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/permissionGroup")
@@ -65,9 +65,9 @@ public class PermissionGroupController {
      * @param platformId 平台id
      * @return 系统权限组列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.permissionGroup.getByPlatformId", name = "根据platform_id获取系统权限组列表", description = "系统权限组列表接口")
-    public Result<List<PermissionGroup>> selectByPlatformId(@PathVariable("platformId") String platformId) {
+    public Result<List<PermissionGroup>> selectListByPlatformId(@PathVariable("platformId") String platformId) {
         return new Result<>(permissionGroupService.selectListByPlatformId(platformId), "查询成功");
     }
 
@@ -77,9 +77,9 @@ public class PermissionGroupController {
      * @param parentId 上级id
      * @return 系统权限组列表
      */
-    @GetMapping("/getByParentId/{parentId}")
+    @GetMapping("/getListByParentId/{parentId}")
     @Auth(value = "clever-system.permissionGroup.getByParentId", name = "根据parent_id获取系统权限组列表", description = "系统权限组列表接口")
-    public Result<List<PermissionGroup>> selectByParentId(@PathVariable("parentId") String parentId) {
+    public Result<List<PermissionGroup>> selectListByParentId(@PathVariable("parentId") String parentId) {
         return new Result<>(permissionGroupService.selectListByParentId(parentId), "查询成功");
     }
 

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户历史头像表接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/userHistoryHeader")
@@ -63,9 +63,9 @@ public class UserHistoryHeaderController {
      * @param userId 用户id
      * @return 用户历史头像表列表
      */
-    @GetMapping("/getByUserId/{userId}")
+    @GetMapping("/getListByUserId/{userId}")
     @Auth(value = "clever-system.userHistoryHeader.getByUserId", name = "根据user_id获取用户历史头像表列表", description = "用户历史头像表列表接口")
-    public Result<List<UserHistoryHeader>> selectByUserId(@PathVariable("userId") String userId) {
+    public Result<List<UserHistoryHeader>> selectListByUserId(@PathVariable("userId") String userId) {
         return new Result<>(userHistoryHeaderService.selectListByUserId(userId), "查询成功");
     }
 
@@ -75,9 +75,9 @@ public class UserHistoryHeaderController {
      * @param diskId 磁盘id
      * @return 用户历史头像表列表
      */
-    @GetMapping("/getByDiskId/{diskId}")
+    @GetMapping("/getListByDiskId/{diskId}")
     @Auth(value = "clever-system.userHistoryHeader.getByDiskId", name = "根据disk_id获取用户历史头像表列表", description = "用户历史头像表列表接口")
-    public Result<List<UserHistoryHeader>> selectByDiskId(@PathVariable("diskId") String diskId) {
+    public Result<List<UserHistoryHeader>> selectListByDiskId(@PathVariable("diskId") String diskId) {
         return new Result<>(userHistoryHeaderService.selectListByDiskId(diskId), "查询成功");
     }
 

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-平台接口
  *
  * @Author xixi
- * @Date 2023-12-21 04:39:08
+ * @Date 2023-12-21 04:41:46
  */
 @RestController
 @RequestMapping("/userPlatform")
@@ -63,9 +63,9 @@ public class UserPlatformController {
      * @param userId 用户id
      * @return 用户-平台列表
      */
-    @GetMapping("/getByUserId/{userId}")
+    @GetMapping("/getListByUserId/{userId}")
     @Auth(value = "clever-system.userPlatform.getByUserId", name = "根据user_id获取用户-平台列表", description = "用户-平台列表接口")
-    public Result<List<UserPlatform>> selectByUserId(@PathVariable("userId") String userId) {
+    public Result<List<UserPlatform>> selectListByUserId(@PathVariable("userId") String userId) {
         return new Result<>(userPlatformService.selectListByUserId(userId), "查询成功");
     }
 
@@ -75,9 +75,9 @@ public class UserPlatformController {
      * @param platformId 平台id
      * @return 用户-平台列表
      */
-    @GetMapping("/getByPlatformId/{platformId}")
+    @GetMapping("/getListByPlatformId/{platformId}")
     @Auth(value = "clever-system.userPlatform.getByPlatformId", name = "根据platform_id获取用户-平台列表", description = "用户-平台列表接口")
-    public Result<List<UserPlatform>> selectByPlatformId(@PathVariable("platformId") Integer platformId) {
+    public Result<List<UserPlatform>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
         return new Result<>(userPlatformService.selectListByPlatformId(platformId), "查询成功");
     }
 
