@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.UserStatusLog;
 import com.clever.service.UserStatusLogService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * UserStatusLog接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/userStatusLog")
@@ -76,7 +77,7 @@ public class UserStatusLogController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.userStatusLog.save", name = "保存user_status_log", description = "保存user_status_log信息接口")
-    public Result<String> save(UserStatusLog userStatusLog) {
+    public Result<String> save(@Validated UserStatusLog userStatusLog) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         userStatusLogService.save(userStatusLog, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -87,7 +88,7 @@ public class UserStatusLogController {
      *
      * @param id 自增id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.userStatusLog.delete", name = "删除user_status_log", description = "删除user_status_log信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

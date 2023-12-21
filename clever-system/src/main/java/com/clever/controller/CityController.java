@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.City;
 import com.clever.service.CityService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 城市接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/city")
@@ -75,7 +76,7 @@ public class CityController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.city.save", name = "保存城市", description = "保存城市信息接口")
-    public Result<String> save(City city) {
+    public Result<String> save(@Validated City city) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         cityService.save(city, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -86,7 +87,7 @@ public class CityController {
      *
      * @param id 城市编号
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.city.delete", name = "删除城市", description = "删除城市信息接口")
     public Result<String> delete(@PathVariable("id") Integer id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

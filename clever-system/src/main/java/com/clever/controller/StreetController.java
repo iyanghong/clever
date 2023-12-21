@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.Street;
 import com.clever.service.StreetService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 街道接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/street")
@@ -101,7 +102,7 @@ public class StreetController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.street.save", name = "保存街道", description = "保存街道信息接口")
-    public Result<String> save(Street street) {
+    public Result<String> save(@Validated Street street) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         streetService.save(street, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -112,7 +113,7 @@ public class StreetController {
      *
      * @param id 街道编号
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.street.delete", name = "删除街道", description = "删除街道信息接口")
     public Result<String> delete(@PathVariable("id") Integer id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.UserHistoryHeader;
 import com.clever.service.UserHistoryHeaderService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 用户历史头像表接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/userHistoryHeader")
@@ -87,7 +88,7 @@ public class UserHistoryHeaderController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.userHistoryHeader.save", name = "保存用户历史头像表", description = "保存用户历史头像表信息接口")
-    public Result<String> save(UserHistoryHeader userHistoryHeader) {
+    public Result<String> save(@Validated UserHistoryHeader userHistoryHeader) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         userHistoryHeaderService.save(userHistoryHeader, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -98,7 +99,7 @@ public class UserHistoryHeaderController {
      *
      * @param id 历史头像id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.userHistoryHeader.delete", name = "删除用户历史头像表", description = "删除用户历史头像表信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.RolePermission;
 import com.clever.service.RolePermissionService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 角色-权限接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/rolePermission")
@@ -87,7 +88,7 @@ public class RolePermissionController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.rolePermission.save", name = "保存角色-权限", description = "保存角色-权限信息接口")
-    public Result<String> save(RolePermission rolePermission) {
+    public Result<String> save(@Validated RolePermission rolePermission) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         rolePermissionService.save(rolePermission, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -98,7 +99,7 @@ public class RolePermissionController {
      *
      * @param id 角色权限中间表
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.rolePermission.delete", name = "删除角色-权限", description = "删除角色-权限信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

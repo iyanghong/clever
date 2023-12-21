@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.PermissionGroup;
 import com.clever.service.PermissionGroupService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 系统权限组接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/permissionGroup")
@@ -89,7 +90,7 @@ public class PermissionGroupController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.permissionGroup.save", name = "保存系统权限组", description = "保存系统权限组信息接口")
-    public Result<String> save(PermissionGroup permissionGroup) {
+    public Result<String> save(@Validated PermissionGroup permissionGroup) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         permissionGroupService.save(permissionGroup, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -100,7 +101,7 @@ public class PermissionGroupController {
      *
      * @param id 权限组id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.permissionGroup.delete", name = "删除系统权限组", description = "删除系统权限组信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

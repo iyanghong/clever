@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.Province;
 import com.clever.service.ProvinceService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 省份接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/province")
@@ -62,7 +63,7 @@ public class ProvinceController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.province.save", name = "保存省份", description = "保存省份信息接口")
-    public Result<String> save(Province province) {
+    public Result<String> save(@Validated Province province) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         provinceService.save(province, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -73,7 +74,7 @@ public class ProvinceController {
      *
      * @param id 省份编号
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.province.delete", name = "删除省份", description = "删除省份信息接口")
     public Result<String> delete(@PathVariable("id") Integer id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

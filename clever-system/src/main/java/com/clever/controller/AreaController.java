@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.Area;
 import com.clever.service.AreaService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 城区地址接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/area")
@@ -88,7 +89,7 @@ public class AreaController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.area.save", name = "保存城区地址", description = "保存城区地址信息接口")
-    public Result<String> save(Area area) {
+    public Result<String> save(@Validated Area area) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         areaService.save(area, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -99,7 +100,7 @@ public class AreaController {
      *
      * @param id 地区编号
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.area.delete", name = "删除城区地址", description = "删除城区地址信息接口")
     public Result<String> delete(@PathVariable("id") Integer id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.Village;
 import com.clever.service.VillageService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * Village接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/village")
@@ -114,7 +115,7 @@ public class VillageController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.village.save", name = "保存village", description = "保存village信息接口")
-    public Result<String> save(Village village) {
+    public Result<String> save(@Validated Village village) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         villageService.save(village, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -125,7 +126,7 @@ public class VillageController {
      *
      * @param id id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.village.delete", name = "删除village", description = "删除village信息接口")
     public Result<String> delete(@PathVariable("id") Long id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

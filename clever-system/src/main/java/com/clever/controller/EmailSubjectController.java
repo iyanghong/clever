@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.EmailSubject;
 import com.clever.service.EmailSubjectService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 邮箱主体接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/emailSubject")
@@ -77,7 +78,7 @@ public class EmailSubjectController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.emailSubject.save", name = "保存邮箱主体", description = "保存邮箱主体信息接口")
-    public Result<String> save(EmailSubject emailSubject) {
+    public Result<String> save(@Validated EmailSubject emailSubject) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         emailSubjectService.save(emailSubject, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -88,7 +89,7 @@ public class EmailSubjectController {
      *
      * @param id id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.emailSubject.delete", name = "删除邮箱主体", description = "删除邮箱主体信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

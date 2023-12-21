@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.UserPlatform;
 import com.clever.service.UserPlatformService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 用户-平台接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/userPlatform")
@@ -87,7 +88,7 @@ public class UserPlatformController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.userPlatform.save", name = "保存用户-平台", description = "保存用户-平台信息接口")
-    public Result<String> save(UserPlatform userPlatform) {
+    public Result<String> save(@Validated UserPlatform userPlatform) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         userPlatformService.save(userPlatform, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -98,7 +99,7 @@ public class UserPlatformController {
      *
      * @param id id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.userPlatform.delete", name = "删除用户-平台", description = "删除用户-平台信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

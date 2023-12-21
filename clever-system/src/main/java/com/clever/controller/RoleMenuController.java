@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.RoleMenu;
 import com.clever.service.RoleMenuService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 角色菜单接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/roleMenu")
@@ -87,7 +88,7 @@ public class RoleMenuController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.roleMenu.save", name = "保存角色菜单", description = "保存角色菜单信息接口")
-    public Result<String> save(RoleMenu roleMenu) {
+    public Result<String> save(@Validated RoleMenu roleMenu) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         roleMenuService.save(roleMenu, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -98,7 +99,7 @@ public class RoleMenuController {
      *
      * @param id 编号
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.roleMenu.delete", name = "删除角色菜单", description = "删除角色菜单信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

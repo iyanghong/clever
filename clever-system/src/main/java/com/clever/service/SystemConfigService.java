@@ -36,6 +36,7 @@ public interface SystemConfigService {
      */
     SystemConfig selectById(String id);
 
+
     /**
      * 根据平台ID获取列表
      *
@@ -79,10 +80,19 @@ public interface SystemConfigService {
     /**
      * 根据配置code获取信息
      *
+     * @param platformId 平台ID
      * @param code 配置code
      * @return SystemConfig system_config信息
      */
     SystemConfig selectByCode(Integer platformId, String code);
+
+    /**
+     * 根据配置code获取信息
+     *
+     * @param code 配置code
+     * @return SystemConfig system_config信息
+     */
+    SystemConfig selectByCode(String code);
     /**
      * 更新指定code的缓存
      *

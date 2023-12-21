@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.clever.bean.system.Role;
 import com.clever.service.RoleService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  * 系统角色接口
  *
  * @Author xixi
- * @Date 2023-12-20 05:08:09
+ * @Date 2023-12-21 04:39:08
  */
 @RestController
 @RequestMapping("/role")
@@ -75,7 +76,7 @@ public class RoleController {
      */
     @PostMapping("/save")
     @Auth(value = "clever-system.role.save", name = "保存系统角色", description = "保存系统角色信息接口")
-    public Result<String> save(Role role) {
+    public Result<String> save(@Validated Role role) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         roleService.save(role, onlineUser);
         return Result.ofSuccess("保存成功");
@@ -86,7 +87,7 @@ public class RoleController {
      *
      * @param id 角色id
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Auth(value = "clever-system.role.delete", name = "删除系统角色", description = "删除系统角色信息接口")
     public Result<String> delete(@PathVariable("id") String id) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();

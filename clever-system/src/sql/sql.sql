@@ -252,7 +252,7 @@ CREATE TABLE IF NOT EXISTS system_config
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci
-  ROW_FORMAT = DYNAMIC;
+  ROW_FORMAT = DYNAMIC COMMENT = '系统配置';
 
 
 
