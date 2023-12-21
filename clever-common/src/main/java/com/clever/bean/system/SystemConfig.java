@@ -8,11 +8,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-21 02:46:26
  */
 public class SystemConfig implements Serializable {
 
@@ -24,7 +25,7 @@ public class SystemConfig implements Serializable {
     /**
      * 平台ID
      */
-    @NotBlank(message = "平台ID不能为空")
+    @NotNull(message = "平台ID不能为空")
     private Integer platformId;
     /**
      * 系统配置名
@@ -44,7 +45,7 @@ public class SystemConfig implements Serializable {
     /**
      * 类型：0-字符串,1-数组,2-json对象,3-数字,4-布尔值,5-加密
      */
-    @NotBlank(message = "类型不能为空")
+    @NotNull(message = "类型不能为空")
     private Integer type;
     /**
      * 配置项
@@ -158,6 +159,10 @@ public class SystemConfig implements Serializable {
         return enable;
     }
 
+    public void setEnable(Integer enable) {
+        this.enable = enable;
+    }
+
     /**
      * 是否启用此配置
      *
@@ -165,10 +170,6 @@ public class SystemConfig implements Serializable {
      */
     public boolean isEnable() {
         return enable == 1;
-    }
-
-    public void setEnable(Integer enable) {
-        this.enable = enable;
     }
 
     /**

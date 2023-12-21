@@ -2,16 +2,16 @@ package com.clever.bean.system;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 城市
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-21 02:46:26
  */
 public class City implements Serializable {
 
@@ -28,7 +28,7 @@ public class City implements Serializable {
     /**
      * 省份编号
      */
-    @NotBlank(message = "省份编号不能为空")
+    @NotNull(message = "省份编号不能为空")
     private Integer provinceId;
 
     /**

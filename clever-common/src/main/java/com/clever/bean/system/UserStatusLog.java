@@ -6,11 +6,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-21 02:46:26
  */
 public class UserStatusLog implements Serializable {
 
@@ -27,12 +28,12 @@ public class UserStatusLog implements Serializable {
     /**
      * 当前状态
      */
-    @NotBlank(message = "当前状态不能为空")
+    @NotNull(message = "当前状态不能为空")
     private Integer currentStatus;
     /**
      * 变更后状态
      */
-    @NotBlank(message = "变更后状态不能为空")
+    @NotNull(message = "变更后状态不能为空")
     private Integer changeStatus;
     /**
      * 备注
@@ -42,7 +43,7 @@ public class UserStatusLog implements Serializable {
     /**
      * 状态结束时间
      */
-    @NotBlank(message = "状态结束时间不能为空")
+    @NotNull(message = "状态结束时间不能为空")
     private Date duration;
     /**
      * 创建时间

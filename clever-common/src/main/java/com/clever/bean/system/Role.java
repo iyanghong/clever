@@ -8,13 +8,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * 系统角色
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-21 02:46:26
  */
 public class Role implements Serializable {
 
@@ -36,7 +37,7 @@ public class Role implements Serializable {
     /**
      * 平台id
      */
-    @NotBlank(message = "平台id不能为空")
+    @NotNull(message = "平台id不能为空")
     private Integer platformId;
     /**
      * 创建者id

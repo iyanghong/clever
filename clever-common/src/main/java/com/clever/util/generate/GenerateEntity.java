@@ -64,6 +64,7 @@ public class GenerateEntity extends BaseGenerator {
             // 是否存在需要判断不为空的字段
             if (tableMeta.isHasNeedNotBlankValidate()) {
                 sb.append("import javax.validation.constraints.NotBlank;\n");
+                sb.append("import javax.validation.constraints.NotNull;\n");
             }
 
             // 如果表有日期类型的列，则添加Date类
@@ -107,8 +108,11 @@ public class GenerateEntity extends BaseGenerator {
                             name = nameArr[0];
                         }
                     }
-
-                    sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
+                    if ("String".equals(columnMeta.getJavaType())) {
+                        sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
+                    }else{
+                        sb.append("\t@NotNull(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
+                    }
                 }
                 if (config.getAutoInsertFillField().contains(columnMeta.getColumnName())) {
                     sb.append("\t@TableField(value = \"").append(columnMeta.getColumnName()).append("\", fill = FieldFill.INSERT)\n");

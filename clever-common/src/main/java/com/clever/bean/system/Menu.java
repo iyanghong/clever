@@ -8,13 +8,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * 导航菜单
  *
  * @Author xixi
- * @Date 2023-12-20 09:27:12
+ * @Date 2023-12-21 02:46:26
  */
 public class Menu implements Serializable {
 
@@ -26,7 +27,7 @@ public class Menu implements Serializable {
     /**
      * 平台ID
      */
-    @NotBlank(message = "平台ID不能为空")
+    @NotNull(message = "平台ID不能为空")
     private Integer platformId;
     /**
      * 菜单名称
