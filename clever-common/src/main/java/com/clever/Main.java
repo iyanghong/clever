@@ -18,12 +18,17 @@ public class Main {
 
         GenerateMapper generateMapper = new GenerateMapper(generateDatabaseConfig, "com.clever.bean.system");
         generateMapper.generate("role_permission","com.clever.mapper","/clever-system/src/main/java/com/clever/mapper");
-*/
+
         GenerateService generateService = new GenerateService(generateDatabaseConfig, "com.clever.bean.system", "com.clever.mapper");
         generateService.generate("","com.clever.service", "/clever-system/src/main/java/com/clever/service");
 
 
         GenerateController controller = new GenerateController(generateDatabaseConfig);
         controller.generate("", "com.clever.controller", "/clever-system/src/main/java/com/clever/controller");
+
+         */
+
+        GenerateParameterDescription generateParameterDescription = new GenerateParameterDescription(generateDatabaseConfig);
+        generateParameterDescription.generate("dd","/clever-system/src/main/resources");
     }
 }
