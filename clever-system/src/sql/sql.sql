@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS platform
 (
-    id          int          NOT NULL AUTO_INCREMENT COMMENT '平台id',
-    name        varchar(100) not null comment '平台名称',
-    description text         null comment '描述',
-    master      VARCHAR(36)  NOT NULL COMMENT '平台管理人',
-    created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    id          int                NOT NULL AUTO_INCREMENT COMMENT '平台id',
+    name        varchar(100)       not null comment '平台名称',
+    description text               null comment '描述',
+    master      VARCHAR(36)        NOT NULL COMMENT '平台管理人',
+    code        varchar(10) unique not null comment '邀请码',
+    created_at  datetime           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at  datetime           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX CREATOR_IDX (master ASC) USING BTREE COMMENT '平台管理人'
+    INDEX CREATOR_IDX (master ASC) USING BTREE COMMENT '平台管理人'
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '平台'
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS user
     PRIMARY KEY (id) USING BTREE,
     UNIQUE INDEX ACCOUNT_IDX (account ASC) USING BTREE COMMENT '账号索引',
     UNIQUE INDEX EMAIL_IDX (email ASC) USING BTREE COMMENT '邮箱索引',
-    INDEX PHONE_IDX (phone ASC) USING BTREE COMMENT '手机号索引'
+    UNIQUE INDEX PHONE_IDX (phone ASC) USING BTREE COMMENT '手机号索引'
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '用户'
@@ -53,8 +54,8 @@ CREATE TABLE IF NOT EXISTS user_platform
     platform_id int         not null comment '平台id',
     created_at  datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '加入平台时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引',
-    UNIQUE INDEX USER_IDX (user_id ASC) USING BTREE COMMENT '用户id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引',
+    INDEX USER_IDX (user_id ASC) USING BTREE COMMENT '用户id索引'
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '用户-平台'
@@ -71,9 +72,9 @@ CREATE TABLE IF NOT EXISTS third_account
     user_id    VARCHAR(32)  NOT NULL COMMENT '用户id',
     created_at datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '绑定时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX ACCOUNT_IDX (open_id ASC) USING BTREE COMMENT 'open_id索引',
+    INDEX ACCOUNT_IDX (open_id ASC) USING BTREE COMMENT 'open_id索引',
 
-    UNIQUE INDEX USER_IDX (user_id ASC) USING BTREE COMMENT '用户id索引'
+    INDEX USER_IDX (user_id ASC) USING BTREE COMMENT '用户id索引'
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '第三方平台账号'
@@ -104,7 +105,7 @@ CREATE TABLE IF NOT EXISTS role
     created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '系统角色'
@@ -138,7 +139,7 @@ CREATE TABLE IF NOT EXISTS permission_group
     created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '系统权限组'
@@ -160,7 +161,7 @@ CREATE TABLE IF NOT EXISTS permission
     PRIMARY KEY (id) USING BTREE,
     INDEX CODE_IDX (code ASC) USING BTREE COMMENT '权限标识索引',
     INDEX GROUP_IDX (group_id ASC) USING BTREE COMMENT '权限组id索引',
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '系统权限'
@@ -213,7 +214,7 @@ CREATE TABLE IF NOT EXISTS menu
     created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci COMMENT = '导航菜单'
@@ -248,7 +249,8 @@ CREATE TABLE IF NOT EXISTS system_config
     created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
-    UNIQUE INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引',
+    INDEX CODE_IDX (code ASC) USING BTREE COMMENT 'code索引'
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci

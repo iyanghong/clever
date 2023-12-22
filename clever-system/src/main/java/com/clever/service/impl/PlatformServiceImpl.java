@@ -3,12 +3,16 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.clever.mapper.PlatformMapper;
 import com.clever.bean.system.Platform;
@@ -59,6 +63,17 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     /**
+     * 根据平台邀请码获取平台信息
+     *
+     * @param code 邀请码
+     * @return Platform 平台信息
+     */
+    @Override
+    public Platform selectByCode(String code) {
+        return platformMapper.selectOne(new QueryWrapper<Platform>().eq("code",code));
+    }
+
+    /**
      * 保存平台信息
      *
      * @param platform   平台实体信息
@@ -66,7 +81,19 @@ public class PlatformServiceImpl implements PlatformService {
      */
     @Override
     public void save(Platform platform, OnlineUser onlineUser) {
+        QueryWrapper<Platform> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", platform.getName());
+        queryWrapper.eq("master", platform.getMaster());
+        if (platform.getId() != null) {
+            queryWrapper.ne("id", platform.getId());
+        }
+
+        if (platformMapper.selectCount(queryWrapper) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.format("您名下该平台名称"));
+        }
+
         if (platform.getId() == null) {
+            platform.setCode(RandomStringUtils.randomAlphabetic(6).toUpperCase(Locale.ROOT));
             platformMapper.insert(platform);
             log.info("平台, 平台信息创建成功: userId={}, platformId={}", onlineUser.getId(), platform.getId());
         } else {
@@ -109,4 +136,5 @@ public class PlatformServiceImpl implements PlatformService {
     public List<Platform> selectByUserId(String userId) {
         return platformMapper.selectByUserId(userId);
     }
+
 }

@@ -20,6 +20,11 @@ public class ConstantException {
         return this;
     }
 
+    public ConstantException reset(String message) {
+        this.msg = message;
+        return this;
+    }
+
     public Result<String> getResult() {
         return Result.ofFail(code, msg);
     }
@@ -38,5 +43,7 @@ public class ConstantException {
     public static ConstantException USER_ACCOUNT_NOT_FOUND = new ConstantException(1003, "账号不存在");
     public static ConstantException USER_LOGIN_PASSWORD_ERROR = new ConstantException(1004, "账号或密码不正确");
     public static ConstantException PARAMETER_VERIFICATION_FAIL = new ConstantException(1005, "参数校验失败");
-    public static ConstantException DATA_IS_EXIST = new ConstantException(1005, "%s已存在");
+    public static ConstantException DATA_IS_EXIST = new ConstantException(3001, "%s已存在");
+    public static ConstantException DATA_NOT_EXIST = new ConstantException(3002, "%s不存在");
+    public static ConstantException DATA_INVALID = new ConstantException(3002, "%s失效");
 }

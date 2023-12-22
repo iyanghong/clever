@@ -34,6 +34,14 @@ public interface PlatformService {
     Platform selectById(Integer id);
 
     /**
+     * 根据平台邀请码获取平台信息
+     *
+     * @param code 邀请码
+     * @return Platform 平台信息
+     */
+    Platform selectByCode(String code);
+
+    /**
      * 保存平台信息
      *
      * @param platform   平台实体信息

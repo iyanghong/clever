@@ -35,6 +35,11 @@ public class Platform implements Serializable {
      */
     @NotBlank(message = "平台管理人不能为空")
     private String master;
+
+    /**
+     * 邀请码
+     */
+    private String code;
     /**
      * 创建时间
      */
@@ -110,4 +115,11 @@ public class Platform implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

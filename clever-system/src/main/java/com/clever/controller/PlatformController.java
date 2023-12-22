@@ -1,6 +1,8 @@
 package com.clever.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.bean.system.UserPlatform;
+import com.clever.service.UserPlatformService;
 import com.clever.util.SpringUtil;
 import com.clever.annotation.Auth;
 import com.clever.annotation.AuthGroup;
@@ -30,6 +32,9 @@ public class PlatformController {
     @Resource
     private PlatformService platformService;
 
+    @Resource
+    private UserPlatformService userPlatformService;
+
 
     /**
      * 分页查询平台列表
@@ -54,6 +59,17 @@ public class PlatformController {
     @GetMapping("/get/{id}")
     public Result<Platform> selectById(@PathVariable("id") Integer id) {
         return new Result<>(platformService.selectById(id), "查询成功");
+    }
+
+    /**
+     * 根据平台邀请码获取平台信息
+     *
+     * @param code 邀请码id
+     * @return 平台信息
+     */
+    @GetMapping("/getByCode/{code}")
+    public Result<Platform> selectById(@PathVariable("code") String code) {
+        return new Result<>(platformService.selectByCode(code), "查询成功");
     }
 
     /**
@@ -82,4 +98,29 @@ public class PlatformController {
         return Result.ofSuccess("删除成功");
     }
 
+    /**
+     * 加入平台
+     *
+     * @param code 邀请码
+     */
+    @PostMapping("/join/{code}")
+    @Auth(value = "clever-system.platform.join", name = "加入平台", description = "加入平台接口")
+    public Result<String> join(@PathVariable("code") String code) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        userPlatformService.joinPlatform(onlineUser.getId(), code);
+        return Result.ofSuccess("加入成功");
+    }
+
+    /**
+     * 根据平台id退出平台
+     *
+     * @param platformId 平台id
+     */
+    @PostMapping("/exit/{platformId}")
+    @Auth(value = "clever-system.platform.exit", name = "退出平台", description = "退出平台接口")
+    public Result<String> exit(@PathVariable("platformId") Integer platformId) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        userPlatformService.exitPlatform(onlineUser.getId(), platformId);
+        return Result.ofSuccess("退出成功");
+    }
 }
