@@ -2,6 +2,7 @@ spring:
   application:
     url: "http://127.0.0.1:9502"
     client: "http://localhost:1000"
+    key: "92644664"
     workerId: 1
     datacenterId: 1
     defaultOnlineUserId: 121212121212121212121212

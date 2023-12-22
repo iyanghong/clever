@@ -59,20 +59,4 @@ public interface EmailSubjectService {
      * @param onlineUser 当前登录用户
      */
     void delete(String id, OnlineUser onlineUser);
-
-    /**
-     * 根据id列表删除邮箱主体信息
-     *
-     * @param ids        id列表
-     * @param onlineUser 当前登录用户
-     */
-    void deleteBatchIds(List<String> ids, OnlineUser onlineUser);
-
-    /**
-     * 根据平台id删除邮箱主体
-     *
-     * @param platformId 平台id
-     * @param onlineUser 当前登录用户
-     */
-    void deleteByPlatformId(String platformId, OnlineUser onlineUser);
 }
