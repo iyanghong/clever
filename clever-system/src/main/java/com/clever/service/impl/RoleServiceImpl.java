@@ -3,6 +3,8 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +83,16 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public void save(Role role, OnlineUser onlineUser) {
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", role.getName());
+        queryWrapper.eq("platform_id", role.getPlatformId());
+        if (StringUtils.isNotBlank(role.getId())) {
+            queryWrapper.ne("id", role.getId());
+        }
+        if (roleMapper.selectCount(queryWrapper) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.format("角色名"));
+        }
+
         if (StringUtils.isBlank(role.getId())) {
             roleMapper.insert(role);
             log.info("系统角色, 系统角色信息创建成功: userId={}, roleId={}", onlineUser.getId(), role.getId());
