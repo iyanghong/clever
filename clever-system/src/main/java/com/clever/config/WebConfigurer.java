@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,6 +22,7 @@ import java.util.List;
  * @Date 2023-12-19 16:41
  **/
 @Configuration
+@Order(10)
 public class WebConfigurer implements WebMvcConfigurer {
     private static final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
