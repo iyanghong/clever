@@ -16,6 +16,11 @@ import com.clever.bean.system.SystemConfig;
 public interface SystemConfigService {
 
     /**
+     * 初始化系统配置
+     */
+    void initConfig();
+
+    /**
      * 分页查询列表
      *
      * @param pageNumber 页码
