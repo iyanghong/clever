@@ -2,6 +2,7 @@ package com.clever.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.Constant;
 import com.clever.SystemConfigConstant;
 import com.clever.bean.model.OnlineUser;
 import com.clever.constant.CacheConstant;
@@ -40,6 +41,9 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     @Resource
     private RedisService redis;
 
+    /**
+     * 初始化系统配置
+     */
     public void initConfig() {
         List<SystemConfig> configs = systemConfigMapper.selectList(new QueryWrapper<>());
         for (SystemConfig config : configs) {
@@ -111,7 +115,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
         }
         //如果是加密类型，先解密再返回
         if (config.getType().equals(SystemConfigType.ENCRYPT_STRING.type)) {
-            config.setValue(DesUtil.safeDecrypt(config.getValue(), SystemConfigConstant.ENCRYPTION_KEY));
+            config.setValue(DesUtil.safeDecrypt(config.getValue(), Constant.KEY));
         }
         return config;
     }
@@ -133,7 +137,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
         }
         //如果是加密类型，先解密再返回
         if (config.getType().equals(SystemConfigType.ENCRYPT_STRING.type)) {
-            config.setValue(DesUtil.safeDecrypt(config.getValue(), SystemConfigConstant.ENCRYPTION_KEY));
+            config.setValue(DesUtil.safeDecrypt(config.getValue(), Constant.KEY));
         }
         return config;
     }
@@ -162,7 +166,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
             SystemConfig oldConfig = this.selectByCode(systemConfig.getPlatformId(), systemConfig.getCode());
             //防止重复加密
             if (oldConfig == null || !oldConfig.getValue().equals(systemConfig.getValue())) {
-                systemConfig.setValue(DesUtil.safeEncrypt(systemConfig.getValue(), SystemConfigConstant.ENCRYPTION_KEY));
+                systemConfig.setValue(DesUtil.safeEncrypt(systemConfig.getValue(), Constant.KEY));
             }
         }
         // 检查当前code在当前平台唯一性
