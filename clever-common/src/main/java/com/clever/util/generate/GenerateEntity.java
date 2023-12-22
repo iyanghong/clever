@@ -4,9 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONUtil;
+import cn.hutool.json.JSONConfig;
 
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
@@ -39,6 +42,20 @@ public class GenerateEntity extends BaseGenerator {
      */
     @Override
     protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+        config.setEntityPackageName(packageName);
+        if (tableMetaList.isEmpty()) return;
+        // 遍历表元数据列表
+        for (TableMeta tableMeta : tableMetaList) {
+            String jsonStr = JSONUtil.toJsonStr(tableMeta);
+            Map<String, Object> variables =  JSONUtil.parseObj(jsonStr);
+//            Map<String, Object> columnVariables = new HashMap<>();
+            variables.put("packageName",packageName);
+//            variables.put("columns",packageName);
+            render(variables,"EntityTemplate.tpl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
+        }
+    }
+
+    protected void handler1(List<TableMeta> tableMetaList, String packageName, String basePath) {
         config.setEntityPackageName(packageName);
         // 如果表元数据列表为空，则直接返回
         if (tableMetaList.isEmpty()) return;
@@ -101,16 +118,16 @@ public class GenerateEntity extends BaseGenerator {
                 }
                 if (columnMeta.isHasNeedNotBlankValidate() && (!config.getAutoInsertFillField().contains(columnMeta.getColumnName()) && !config.getAutoUpdateFillField().contains(columnMeta.getColumnName()))) {
                     String name = columnMeta.getColumnComment();
-                    if (StringUtils.isNotBlank(name)){
-                        name = name.replaceAll("：",":");
+                    if (StringUtils.isNotBlank(name)) {
+                        name = name.replaceAll("：", ":");
                         String[] nameArr = name.split(":");
-                        if (nameArr.length > 0){
+                        if (nameArr.length > 0) {
                             name = nameArr[0];
                         }
                     }
                     if ("String".equals(columnMeta.getJavaType())) {
                         sb.append("\t@NotBlank(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
-                    }else{
+                    } else {
                         sb.append("\t@NotNull(message = \"").append(StringUtils.isNotBlank(name) ? name : columnMeta.getColumnName()).append("不能为空\")\n");
                     }
                 }
