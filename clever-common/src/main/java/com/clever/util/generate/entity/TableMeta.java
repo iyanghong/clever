@@ -41,10 +41,6 @@ public class TableMeta {
      */
     private String upperCamelCaseName;
 
-    private boolean ifHasDateTypeColumn;
-    private ColumnMeta primaryKeyColumn;
-    private boolean ifHasNeedNotBlankValidate;
-
     /**
      * 默认构造函数
      */
@@ -259,24 +255,5 @@ public class TableMeta {
     public void setUpperCamelCaseName(String upperCamelCaseName) {
         this.upperCamelCaseName = upperCamelCaseName;
     }
-
-    public boolean isIfHasDateTypeColumn() {
-        return ifHasDateTypeColumn;
-    }
-
-    public void setIfHasDateTypeColumn(boolean ifHasDateTypeColumn) {
-        this.ifHasDateTypeColumn = ifHasDateTypeColumn;
-    }
-
-    public void setPrimaryKeyColumn(ColumnMeta primaryKeyColumn) {
-        this.primaryKeyColumn = primaryKeyColumn;
-    }
-
-    public boolean isIfHasNeedNotBlankValidate() {
-        return ifHasNeedNotBlankValidate;
-    }
-
-    public void setIfHasNeedNotBlankValidate(boolean ifHasNeedNotBlankValidate) {
-        this.ifHasNeedNotBlankValidate = ifHasNeedNotBlankValidate;
-    }
 }
+

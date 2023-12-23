@@ -62,8 +62,6 @@ public class ColumnMeta {
     private String lowerCamelCaseName;
     private String upperCamelCaseName;
 
-    private boolean ifHasNeedNotBlankValidate;
-
     public String getJavaType() {
         return javaType;
     }
@@ -203,12 +201,5 @@ public class ColumnMeta {
     public String getCommentOrLowerCamelCaseName() {
         return StringUtils.isNotBlank(columnComment) ? columnComment : lowerCamelCaseName;
     }
-
-    public boolean isIfHasNeedNotBlankValidate() {
-        return ifHasNeedNotBlankValidate;
-    }
-
-    public void setIfHasNeedNotBlankValidate(boolean ifHasNeedNotBlankValidate) {
-        this.ifHasNeedNotBlankValidate = ifHasNeedNotBlankValidate;
-    }
 }
+

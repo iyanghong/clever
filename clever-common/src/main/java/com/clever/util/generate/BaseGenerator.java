@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,38 +69,6 @@ public class BaseGenerator implements IGenerator {
 
     }
 
-    protected void render(Map<String, Object> variables, String templateName, String filePath) {
-        try {
-            String projectRoot = System.getProperty("user.dir");
-
-            Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
-            // 指定模板文件所在的路径
-            configuration.setDirectoryForTemplateLoading(new File(Paths.get(projectRoot,"clever-common","src/main/resources/templates").toString()));
-
-            // 设置模板文件使用的字符集
-            configuration.setDefaultEncoding("utf-8");
-
-            // 创建模板对象，加载指定模板
-            Template template = configuration.getTemplate(templateName);
-            // 写入文件
-            try (FileWriter writer = new FileWriter(filePath)) {
-                template.process(variables, writer);
-//                writer.write(ms);
-                log.info("The table's {} generate complete. filePath = {}", templateName, filePath);
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to the file: " + e.getMessage());
-            } catch (TemplateException e) {
-                throw new RuntimeException(e);
-            }
-
-
-        } catch (IOException e) {
-            log.error("render method IOException:", e);
-        }
-
-
-    }
-
     /**
      * 获取表元数据列表
      *
@@ -150,18 +120,6 @@ public class BaseGenerator implements IGenerator {
 
                     columnMeta.setLowerCamelCaseName(toXTCamelCase(columnMeta.getColumnName()));
                     columnMeta.setUpperCamelCaseName(toDTCamelCase(columnMeta.getColumnName()));
-
-                    if (columnMeta.getColumnKey().equals("PRI")) {
-                        tableMeta.setPrimaryKeyColumn(columnMeta);
-                    }
-                    if (columnMeta.getJavaType().equals("Date")) {
-                        tableMeta.setIfHasDateTypeColumn(true);
-
-                    }
-                    if (columnMeta.isHasNeedNotBlankValidate()) {
-                        tableMeta.setIfHasNeedNotBlankValidate(true);
-                    }
-                    columnMeta.setIfHasNeedNotBlankValidate(columnMeta.isHasNeedNotBlankValidate());
 
                     columnMetaList.add(columnMeta);
                 }
@@ -285,5 +243,37 @@ public class BaseGenerator implements IGenerator {
         }
         stringBuilder.append("\t */\n");
         return stringBuilder.toString();
+    }
+
+    protected void render(Map<String, Object> variables, String templateName, String filePath) {
+        try {
+            String projectRoot = System.getProperty("user.dir");
+
+            Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
+            // 指定模板文件所在的路径
+            configuration.setDirectoryForTemplateLoading(new File(Paths.get(projectRoot,"clever-common","src/main/resources/templates").toString()));
+
+            // 设置模板文件使用的字符集
+            configuration.setDefaultEncoding("utf-8");
+
+            // 创建模板对象，加载指定模板
+            Template template = configuration.getTemplate(templateName);
+            // 写入文件
+            try (FileWriter writer = new FileWriter(filePath)) {
+                template.process(variables, writer);
+//                writer.write(ms);
+                log.info("The table's {} generate complete. filePath = {}", templateName, filePath);
+            } catch (IOException e) {
+                System.out.println("An error occurred while writing to the file: " + e.getMessage());
+            } catch (TemplateException e) {
+                throw new RuntimeException(e);
+            }
+
+
+        } catch (IOException e) {
+            log.error("render method IOException:", e);
+        }
+
+
     }
 }

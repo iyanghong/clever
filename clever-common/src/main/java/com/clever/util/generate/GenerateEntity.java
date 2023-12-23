@@ -13,6 +13,7 @@ import cn.hutool.json.JSONConfig;
 
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
+import com.clever.util.generate.entity.FreeMaskerVariable;
 import com.clever.util.generate.entity.TableMeta;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -46,12 +47,8 @@ public class GenerateEntity extends BaseGenerator {
         if (tableMetaList.isEmpty()) return;
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
-            String jsonStr = JSONUtil.toJsonStr(tableMeta);
-            Map<String, Object> variables =  JSONUtil.parseObj(jsonStr);
-//            Map<String, Object> columnVariables = new HashMap<>();
-            variables.put("packageName",packageName);
-//            variables.put("columns",packageName);
-            render(variables,"EntityTemplate.tpl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
+            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config,tableMeta);
+            render(freeMaskerVariable.getVariables(), "EntityTemplate.fpl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
         }
     }
 
