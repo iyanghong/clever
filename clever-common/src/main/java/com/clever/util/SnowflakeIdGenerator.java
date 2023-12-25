@@ -43,9 +43,11 @@ public class SnowflakeIdGenerator {
         }
         return instance;
     }
-    public static String getSnowflakeNextId(){
+
+    public static String getSnowflakeNextId() {
         return String.valueOf(getInstance().nextId());
     }
+
     public synchronized long nextId() {
         long timestamp = System.currentTimeMillis();
 

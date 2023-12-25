@@ -45,7 +45,7 @@ public class GenerateEntity extends BaseGenerator {
         if (tableMetaList.isEmpty()) return;
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
-            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config,tableMeta);
+            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config, tableMeta);
             render(freeMaskerVariable.getVariables(), "EntityTemplate.ftl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
         }
     }

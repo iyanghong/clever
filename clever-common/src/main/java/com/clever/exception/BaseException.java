@@ -4,13 +4,13 @@ package com.clever.exception;
  * @Author xixi
  * @Date 2023-12-15 09:39
  **/
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
     /**
      * 错误状态码
      */
     private final Integer code;
 
-    public BaseException(Integer code,String message) {
+    public BaseException(Integer code, String message) {
         super(message);
         this.code = code;
     }

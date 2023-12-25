@@ -32,6 +32,7 @@ public class GenerateController extends BaseGenerator {
         config.setEntityPackageName(entityPackageName);
         config.setServicePackageName(servicePackageName);
     }
+
     /**
      * 生成控制器
      *
@@ -54,6 +55,7 @@ public class GenerateController extends BaseGenerator {
             render(variables.getVariables(), "ControllerTemplate.ftl", filePath);
         }
     }
+
     /**
      * 生成service接口和实现类
      *
@@ -161,7 +163,7 @@ public class GenerateController extends BaseGenerator {
         stringBuilder.append(String.format("\tpublic Result<Page<%s>> selectPage(@PathVariable(\"pageNumber\") Integer pageNumber, @PathVariable(\"pageSize\") Integer pageSize", tableMeta.getUpperCamelCaseName()));
         // 遍历允许搜索的列
         for (ColumnMeta allowSearchColumn : allowSearchColumns) {
-            stringBuilder.append(String.format(", %s %s",allowSearchColumn.getJavaType(),allowSearchColumn.getLowerCamelCaseName()));
+            stringBuilder.append(String.format(", %s %s", allowSearchColumn.getJavaType(), allowSearchColumn.getLowerCamelCaseName()));
         }
         stringBuilder.append(") {\n");
         stringBuilder.append(String.format("\t\treturn new Result<>(%sService.selectPage(pageNumber, pageSize", tableMeta.getXtName()));
@@ -180,10 +182,10 @@ public class GenerateController extends BaseGenerator {
         if (primaryKeyColumn == null) return;
         LinkedHashMap<String, String> columnMap = new LinkedHashMap<>();
         columnMap.put(primaryKeyColumn.getColumnName(), primaryKeyColumn.getColumnComment());
-        String functionComment = getFunctionComment(String.format("根据%s获取%s信息", primaryKeyColumn.getCommentOrName(), tableMeta.getCommentOrName()), columnMap, String.format("%s信息",  tableMeta.getCommentOrName()));
+        String functionComment = getFunctionComment(String.format("根据%s获取%s信息", primaryKeyColumn.getCommentOrName(), tableMeta.getCommentOrName()), columnMap, String.format("%s信息", tableMeta.getCommentOrName()));
         stringBuilder.append("\n").append(functionComment);
         stringBuilder.append("\t@GetMapping(\"/get/{").append(primaryKeyColumn.getLowerCamelCaseName()).append("}\")\n");
-        stringBuilder.append(String.format("\tpublic Result<%s> selectById(@PathVariable(\"%s\") %s %s) {\n", tableMeta.getUpperCamelCaseName(), primaryKeyColumn.getLowerCamelCaseName(),primaryKeyColumn.getJavaType(), primaryKeyColumn.getLowerCamelCaseName()));
+        stringBuilder.append(String.format("\tpublic Result<%s> selectById(@PathVariable(\"%s\") %s %s) {\n", tableMeta.getUpperCamelCaseName(), primaryKeyColumn.getLowerCamelCaseName(), primaryKeyColumn.getJavaType(), primaryKeyColumn.getLowerCamelCaseName()));
         stringBuilder.append(String.format("\t\treturn new Result<>(%sService.selectById(%s), \"查询成功\");\n", tableMeta.getLowerCamelCaseName(), primaryKeyColumn.getLowerCamelCaseName()));
         stringBuilder.append("\t}\n");
     }
@@ -227,7 +229,7 @@ public class GenerateController extends BaseGenerator {
         stringBuilder.append("\n").append(functionComment);
         stringBuilder.append("\t@DeleteMapping(\"/delete/{").append(primaryKeyColumn.getLowerCamelCaseName()).append("}\")\n");
         stringBuilder.append("\t@Auth(value = \"").append(config.getAppName()).append(".").append(tableMeta.getXtName()).append(".delete\", name = \"删除").append(tableMeta.getCommentOrName()).append("\", description = \"删除").append(tableMeta.getCommentOrName()).append("信息接口\")\n");
-        stringBuilder.append(String.format("\tpublic Result<String> delete(@PathVariable(\"%s\") %s %s) {\n", primaryKeyColumn.getLowerCamelCaseName(),primaryKeyColumn.getJavaType() ,primaryKeyColumn.getLowerCamelCaseName()));
+        stringBuilder.append(String.format("\tpublic Result<String> delete(@PathVariable(\"%s\") %s %s) {\n", primaryKeyColumn.getLowerCamelCaseName(), primaryKeyColumn.getJavaType(), primaryKeyColumn.getLowerCamelCaseName()));
         stringBuilder.append("\t\tOnlineUser onlineUser = SpringUtil.getOnlineUser();\n");
         stringBuilder.append(String.format("\t\t%sService.delete(%s, onlineUser);\n", tableMeta.getLowerCamelCaseName(), primaryKeyColumn.getLowerCamelCaseName()));
         stringBuilder.append("\t\treturn Result.ofSuccess(\"删除成功\");\n");

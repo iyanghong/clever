@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 线程池配置
+ *
  * @Author xixi
  * @Date 2023-12-15 10:01
  **/

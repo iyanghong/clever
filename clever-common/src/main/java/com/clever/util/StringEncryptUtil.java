@@ -35,6 +35,7 @@ public class StringEncryptUtil {
         }
         return strDes + "==";
     }
+
     /**
      * 生成验证码
      *

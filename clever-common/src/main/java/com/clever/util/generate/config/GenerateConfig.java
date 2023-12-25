@@ -194,6 +194,7 @@ public class GenerateConfig {
 
     /**
      * 获取自动填充的字段
+     *
      * @return 获取自动填充的字段
      */
     public List<String> getAutoFillField() {

@@ -51,7 +51,7 @@ public class GenerateService extends BaseGenerator {
             variables.setVariable("getByUniqueColumns", variables.resolveColumnList(getByUniqueColumns));
             variables.setVariable("getListByForeignKeyList", variables.resolveColumnList(getListByForeignKeyList));
             render(variables.getVariables(), "ServiceInterfaceTemplate.ftl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + "Service.java").toString());
-            render(variables.getVariables(),"ServiceTemplate.ftl", Paths.get(getBasePathOrCreate(Paths.get(basePath, "impl").toString()), toDTCamelCase(tableMeta.getTableName()) + "ServiceImpl.java").toString());
+            render(variables.getVariables(), "ServiceTemplate.ftl", Paths.get(getBasePathOrCreate(Paths.get(basePath, "impl").toString()), toDTCamelCase(tableMeta.getTableName()) + "ServiceImpl.java").toString());
         }
     }
 

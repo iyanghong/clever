@@ -35,9 +35,9 @@ public class GenerateMapper extends BaseGenerator {
         if (tableMetaList.isEmpty()) return;
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
-            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config,tableMeta);
+            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config, tableMeta);
             String filePath = Paths.get(getBasePathOrCreate(basePath), tableMeta.getUpperCamelCaseName() + "Mapper.java").toString();
-            render(freeMaskerVariable.getVariables(), "MapperTemplate.ftl",filePath);
+            render(freeMaskerVariable.getVariables(), "MapperTemplate.ftl", filePath);
             log.info("The table's mapper class generate complete. table = '{}' filePath = {}", tableMeta.getTableName(), filePath);
         }
     }

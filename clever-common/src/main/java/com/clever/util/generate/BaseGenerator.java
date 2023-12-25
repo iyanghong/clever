@@ -43,8 +43,8 @@ public class BaseGenerator implements IGenerator {
     /**
      * 生成
      *
-     * @param tableName   表名
-     * @param basePath    基础路径
+     * @param tableName 表名
+     * @param basePath  基础路径
      */
     public void generate(String tableName, String basePath) {
         List<TableMeta> tableMetaList = getTableMetaList(tableName);
@@ -177,7 +177,6 @@ public class BaseGenerator implements IGenerator {
         }
         return sb.toString();
     }
-
 
 
     /**

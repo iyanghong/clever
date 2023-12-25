@@ -19,6 +19,7 @@ import java.util.List;
  **/
 public class GenerateParameterDescription extends BaseGenerator {
     private static final Logger log = LoggerFactory.getLogger(GenerateParameterDescription.class);
+
     public GenerateParameterDescription(GenerateConfig config) {
         super(config);
     }

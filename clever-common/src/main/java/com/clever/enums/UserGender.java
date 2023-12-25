@@ -25,9 +25,9 @@ public enum UserGender {
     }
 
     public static String getGender(Integer code) {
-        if (code.equals(UNKNOWN.code)){
+        if (code.equals(UNKNOWN.code)) {
             return UNKNOWN.info;
-        } else if (code.equals(MALE.code)){
+        } else if (code.equals(MALE.code)) {
             return MALE.info;
         } else {
             return FEMALE.info;

@@ -5,6 +5,7 @@ import com.clever.util.SnowflakeIdGenerator;
 
 /**
  * MybatisPlus自定义ID生成器
+ *
  * @Author xixi
  * @Date 2023-12-19 17:39
  **/
