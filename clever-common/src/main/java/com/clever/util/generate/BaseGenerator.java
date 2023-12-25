@@ -35,37 +35,30 @@ public class BaseGenerator implements IGenerator {
         this.config = config;
     }
 
-    /**
-     * 生成
-     *
-     * @param tableName   表名
-     * @param packageName 包名
-     * @param basePath    基础路径
-     */
-    public void generate(String tableName, String packageName, String basePath) {
-        List<TableMeta> tableMetaList = getTableMetaList(tableName);
-        this.handler(tableMetaList, packageName, basePath);
+    public void generate(String basePath) {
+        List<TableMeta> tableMetaList = getTableMetaList("");
+        this.handler(tableMetaList, basePath);
     }
 
     /**
      * 生成
      *
-     * @param packageName 包名
+     * @param tableName   表名
      * @param basePath    基础路径
      */
-    public void generate(String packageName, String basePath) {
-        List<TableMeta> tableMetaList = getTableMetaList("");
-        this.handler(tableMetaList, packageName, basePath);
+    public void generate(String tableName, String basePath) {
+        List<TableMeta> tableMetaList = getTableMetaList(tableName);
+        this.handler(tableMetaList, basePath);
     }
+
 
     /**
      * 执行生成的操作
      *
      * @param tableMetaList 表列表
-     * @param packageName   包名
      * @param basePath      基础路径
      */
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
 
     }
 
@@ -81,7 +74,7 @@ public class BaseGenerator implements IGenerator {
             PreparedStatement tablePreparedStatement = null;
             if (tableName != null && !tableName.isEmpty()) {
                 // 查询指定表的元数据
-                tablePreparedStatement = connection.prepareStatement("select TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA = ? and TABLE_NAME = ? group by TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT");
+                tablePreparedStatement = connection.prepareStatement("select TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_COMMENT != 'VIEW' and TABLE_SCHEMA = ? and TABLE_NAME = ? group by TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT");
                 tablePreparedStatement.setString(1, config.DB_DATABASE);
                 tablePreparedStatement.setString(2, tableName);
             } else {
@@ -177,13 +170,15 @@ public class BaseGenerator implements IGenerator {
      */
     protected String toDTCamelCase(String columnName) {
         // Convert column name to camel case (e.g., first_name -> firstName)
-        String[] parts = columnName.split("_");
+        String[] parts = columnName.split("_|-");
         StringBuilder sb = new StringBuilder();
         for (String part : parts) {
             sb.append(part.substring(0, 1).toUpperCase()).append(part.substring(1));
         }
         return sb.toString();
     }
+
+
 
     /**
      * 将列名转换为小驼峰命名法
@@ -193,7 +188,7 @@ public class BaseGenerator implements IGenerator {
      */
     protected String toXTCamelCase(String columnName) {
         // Convert column name to camel case (e.g., first_name -> firstName)
-        String[] parts = columnName.split("_");
+        String[] parts = columnName.split("_|-");
         StringBuilder sb = new StringBuilder();
         sb.append(parts[0]);
         for (int i = 1; i < parts.length; i++) {
@@ -251,7 +246,7 @@ public class BaseGenerator implements IGenerator {
 
             Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
             // 指定模板文件所在的路径
-            configuration.setDirectoryForTemplateLoading(new File(Paths.get(projectRoot,"clever-common","src/main/resources/templates").toString()));
+            configuration.setDirectoryForTemplateLoading(new File(Paths.get(projectRoot, "clever-common", "src/main/resources/templates").toString()));
 
             // 设置模板文件使用的字符集
             configuration.setDefaultEncoding("utf-8");

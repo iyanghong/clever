@@ -2,6 +2,7 @@ package com.clever.util.generate;
 
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
+import com.clever.util.generate.entity.FreeMaskerVariable;
 import com.clever.util.generate.entity.TableMeta;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author xixi
@@ -30,7 +32,28 @@ public class GenerateController extends BaseGenerator {
         config.setEntityPackageName(entityPackageName);
         config.setServicePackageName(servicePackageName);
     }
-
+    /**
+     * 生成控制器
+     *
+     * @param tableMetaList 表列表
+     * @param basePath      基础路径
+     */
+    @Override
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
+        // 遍历表元数据列表
+        for (TableMeta tableMeta : tableMetaList) {
+            FreeMaskerVariable variables = new FreeMaskerVariable(config, tableMeta);
+            List<ColumnMeta> getListByForeignKeyList = tableMeta.getColumns().stream().filter(it -> it.getColumnName().endsWith("_id") || it.getColumnName().equals(config.getCreatorFieldName())).collect(Collectors.toList());
+            List<ColumnMeta> getByUniqueColumns = tableMeta.getColumns().stream().filter(it -> "UNI".equalsIgnoreCase(it.getColumnKey())).collect(Collectors.toList());
+            List<ColumnMeta> allowSearchColumns = tableMeta.getColumns().stream().filter(it -> allowSearchColumnNames.stream().anyMatch(it.getColumnName()::endsWith)).collect(Collectors.toList());
+            variables.setVariable("allowSearchColumns", variables.resolveColumnList(allowSearchColumns));
+            variables.setVariable("getByUniqueColumns", variables.resolveColumnList(getByUniqueColumns));
+            variables.setVariable("getListByForeignKeyList", variables.resolveColumnList(getListByForeignKeyList));
+            // 获取文件路径
+            String filePath = Paths.get(getBasePathOrCreate(basePath), tableMeta.getUpperCamelCaseName() + "Controller.java").toString();
+            render(variables.getVariables(), "ControllerTemplate.ftl", filePath);
+        }
+    }
     /**
      * 生成service接口和实现类
      *
@@ -38,8 +61,7 @@ public class GenerateController extends BaseGenerator {
      * @param packageName   包名
      * @param basePath      基础路径
      */
-    @Override
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+    protected void handler1(List<TableMeta> tableMetaList, String packageName, String basePath) {
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
             // 初始化字符串构建器

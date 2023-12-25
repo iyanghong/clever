@@ -10,69 +10,82 @@ import java.util.*;
  * @Date 2023-12-23 21:19
  **/
 public class FreeMaskerVariable {
-    private final Map<String, Object> variables;
+    private final Map<String, Object> variables = new HashMap<>();
 
-    public FreeMaskerVariable(GenerateConfig config,TableMeta tableMeta) {
-        this.variables = new HashMap<>();
-        setVariable("author", "xixi");
-        setVariable("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-
-        setVariable("appName", config.getAppName());
-        setVariable("DB_URL", config.DB_URL);
-        setVariable("DB_DATABASE", config.DB_DATABASE);
-        setVariable("DB_USERNAME", config.DB_USERNAME);
-        setVariable("entityPackageName", config.getEntityPackageName());
-        setVariable("mapperPackageName", config.getMapperPackageName());
-        setVariable("servicePackageName", config.getServicePackageName());
-        setVariable("idFieldName", config.getIdFieldName());
-        setVariable("creatorFieldName", config.getCreatorFieldName());
-        setVariable("modifierFieldName", config.getModifierFieldName());
-        setVariable("createTimeFieldName", config.getCreateTimeFieldName());
-        setVariable("modifyTimeFieldName", config.getModifyTimeFieldName());
-        setVariable("deleteFlagFieldName", config.getDeleteFlagFieldName());
-
-
-        setVariable("tableSchema", tableMeta.getTableSchema());
-        setVariable("tableName", tableMeta.getTableName());
-        setVariable("tableComment", tableMeta.getTableComment());
-        setVariable("lowerCamelCaseName", tableMeta.getLowerCamelCaseName());
-        setVariable("upperCamelCaseName", tableMeta.getUpperCamelCaseName());
-        setVariable("isHasDateTypeColumn", tableMeta.isHasDateTypeColumn());
-        setVariable("isHasNeedNotBlankValidate", tableMeta.isHasNeedNotBlankValidate());
-        setVariable("primaryKeyColumn", tableMeta.getPrimaryKeyColumn());
-        setVariable("commentOrName", tableMeta.getCommentOrName());
-        setVariable("commentOrUpperCamelCaseName", tableMeta.getCommentOrUpperCamelCaseName());
-        setVariable("commentOrLowerCamelCaseName", tableMeta.getCommentOrLowerCamelCaseName());
-
-        List<Map<String, Object>> columns = getColumns(tableMeta);
-        setVariable("columns", columns);
+    public FreeMaskerVariable(GenerateConfig config) {
+        resolveConfig(this.variables, config);
     }
 
-    private static List<Map<String, Object>> getColumns(TableMeta tableMeta) {
+    public FreeMaskerVariable(GenerateConfig config, TableMeta tableMeta) {
+        resolveConfig(this.variables, config);
+        resolveTable(this.variables, tableMeta);
+
+    }
+
+    public void resolveConfig(Map<String, Object> map, GenerateConfig config) {
+        map.put("author", "xixi");
+        map.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        map.put("appName", config.getAppName());
+        map.put("DB_URL", config.DB_URL);
+        map.put("DB_DATABASE", config.DB_DATABASE);
+        map.put("DB_USERNAME", config.DB_USERNAME);
+        map.put("entityPackageName", config.getEntityPackageName());
+        map.put("mapperPackageName", config.getMapperPackageName());
+        map.put("servicePackageName", config.getServicePackageName());
+        map.put("controllerPackageName", config.getControllerPackageName());
+        map.put("idFieldName", config.getIdFieldName());
+        map.put("creatorFieldName", config.getCreatorFieldName());
+        map.put("modifierFieldName", config.getModifierFieldName());
+        map.put("createTimeFieldName", config.getCreateTimeFieldName());
+        map.put("modifyTimeFieldName", config.getModifyTimeFieldName());
+        map.put("deleteFlagFieldName", config.getDeleteFlagFieldName());
+    }
+
+    public void resolveTable(Map<String, Object> map, TableMeta tableMeta) {
+        map.put("tableSchema", tableMeta.getTableSchema());
+        map.put("tableName", tableMeta.getTableName());
+        map.put("tableComment", tableMeta.getTableComment());
+        map.put("lowerCamelCaseName", tableMeta.getLowerCamelCaseName());
+        map.put("upperCamelCaseName", tableMeta.getUpperCamelCaseName());
+        map.put("isHasDateTypeColumn", tableMeta.isHasDateTypeColumn());
+        map.put("isHasNeedNotBlankValidate", tableMeta.isHasNeedNotBlankValidate());
+        map.put("primaryKeyColumn", tableMeta.getPrimaryKeyColumn());
+        map.put("commentOrName", tableMeta.getCommentOrName());
+        map.put("commentOrUpperCamelCaseName", tableMeta.getCommentOrUpperCamelCaseName());
+        map.put("commentOrLowerCamelCaseName", tableMeta.getCommentOrLowerCamelCaseName());
+        List<Map<String, Object>> columns = resolveColumnList(tableMeta.getColumns());
+        map.put("columns", columns);
+    }
+
+    public List<Map<String, Object>> resolveColumnList(List<ColumnMeta> columnMetaList) {
         List<Map<String, Object>> columns = new ArrayList<>();
-        for (ColumnMeta columnMeta : tableMeta.getColumns()) {
-            Map<String, Object> column = new HashMap<>();
-            column.put("tableSchema", columnMeta.getTableSchema());
-            column.put("tableName", columnMeta.getTableName());
-            column.put("columnName", columnMeta.getColumnName());
-            column.put("ordinalPosition", columnMeta.getOrdinalPosition());
-            column.put("columnDefault", columnMeta.getColumnDefault());
-            column.put("nullable", columnMeta.isNullable());
-            column.put("dataType", columnMeta.getDataType());
-            column.put("characterMaximumLength", columnMeta.getCharacterMaximumLength());
-            column.put("columnKey", columnMeta.getColumnKey());
-            column.put("columnComment", columnMeta.getColumnComment());
-            column.put("javaType", columnMeta.getJavaType());
-            column.put("lowerCamelCaseName", columnMeta.getLowerCamelCaseName());
-            column.put("upperCamelCaseName", columnMeta.getUpperCamelCaseName());
-            column.put("isHasNeedNotBlankValidate", columnMeta.isHasNeedNotBlankValidate());
-            column.put("commentOrName", columnMeta.getCommentOrName());
-            column.put("commentOrUpperCamelCaseName", columnMeta.getCommentOrUpperCamelCaseName());
-            column.put("commentOrLowerCamelCaseName", columnMeta.getCommentOrLowerCamelCaseName());
-            columns.add(column);
+        for (ColumnMeta columnMeta : columnMetaList) {
+            columns.add(resolveColumn(columnMeta));
         }
         return columns;
+    }
+
+    public Map<String, Object> resolveColumn(ColumnMeta columnMeta) {
+        Map<String, Object> column = new HashMap<>();
+        column.put("tableSchema", columnMeta.getTableSchema());
+        column.put("tableName", columnMeta.getTableName());
+        column.put("columnName", columnMeta.getColumnName());
+        column.put("ordinalPosition", columnMeta.getOrdinalPosition());
+        column.put("columnDefault", columnMeta.getColumnDefault());
+        column.put("nullable", columnMeta.isNullable());
+        column.put("dataType", columnMeta.getDataType());
+        column.put("characterMaximumLength", columnMeta.getCharacterMaximumLength());
+        column.put("columnKey", columnMeta.getColumnKey());
+        column.put("columnComment", columnMeta.getColumnComment());
+        column.put("javaType", columnMeta.getJavaType());
+        column.put("lowerCamelCaseName", columnMeta.getLowerCamelCaseName());
+        column.put("upperCamelCaseName", columnMeta.getUpperCamelCaseName());
+        column.put("isHasNeedNotBlankValidate", columnMeta.isHasNeedNotBlankValidate());
+        column.put("commentOrName", columnMeta.getCommentOrName());
+        column.put("commentOrUpperCamelCaseName", columnMeta.getCommentOrUpperCamelCaseName());
+        column.put("commentOrLowerCamelCaseName", columnMeta.getCommentOrLowerCamelCaseName());
+        return column;
     }
 
     public Map<String, Object> getVariables() {

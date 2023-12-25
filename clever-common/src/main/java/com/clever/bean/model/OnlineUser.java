@@ -1,11 +1,6 @@
 package com.clever.bean.model;
 
-import com.clever.bean.system.Platform;
-import com.clever.bean.system.Role;
-import com.clever.bean.system.User;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

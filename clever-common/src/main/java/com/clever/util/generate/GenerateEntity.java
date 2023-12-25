@@ -38,17 +38,15 @@ public class GenerateEntity extends BaseGenerator {
      * 执行生成实体类的操作
      *
      * @param tableMetaList 表列表
-     * @param packageName   包名
      * @param basePath      基础路径
      */
     @Override
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
-        config.setEntityPackageName(packageName);
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
         if (tableMetaList.isEmpty()) return;
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
             FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config,tableMeta);
-            render(freeMaskerVariable.getVariables(), "EntityTemplate.fpl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
+            render(freeMaskerVariable.getVariables(), "EntityTemplate.ftl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + ".java").toString());
         }
     }
 

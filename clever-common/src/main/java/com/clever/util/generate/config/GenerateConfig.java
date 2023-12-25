@@ -29,6 +29,8 @@ public class GenerateConfig {
 
     // 服务类包名
     private String servicePackageName;
+    // 控制器包名
+    private String controllerPackageName;
 
     /**
      * id字段名
@@ -180,5 +182,21 @@ public class GenerateConfig {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+
+    public String getControllerPackageName() {
+        return controllerPackageName;
+    }
+
+    public void setControllerPackageName(String controllerPackageName) {
+        this.controllerPackageName = controllerPackageName;
+    }
+
+    /**
+     * 获取自动填充的字段
+     * @return 获取自动填充的字段
+     */
+    public List<String> getAutoFillField() {
+        return Arrays.asList(this.creatorFieldName, this.modifierFieldName, this.createTimeFieldName, this.modifyTimeFieldName, this.deleteFlagFieldName);
     }
 }

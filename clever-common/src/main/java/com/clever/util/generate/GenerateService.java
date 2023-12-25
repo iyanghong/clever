@@ -2,6 +2,7 @@ package com.clever.util.generate;
 
 import com.clever.util.generate.config.GenerateConfig;
 import com.clever.util.generate.entity.ColumnMeta;
+import com.clever.util.generate.entity.FreeMaskerVariable;
 import com.clever.util.generate.entity.TableMeta;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author xixi
@@ -19,7 +21,8 @@ import java.util.*;
  **/
 public class GenerateService extends BaseGenerator {
     private static final Logger log = LoggerFactory.getLogger(GenerateService.class);
-    private final List<String> allowSearchColumnNames = Arrays.asList("_id", "name", "email", "phone", "status", "sex", "gender","account","type","code","host","title");
+    private final List<String> allowSearchColumnNames = Arrays.asList("_id", "name", "email", "phone", "status", "sex", "gender", "account", "type", "code", "host", "title");
+
     public GenerateService(GenerateConfig config) {
         super(config);
     }
@@ -32,12 +35,34 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 生成service接口和实现类
+     *
+     * @param tableMetaList 表列表
+     * @param basePath      基础路径
+     */
+    @Override
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
+        // 遍历表元数据列表
+        for (TableMeta tableMeta : tableMetaList) {
+            FreeMaskerVariable variables = new FreeMaskerVariable(config, tableMeta);
+            List<ColumnMeta> getListByForeignKeyList = tableMeta.getColumns().stream().filter(it -> it.getColumnName().endsWith("_id") || it.getColumnName().equals(config.getCreatorFieldName())).collect(Collectors.toList());
+            List<ColumnMeta> getByUniqueColumns = tableMeta.getColumns().stream().filter(it -> "UNI".equalsIgnoreCase(it.getColumnKey())).collect(Collectors.toList());
+            List<ColumnMeta> allowSearchColumns = tableMeta.getColumns().stream().filter(it -> allowSearchColumnNames.stream().anyMatch(it.getColumnName()::endsWith)).collect(Collectors.toList());
+            variables.setVariable("allowSearchColumns", variables.resolveColumnList(allowSearchColumns));
+            variables.setVariable("getByUniqueColumns", variables.resolveColumnList(getByUniqueColumns));
+            variables.setVariable("getListByForeignKeyList", variables.resolveColumnList(getListByForeignKeyList));
+            render(variables.getVariables(), "ServiceInterfaceTemplate.ftl", Paths.get(getBasePathOrCreate(basePath), toDTCamelCase(tableMeta.getTableName()) + "Service.java").toString());
+            render(variables.getVariables(),"ServiceTemplate.ftl", Paths.get(getBasePathOrCreate(Paths.get(basePath, "impl").toString()), toDTCamelCase(tableMeta.getTableName()) + "ServiceImpl.java").toString());
+        }
+    }
+
+    /**
+     * 生成service接口和实现类
+     *
      * @param tableMetaList 表列表
      * @param packageName   包名
      * @param basePath      基础路径
      */
-    @Override
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+    protected void handler1(List<TableMeta> tableMetaList, String packageName, String basePath) {
         // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
             // 将表名转换为DTCamelCase
@@ -45,9 +70,9 @@ public class GenerateService extends BaseGenerator {
             // 将表名转换为XTCamelCase
             String lowerCamelCaseName = toXTCamelCase(tableMeta.getTableName());
             // 初始化接口字符串构建器
-            StringBuilder interfaceBuilder = initInterfaceStringBuilder(tableMeta,packageName, upperCamelCaseName);
+            StringBuilder interfaceBuilder = initInterfaceStringBuilder(tableMeta, packageName, upperCamelCaseName);
             // 初始化实现字符串构建器
-            StringBuilder implementBuilder = initImplementBuilder(tableMeta,packageName, upperCamelCaseName, lowerCamelCaseName);
+            StringBuilder implementBuilder = initImplementBuilder(tableMeta, packageName, upperCamelCaseName, lowerCamelCaseName);
             // 获取表的主键列
             ColumnMeta primaryKeyColumn = tableMeta.getPrimaryKeyColumn();
 
@@ -117,8 +142,9 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 初始化接口字符串构建器
-     * @param tableMeta 表元数据
-     * @param packageName 包名
+     *
+     * @param tableMeta          表元数据
+     * @param packageName        包名
      * @param upperCamelCaseName 表名
      * @return 接口字符串构建器
      */
@@ -133,7 +159,7 @@ public class GenerateService extends BaseGenerator {
         interfaceBuilder.append(String.format("import %s.%s;\n", config.getEntityPackageName(), upperCamelCaseName));
         // 添加类注释
         interfaceBuilder.append("\n/**\n");
-        interfaceBuilder.append(String.format(" * %s服务接口\n", StringUtils.isNotBlank(tableMeta.getTableComment())?tableMeta.getTableComment():upperCamelCaseName));
+        interfaceBuilder.append(String.format(" * %s服务接口\n", StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : upperCamelCaseName));
         interfaceBuilder.append(" *\n");
         interfaceBuilder.append(" * @Author xixi\n");
         interfaceBuilder.append(String.format(" * @Date %s\n", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())));
@@ -144,13 +170,14 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 初始化实现字符串构建器
-     * @param tableMeta 表元数据
-     * @param packageName 包名
+     *
+     * @param tableMeta          表元数据
+     * @param packageName        包名
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      * @return 实现字符串构建器
      */
-    private StringBuilder initImplementBuilder(TableMeta tableMeta,String packageName, String upperCamelCaseName, String lowerCamelCaseName) {
+    private StringBuilder initImplementBuilder(TableMeta tableMeta, String packageName, String upperCamelCaseName, String lowerCamelCaseName) {
         StringBuilder implementBuilder = new StringBuilder();
         // 添加package声明
         implementBuilder.append("package ").append(packageName).append(".impl;\n\n");
@@ -171,7 +198,7 @@ public class GenerateService extends BaseGenerator {
 
         // 添加注释
         implementBuilder.append("\n/**\n");
-        implementBuilder.append(String.format(" * %s服务\n", StringUtils.isNotBlank(tableMeta.getTableComment())?tableMeta.getTableComment():upperCamelCaseName));
+        implementBuilder.append(String.format(" * %s服务\n", StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : upperCamelCaseName));
         implementBuilder.append(" *\n");
         implementBuilder.append(" * @Author xixi\n");
         implementBuilder.append(String.format(" * @Date %s\n", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())));
@@ -190,9 +217,10 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建查询分页接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */
@@ -229,7 +257,7 @@ public class GenerateService extends BaseGenerator {
         // 遍历允许搜索的列
         for (ColumnMeta columnMeta : allowSearchColumns) {
             // 将允许搜索的列名添加到接口构建器中
-            interfaceBuilder.append(String.format(", %s %s",columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
+            interfaceBuilder.append(String.format(", %s %s", columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
         }
 
         // 将接口构建器中的代码添加换行符
@@ -244,7 +272,7 @@ public class GenerateService extends BaseGenerator {
         // 遍历允许搜索的列
         for (ColumnMeta columnMeta : allowSearchColumns) {
             // 将允许搜索的列名添加到实现构建器中
-            implBuilder.append(String.format(", %s %s",columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
+            implBuilder.append(String.format(", %s %s", columnMeta.getJavaType(), toXTCamelCase(columnMeta.getColumnName())));
         }
         implBuilder.append(") {\n");
         implBuilder.append(String.format("\t\tQueryWrapper<%s> queryWrapper = new QueryWrapper<>();\n", upperCamelCaseName));
@@ -252,7 +280,7 @@ public class GenerateService extends BaseGenerator {
         for (ColumnMeta columnMeta : allowSearchColumns) {
             if (columnMeta.getJavaType().equals("String")) {
                 implBuilder.append(String.format("\t\tif (StringUtils.isNotBlank(%s)) {\n", toXTCamelCase(columnMeta.getColumnName())));
-            }else{
+            } else {
                 implBuilder.append(String.format("\t\tif (%s != null) {\n", toXTCamelCase(columnMeta.getColumnName())));
             }
             implBuilder.append(String.format("\t\t\tqueryWrapper.eq(\"%s\", %s);\n", columnMeta.getColumnName(), toXTCamelCase(columnMeta.getColumnName())));
@@ -266,10 +294,11 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建根据主键查询接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
-     * @param primaryKeyColumn 主键列
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
+     * @param primaryKeyColumn   主键列
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */
@@ -292,10 +321,11 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建保存接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
-     * @param primaryKeyColumn 主键列
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
+     * @param primaryKeyColumn   主键列
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */
@@ -339,10 +369,11 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建删除接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
-     * @param primaryKeyColumn 主键列
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
+     * @param primaryKeyColumn   主键列
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */
@@ -384,10 +415,11 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建根据外键查询接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
-     * @param columnMeta 列元数据
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
+     * @param columnMeta         列元数据
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */
@@ -425,10 +457,11 @@ public class GenerateService extends BaseGenerator {
 
     /**
      * 构建根据外键删除接口
-     * @param interfaceBuilder 接口构建器
-     * @param implBuilder 实现构建器
-     * @param tableMeta 表元数据
-     * @param columnMeta 列元数据
+     *
+     * @param interfaceBuilder   接口构建器
+     * @param implBuilder        实现构建器
+     * @param tableMeta          表元数据
+     * @param columnMeta         列元数据
      * @param upperCamelCaseName 大驼峰表名
      * @param lowerCamelCaseName 小驼峰表名
      */

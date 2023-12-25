@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS user
   COLLATE = utf8_general_ci COMMENT = '用户'
   ROW_FORMAT = DYNAMIC;
 
-CREATE TABLE IF NOT EXISTS user_platform
+CREATE TABLE IF NOT EXISTS user_platform_rel
 (
     id          VARCHAR(36) NOT NULL COMMENT 'id',
     user_id     varchar(36) not null comment '用户id',
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS role
   ROW_FORMAT = DYNAMIC;
 
 
-CREATE TABLE IF NOT EXISTS user_role
+CREATE TABLE IF NOT EXISTS user_role_rel
 (
     id         VARCHAR(36) NOT NULL COMMENT '用户角色中间表',
     user_id    VARCHAR(36) NOT NULL COMMENT '用户',
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS permission
   COLLATE = utf8_general_ci COMMENT = '系统权限'
   ROW_FORMAT = DYNAMIC;
 
-CREATE TABLE IF NOT EXISTS role_permission
+CREATE TABLE IF NOT EXISTS role_permission_rel
 (
     id            varchar(36) NOT NULL COMMENT '角色权限中间表',
     role_id       varchar(36) NOT NULL COMMENT '角色',
@@ -196,6 +196,7 @@ CREATE TABLE IF NOT EXISTS user_status_log
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci
+  COMMENT = '用户状态日志'
   ROW_FORMAT = DYNAMIC;
 
 
@@ -221,7 +222,7 @@ CREATE TABLE IF NOT EXISTS menu
   ROW_FORMAT = Dynamic;
 
 
-CREATE TABLE IF NOT EXISTS role_menu
+CREATE TABLE IF NOT EXISTS role_menu_rel
 (
     id         varchar(36) NOT NULL COMMENT '编号',
     menu_id    varchar(36) NOT NULL COMMENT '菜单唯一标识',
@@ -358,24 +359,22 @@ CREATE TABLE IF NOT EXISTS street
   COLLATE = utf8_general_ci COMMENT = '街道'
   ROW_FORMAT = DYNAMIC;
 
-
 CREATE TABLE IF NOT EXISTS village
 (
     id          bigint       NOT NULL,
-    name        varchar(200) NULL DEFAULT NULL,
-    street_id   int          NULL DEFAULT NULL,
-    province_id int          NULL DEFAULT NULL,
-    city_id     int          NULL DEFAULT NULL,
-    area_id     int          NULL DEFAULT NULL,
+    name        varchar(200) NULL DEFAULT NULL COMMENT '村庄名称',
+    province_id int          NULL DEFAULT NULL COMMENT '省份编号',
+    city_id     int          NULL DEFAULT NULL COMMENT '城市编号',
+    area_id     int          NULL DEFAULT NULL COMMENT '区/县编号',
+    street_id   int          NULL DEFAULT NULL COMMENT '街道编号',
     PRIMARY KEY (id) USING BTREE,
     INDEX AREA_ID_IDX (area_id ASC) USING BTREE COMMENT '行政区id索引',
     INDEX STREET_ID_IDX (street_id ASC) USING BTREE COMMENT '街道id索引'
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci
+    COMMENT = '村庄'
   ROW_FORMAT = DYNAMIC;
-
-
 
 create view address_level3
 as
@@ -470,3 +469,7 @@ FROM street
          LEFT JOIN area on street.area_id = area.id
          LEFT JOIN city ON area.city_id = city.id
          LEFT JOIN province ON city.province_id = province.id;
+
+
+
+

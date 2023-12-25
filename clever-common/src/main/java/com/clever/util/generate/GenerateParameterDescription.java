@@ -24,7 +24,7 @@ public class GenerateParameterDescription extends BaseGenerator {
     }
 
     @Override
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", "主键");
         jsonObject.put("creator", "创建人");

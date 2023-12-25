@@ -1,6 +1,7 @@
 package com.clever.util.generate;
 
 import com.clever.util.generate.config.GenerateConfig;
+import com.clever.util.generate.entity.FreeMaskerVariable;
 import com.clever.util.generate.entity.TableMeta;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -30,33 +31,14 @@ public class GenerateMapper extends BaseGenerator {
     }
 
     @Override
-    protected void handler(List<TableMeta> tableMetaList, String packageName, String basePath) {
+    protected void handler(List<TableMeta> tableMetaList, String basePath) {
+        if (tableMetaList.isEmpty()) return;
+        // 遍历表元数据列表
         for (TableMeta tableMeta : tableMetaList) {
-            String dtTableName = toDTCamelCase(tableMeta.getTableName());
-            StringBuilder stringBuilder = new StringBuilder();
-            // 添加包名
-            stringBuilder.append("package ").append(packageName).append(";\n\n");
-            stringBuilder.append("import com.baomidou.mybatisplus.core.mapper.BaseMapper;\n");
-            stringBuilder.append("import org.apache.ibatis.annotations.Mapper;\n");
-            stringBuilder.append("import ").append(config.getEntityPackageName()).append(".").append(dtTableName).append(";\n\n");
-            stringBuilder.append("\n/**\n");
-            stringBuilder.append(String.format(" * %sMapper\n", StringUtils.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment() : dtTableName));
-            stringBuilder.append(" *\n");
-            stringBuilder.append(" * @Author xixi\n");
-            stringBuilder.append(String.format(" * @Date %s\n", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())));
-            stringBuilder.append(" */\n");
-            stringBuilder.append("@Mapper\n");
-            stringBuilder.append(String.format("public interface %sMapper extends BaseMapper<%s> {", dtTableName, dtTableName));
-            stringBuilder.append("\n}\n");
-            String filePath = Paths.get(getBasePathOrCreate(basePath), dtTableName + "Mapper.java").toString();
-            // 写入文件
-            try (FileWriter writer = new FileWriter(filePath)) {
-                writer.write(stringBuilder.toString());
-                log.info("The table's mapper class generate complete. table = '{}' filePath = {}", tableMeta.getTableName(), filePath);
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to the file: " + e.getMessage());
-            }
-
+            FreeMaskerVariable freeMaskerVariable = new FreeMaskerVariable(config,tableMeta);
+            String filePath = Paths.get(getBasePathOrCreate(basePath), tableMeta.getUpperCamelCaseName() + "Mapper.java").toString();
+            render(freeMaskerVariable.getVariables(), "MapperTemplate.ftl",filePath);
+            log.info("The table's mapper class generate complete. table = '{}' filePath = {}", tableMeta.getTableName(), filePath);
         }
     }
 }
