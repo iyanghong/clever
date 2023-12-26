@@ -166,7 +166,7 @@ public class SystemConfig implements Serializable {
     /**
      * 是否启用此配置:0-不启用:1-启用
      */
-    public boolean isEnable() {
+    public boolean ifEnable() {
         return enable == 1;
     }
 

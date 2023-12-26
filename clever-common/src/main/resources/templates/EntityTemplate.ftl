@@ -77,7 +77,7 @@ public class ${upperCamelCaseName} implements Serializable {
      * ${column.columnComment}
      */
     </#if>
-    public boolean isEnable() {
+    public boolean ifEnable() {
     	return enable == 1;
     }
     </#if>
