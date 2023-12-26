@@ -13,5 +13,10 @@ import com.clever.bean.system.User;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-
+    /**
+     * 设置密码错误次数+1
+     *
+     * @param userId 用户id
+     */
+    void updatePasswordErrorCount(String userId);
 }

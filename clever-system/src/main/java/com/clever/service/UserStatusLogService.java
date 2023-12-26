@@ -3,6 +3,7 @@ package com.clever.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
 
+import java.util.Date;
 import java.util.List;
 
 import com.clever.bean.system.UserStatusLog;
@@ -93,5 +94,14 @@ public interface UserStatusLogService {
      * @param onlineUser 当前登录用户
      */
     void deleteByUserId(String userId, OnlineUser onlineUser);
+    /**
+     * 记录用户状态变更
+     *
+     * @param userId       用户
+     * @param changeStatus 更改的壮观
+     * @param duration     结束时间
+     * @param remake       备注
+     */
+    void logUserStatusChange(String userId, Integer changeStatus, Date duration, String remake);
 
 }

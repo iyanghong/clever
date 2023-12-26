@@ -174,4 +174,15 @@ public class RoleServiceImpl implements RoleService {
         roleMapper.delete(new QueryWrapper<Role>().eq("creator", creator));
         log.info("系统角色, 系统角色信息根据creator删除成功: userId={}, creator={}", onlineUser.getId(), creator);
     }
+    /**
+     * 根据用户id获取角色列表
+     *
+     * @param userId 用户id
+     * @return List<Role> 角色列表
+     */
+    @Override
+    public List<Role> selectRolesByUserId(String userId) {
+        return roleMapper.selectRolesByUserId(userId);
+    }
+
 }

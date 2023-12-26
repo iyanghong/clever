@@ -5,11 +5,11 @@ spring:
     nacos:
       discovery:
         password: Ts962464
-        server-addr: http://120.78.152.120:8848
+        server-addr: http://127.0.0.1:8848
         username: root
       config:
         password: Ts962464
-        server-addr: http://120.78.152.120:8848
+        server-addr: http://127.0.0.1:8848
         username: root
   profiles:
     active: dev

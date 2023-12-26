@@ -14,7 +14,10 @@ import com.clever.bean.system.SystemConfig;
  * @Date 2023-12-25 17:40:25
  */
 public interface SystemConfigService {
-
+    /**
+     * 初始化系统配置
+     */
+    void initConfig();
     /**
      * 分页查询列表
      *
@@ -110,5 +113,26 @@ public interface SystemConfigService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+    /**
+     * 根据配置code获取信息
+     *
+     * @param platformId 平台ID
+     * @param code 配置code
+     * @return SystemConfig system_config信息
+     */
+    SystemConfig selectByCode(Integer platformId, String code);
 
+    /**
+     * 根据配置code获取信息
+     *
+     * @param code 配置code
+     * @return SystemConfig system_config信息
+     */
+    SystemConfig selectByCode(String code);
+    /**
+     * 更新指定code的缓存
+     *
+     * @param code 配置code
+     */
+    void updateSysConfigCache(Integer platformId, String code);
 }

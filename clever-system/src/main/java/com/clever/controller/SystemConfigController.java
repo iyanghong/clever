@@ -137,4 +137,16 @@ public class SystemConfigController {
         systemConfigService.delete(id, onlineUser);
         return Result.ofSuccess("删除成功");
     }
+
+    /**
+     * 根据配置code和平台id获取系统配置信息
+     *
+     * @param platformId 平台ID
+     * @param code       缓存key
+     * @return 系统配置信息
+     */
+    @GetMapping("/getByCode/{platformId}/{code}")
+    public Result<SystemConfig> selectByCode(@PathVariable("platformId") Integer platformId, @PathVariable("code") String code) {
+        return new Result<>(systemConfigService.selectByCode(platformId, code), "查询成功");
+    }
 }

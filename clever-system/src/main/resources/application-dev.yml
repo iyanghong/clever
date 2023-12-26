@@ -5,7 +5,7 @@ spring:
     key: "92644664"
     workerId: 1
     datacenterId: 1
-    defaultOnlineUserId: 121212121212121212121212
+    defaultOnlineUserId: 12
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:

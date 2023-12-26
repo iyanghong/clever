@@ -3,12 +3,16 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.clever.mapper.PlatformMapper;
 import com.clever.bean.system.Platform;
@@ -82,6 +86,21 @@ public class PlatformServiceImpl implements PlatformService {
      */
     @Override
     public Platform create(Platform platform, OnlineUser onlineUser) {
+        if (StringUtils.isBlank(platform.getMaster())){
+            platform.setMaster(onlineUser.getId());
+        }
+        QueryWrapper<Platform> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", platform.getName());
+        queryWrapper.eq("master", platform.getMaster());
+        if (platformMapper.selectCount(queryWrapper) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.format("您名下该平台名称"));
+        }
+        // 检查邀请码，保证唯一
+        String code = RandomStringUtils.randomAlphabetic(6).toUpperCase(Locale.ROOT);
+        while (platformMapper.selectCount(new QueryWrapper<Platform>().eq("code", code)) > 0) {
+            code = RandomStringUtils.randomAlphabetic(6).toUpperCase(Locale.ROOT);
+        }
+        platform.setCode(code);
         platformMapper.insert(platform);
         log.info("平台, 平台信息创建成功: userId={}, platformId={}", onlineUser.getId(), platform.getId());
         return platform;
@@ -96,6 +115,13 @@ public class PlatformServiceImpl implements PlatformService {
      */
     @Override
     public Platform update(Platform platform, OnlineUser onlineUser) {
+        QueryWrapper<Platform> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", platform.getName());
+        queryWrapper.eq("master", platform.getMaster());
+        queryWrapper.ne("id", platform.getId());
+        if (platformMapper.selectCount(queryWrapper) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.format("您名下该平台名称"));
+        }
         platformMapper.updateById(platform);
         log.info("平台, 平台信息修改成功: userId={}, platformId={}", onlineUser.getId(), platform.getId());
         return platform;
@@ -139,4 +165,16 @@ public class PlatformServiceImpl implements PlatformService {
         platformMapper.deleteBatchIds(ids);
         log.info("平台, 平台信息批量删除成功: userId={}, count={}, platformIds={}", onlineUser.getId(), ids.size(), ids.toString());
     }
+
+    /**
+     * 根据用户id获取平台列表
+     *
+     * @param userId 用户id
+     * @return List<Platform> 平台列表
+     */
+    @Override
+    public List<Platform> selectByUserId(String userId) {
+        return platformMapper.selectByUserId(userId);
+    }
+
 }

@@ -6,6 +6,7 @@ import com.clever.bean.model.OnlineUser;
 import java.util.List;
 
 import com.clever.bean.system.Permission;
+import com.clever.bean.system.Role;
 
 /**
  * 系统权限服务接口
@@ -127,5 +128,11 @@ public interface PermissionService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
-
+    /**
+     * 根据角色列表获取权限列表
+     *
+     * @param roles 角色列表
+     * @return List<String> 权限列表
+     */
+    List<String> selectPermissionByRoles(List<Role> roles);
 }

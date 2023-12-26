@@ -108,5 +108,19 @@ public interface UserPlatformRelService {
      * @param onlineUser 当前登录用户
      */
     void deleteByPlatformId(Integer platformId, OnlineUser onlineUser);
+    /**
+     * 加入平台
+     *
+     * @param userId 用户id
+     * @param code   邀请码
+     */
+    void joinPlatform(String userId, String code);
 
+    /**
+     * 退出平台
+     *
+     * @param userId     用户id
+     * @param platformId 平台id
+     */
+    void exitPlatform(String userId, Integer platformId);
 }

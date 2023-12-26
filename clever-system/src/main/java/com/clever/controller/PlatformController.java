@@ -1,6 +1,7 @@
 package com.clever.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.service.UserPlatformRelService;
 import com.clever.util.SpringUtil;
 import com.clever.annotation.Auth;
 import com.clever.annotation.AuthGroup;
@@ -31,7 +32,8 @@ public class PlatformController {
     @Resource
     private PlatformService platformService;
 
-
+    @Resource
+    private UserPlatformRelService userPlatformRelService;
     /**
      * 分页查询平台列表
      *
@@ -122,5 +124,31 @@ public class PlatformController {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         platformService.delete(id, onlineUser);
         return Result.ofSuccess("删除成功");
+    }
+
+    /**
+     * 加入平台
+     *
+     * @param code 邀请码
+     */
+    @PostMapping("/join/{code}")
+    @Auth(value = "clever-system.platform.join", name = "加入平台", description = "加入平台接口")
+    public Result<String> join(@PathVariable("code") String code) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        userPlatformRelService.joinPlatform(onlineUser.getId(), code);
+        return Result.ofSuccess("加入成功");
+    }
+
+    /**
+     * 根据平台id退出平台
+     *
+     * @param platformId 平台id
+     */
+    @PostMapping("/exit/{platformId}")
+    @Auth(value = "clever-system.platform.exit", name = "退出平台", description = "退出平台接口")
+    public Result<String> exit(@PathVariable("platformId") Integer platformId) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        userPlatformRelService.exitPlatform(onlineUser.getId(), platformId);
+        return Result.ofSuccess("退出成功");
     }
 }

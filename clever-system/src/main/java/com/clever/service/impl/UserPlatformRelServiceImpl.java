@@ -3,6 +3,10 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.Platform;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
+import com.clever.service.PlatformService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +33,9 @@ public class UserPlatformRelServiceImpl implements UserPlatformRelService {
 
     @Resource
     private UserPlatformRelMapper userPlatformRelMapper;
+
+    @Resource
+    private PlatformService platformService;
 
     /**
      * 分页查询用户-平台列表
@@ -173,5 +180,51 @@ public class UserPlatformRelServiceImpl implements UserPlatformRelService {
     public void deleteByPlatformId(Integer platformId, OnlineUser onlineUser) {
         userPlatformRelMapper.delete(new QueryWrapper<UserPlatformRel>().eq("platform_id", platformId));
         log.info("用户-平台, 用户-平台信息根据platformId删除成功: userId={}, platformId={}", onlineUser.getId(), platformId);
+    }
+
+    /**
+     * 加入平台
+     *
+     * @param userId 用户id
+     * @param code   邀请码
+     */
+    @Override
+    public void joinPlatform(String userId, String code) {
+        Platform platform = platformService.selectByCode(code);
+        if (platform == null) {
+            log.info("加入平台失败，邀请码无效，userId={}, code={}", userId, code);
+            throw new BaseException(ConstantException.DATA_INVALID.format("邀请码"));
+
+        }
+        QueryWrapper<UserPlatformRel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("platform_id", platform.getId());
+        if (userPlatformRelMapper.selectCount(queryWrapper) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.reset("您已在该平台"));
+        }
+        UserPlatformRel userPlatform = new UserPlatformRel();
+        userPlatform.setPlatformId(platform.getId());
+        userPlatform.setUserId(userId);
+        userPlatformRelMapper.insert(userPlatform);
+        log.info("加入平台成功，userId={}, platformId={}", userId, platform.getId());
+    }
+
+    /**
+     * 退出平台
+     *
+     * @param userId     用户id
+     * @param platformId 平台id
+     */
+    @Override
+    public void exitPlatform(String userId, Integer platformId) {
+        QueryWrapper<UserPlatformRel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("platform_id", platformId);
+        if (userPlatformRelMapper.selectCount(queryWrapper) == 0) {
+            throw new BaseException(ConstantException.DATA_NOT_EXIST.reset("您已不在该平台"));
+        }
+        userPlatformRelMapper.delete(queryWrapper);
+        log.info("退出平台成功，userId={}, platformId={}", userId, platformId);
+
     }
 }
