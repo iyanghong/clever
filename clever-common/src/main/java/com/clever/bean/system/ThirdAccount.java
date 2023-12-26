@@ -13,7 +13,7 @@ import java.util.Date;
  * 第三方平台账号
  *
  * @Author xixi
- * @Date 2023-12-26 10:47:41
+ * @Date 2023-12-26 11:13:55
  */
 public class ThirdAccount implements Serializable {
 

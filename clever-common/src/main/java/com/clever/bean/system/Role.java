@@ -16,7 +16,7 @@ import java.util.Date;
  * 系统角色
  *
  * @Author xixi
- * @Date 2023-12-26 10:47:41
+ * @Date 2023-12-26 11:13:55
  */
 public class Role implements Serializable {
 
@@ -43,7 +43,6 @@ public class Role implements Serializable {
     /**
      * 创建者id
      */
-    @NotBlank(message = "创建者id不能为空")
     @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**

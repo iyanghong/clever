@@ -16,7 +16,7 @@ import java.util.Date;
  * 系统配置
  *
  * @Author xixi
- * @Date 2023-12-26 10:47:41
+ * @Date 2023-12-26 11:13:55
  */
 public class SystemConfig implements Serializable {
 
@@ -67,7 +67,6 @@ public class SystemConfig implements Serializable {
     /**
      * 创建者
      */
-    @NotBlank(message = "创建者不能为空")
     @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**

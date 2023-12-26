@@ -16,7 +16,7 @@ import java.util.Date;
  * 导航菜单
  *
  * @Author xixi
- * @Date 2023-12-26 10:47:41
+ * @Date 2023-12-26 11:13:55
  */
 public class Menu implements Serializable {
 
@@ -62,7 +62,6 @@ public class Menu implements Serializable {
     /**
      * 创建人
      */
-    @NotBlank(message = "创建人不能为空")
     @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**

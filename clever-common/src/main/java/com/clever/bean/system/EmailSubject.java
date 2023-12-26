@@ -16,7 +16,7 @@ import java.util.Date;
  * 邮箱主体
  *
  * @Author xixi
- * @Date 2023-12-26 10:47:41
+ * @Date 2023-12-26 11:13:55
  */
 public class EmailSubject implements Serializable {
 
@@ -70,7 +70,6 @@ public class EmailSubject implements Serializable {
     /**
      * 创建人
      */
-    @NotBlank(message = "创建人不能为空")
     @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**
