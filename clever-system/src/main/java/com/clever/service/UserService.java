@@ -121,6 +121,7 @@ public interface UserService {
      * @param onlineUser 当前登录用户
      */
     void deleteByDiskId(String diskId, OnlineUser onlineUser);
+
     /**
      * 用户登录
      *
@@ -131,4 +132,11 @@ public interface UserService {
      */
     OnlineUser login(String account, String password, Integer platformId);
 
+    /**
+     * 发送邮箱验证码
+     *
+     * @param email      邮箱
+     * @param platformId 平台id
+     */
+    void sendEmailVerifyCode(String email, Integer platformId);
 }

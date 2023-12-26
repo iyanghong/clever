@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
 
 import java.util.List;
+import java.util.Map;
 
 import com.clever.bean.system.EmailTemplate;
 
@@ -126,5 +127,20 @@ public interface EmailTemplateService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+    /**
+     * 发送邮件
+     *
+     * @param email      接收邮箱
+     * @param templateId 模板id
+     * @param variables  变量
+     */
+    void sendEmail(String email, String templateId, Map<String, String> variables);
 
+    /**
+     * 根据code和平台id获取邮箱模板
+     * @param platformId 平台id
+     * @param code 模板code
+     * @return EmailTemplate
+     */
+    EmailTemplate selectByCodeAndPlatform(Integer platformId,String code);
 }

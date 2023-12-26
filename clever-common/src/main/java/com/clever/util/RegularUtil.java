@@ -1,5 +1,7 @@
 package com.clever.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,5 +51,24 @@ public class RegularUtil {
     public static boolean isContainsCommonCharacter(String str) {
         Matcher matcher = Pattern.compile(CHARACTER_REGULAR).matcher(str);
         return matcher.find();
+    }
+
+    /**
+     * 转义正则特殊字符 （$()*+.[]?\^{}
+     * \\需要第一个替换，否则replace方法替换时会有逻辑bug
+     */
+    public static String makeQueryStringAllRegExp(String str) {
+        if (StringUtils.isBlank(str)) {
+            return str;
+        }
+
+        return str.replace("\\", "\\\\").replace("*", "\\*")
+                .replace("+", "\\+").replace("|", "\\|")
+                .replace("{", "\\{").replace("}", "\\}")
+                .replace("(", "\\(").replace(")", "\\)")
+                .replace("^", "\\^").replace("$", "\\$")
+                .replace("[", "\\[").replace("]", "\\]")
+                .replace("?", "\\?").replace(",", "\\,")
+                .replace(".", "\\.").replace("&", "\\&");
     }
 }

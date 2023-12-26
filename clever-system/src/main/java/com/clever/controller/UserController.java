@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户接口
@@ -177,5 +178,18 @@ public class UserController {
     @PostMapping("/login")
     public Result<OnlineUser> login(@NotBlank(message = "登录账号不能为空") String account, @NotBlank(message = "登录密码不能为空") String password, Integer platformId) {
         return new Result<OnlineUser>(userService.login(account, password, platformId), "登录成功");
+    }
+
+    /**
+     * 发送邮箱验证码
+     *
+     * @param platformId 平台id
+     * @return 验证码
+     */
+    @PostMapping("/sendEmailVerifyCode")
+    public Result<String> sendEmailVerifyCode(@NotNull(message = "平台id不能为空") Integer platformId) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        userService.sendEmailVerifyCode(onlineUser.getEmail(), platformId);
+        return Result.ofSuccess("发送成功");
     }
 }

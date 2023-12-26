@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Order(11)
 public class SystemConfigInitRunner implements ApplicationRunner {
     private final static Logger log = LoggerFactory.getLogger(SystemConfigInitRunner.class);
+    @Value("${spring.application.name}")
+    private String appName;
     @Value("${spring.application.url}")
     private String appUrl;
 
@@ -37,6 +39,7 @@ public class SystemConfigInitRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        Constant.APP_NAME = appName;
         Constant.APP_URL = appUrl;
         Constant.CLIENT_URL = client;
         Constant.KEY = key;

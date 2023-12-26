@@ -33,13 +33,14 @@ public class DefaultHandlerInterceptor implements HandlerInterceptor {
         Object onlineUser = redis.getString(CacheConstant.getOnlineKeyName(token));
         if (onlineUser != null) {
             request.setAttribute("online", onlineUser);
-        } else {
+        }
+        /*else {
             if (StringUtils.isNotBlank(appRunConfig.getDefaultOnlineUserId())) {
                 OnlineUser user = new OnlineUser();
                 user.setId(appRunConfig.getDefaultOnlineUserId());
                 request.setAttribute("online", user);
             }
-        }
+        }*/
         return true;
     }
 }

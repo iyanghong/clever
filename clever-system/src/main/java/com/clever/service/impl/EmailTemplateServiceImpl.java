@@ -1,14 +1,30 @@
 package com.clever.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.Constant;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.User;
+import com.clever.enums.UserStatus;
+import com.clever.exception.BaseException;
+import com.clever.exception.ConstantException;
+import com.clever.manager.EmailManager;
+import com.clever.mapper.UserMapper;
+import com.clever.util.RegularUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
 
 import com.clever.mapper.EmailTemplateMapper;
 import com.clever.bean.system.EmailTemplate;
@@ -27,8 +43,18 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
 
     private final static Logger log = LoggerFactory.getLogger(EmailTemplateServiceImpl.class);
 
-    @Resource
-    private EmailTemplateMapper emailTemplateMapper;
+    private final EmailTemplateMapper emailTemplateMapper;
+    private final ThreadPoolTaskExecutor executor;
+    private final EmailManager emailManager;
+
+    private final UserMapper userMapper;
+
+    public EmailTemplateServiceImpl(EmailTemplateMapper emailTemplateMapper, @Qualifier("threadPoolTaskExecutor") ThreadPoolTaskExecutor executor, EmailManager emailManager, UserMapper userMapper) {
+        this.emailTemplateMapper = emailTemplateMapper;
+        this.executor = executor;
+        this.emailManager = emailManager;
+        this.userMapper = userMapper;
+    }
 
     /**
      * 分页查询邮箱模板列表
@@ -112,6 +138,9 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      */
     @Override
     public EmailTemplate create(EmailTemplate emailTemplate, OnlineUser onlineUser) {
+        if (emailTemplateMapper.selectCount(new QueryWrapper<EmailTemplate>().eq("code", emailTemplate.getCode()).eq("platform_id", emailTemplate.getPlatformId())) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.reset("存在同一个Key的邮箱模板"));
+        }
         emailTemplateMapper.insert(emailTemplate);
         log.info("邮箱模板, 邮箱模板信息创建成功: userId={}, emailTemplateId={}", onlineUser.getId(), emailTemplate.getId());
         return emailTemplate;
@@ -126,6 +155,9 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      */
     @Override
     public EmailTemplate update(EmailTemplate emailTemplate, OnlineUser onlineUser) {
+        if (emailTemplateMapper.selectCount(new QueryWrapper<EmailTemplate>().ne("id", emailTemplate.getId()).eq("code", emailTemplate.getCode()).eq("platform_id", emailTemplate.getPlatformId())) > 0) {
+            throw new BaseException(ConstantException.DATA_IS_EXIST.reset("存在同一个Key的邮箱模板"));
+        }
         emailTemplateMapper.updateById(emailTemplate);
         log.info("邮箱模板, 邮箱模板信息修改成功: userId={}, emailTemplateId={}", onlineUser.getId(), emailTemplate.getId());
         return emailTemplate;
@@ -204,5 +236,94 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     public void deleteByCreator(String creator, OnlineUser onlineUser) {
         emailTemplateMapper.delete(new QueryWrapper<EmailTemplate>().eq("creator", creator));
         log.info("邮箱模板, 邮箱模板信息根据creator删除成功: userId={}, creator={}", onlineUser.getId(), creator);
+    }
+
+    /**
+     * 渲染模板内容
+     *
+     * @param content           模板内容
+     * @param placeholderFormat 占位符格式
+     * @param variables         变量
+     * @return 渲染后的内容
+     */
+    private String renderEmailTemplate(String content, String placeholderFormat, Map<String, String> variables) {
+        if (StringUtils.isBlank(content)) {
+            return content;
+        }
+        if (StringUtils.isBlank(placeholderFormat) || !placeholderFormat.contains("%s")) {
+            placeholderFormat = "%s";
+        }
+        for (String key : variables.keySet()) {
+            String value = variables.get(key);
+            if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
+                content = content.replaceAll(RegularUtil.makeQueryStringAllRegExp(String.format(placeholderFormat, key)), value);
+            }
+        }
+        return content;
+    }
+
+    private Map<String, String> loadBaseTemplateVariables(String receiveEmail) {
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("email", receiveEmail));
+        if (user == null) {
+            user = new User();
+        }
+        Map<String, String> variables = new HashMap<>();
+        variables.put("receiveEmail", receiveEmail);
+        variables.put("account", user.getAccount());
+        variables.put("nickname", user.getNickname());
+        variables.put("date", DateFormatUtils.format(new Date(), "yyyy-MM-dd"));
+        variables.put("datetime", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        variables.put("appUrl", Constant.APP_URL);
+        return variables;
+    }
+
+
+    /**
+     * 发送邮件
+     *
+     * @param email      接收邮箱
+     * @param templateId 模板id
+     * @param variables  变量
+     */
+    @Override
+    public void sendEmail(String email, String templateId, Map<String, String> variables) {
+        executor.execute(() -> {
+            try {
+                // 根据模板ID查询模板
+                EmailTemplate emailTemplate = emailTemplateMapper.selectById(templateId);
+                if (emailTemplate != null) {
+                    // 将模板中的占位符替换为变量
+                    JSONObject jsonObject = JSONObject.parseObject(emailTemplate.getPlaceholder());
+                    Map<String, String> replacementMap = loadBaseTemplateVariables(email);
+                    if (!jsonObject.isEmpty()) {
+                        for (String key : jsonObject.keySet()) {
+                            String value = StringUtils.isBlank(variables.get(key)) ? jsonObject.getString(key) : variables.get(key);
+                            replacementMap.put(key, value);
+                        }
+                    }
+                    // 渲染邮件模板
+                    emailTemplate.setContent(renderEmailTemplate(emailTemplate.getContent(), "${%s}", replacementMap));
+                    // 发送邮件
+                    emailManager.sendEmail(email, emailTemplate);
+                    log.info("发送邮件, 邮件发送成功: receiveMail={}, template={}", email, templateId);
+                } else {
+                    log.error("发送邮件, 发送模板为空: receiveMail={}, template={}", email, templateId);
+                }
+            } catch (Exception e) {
+                log.error("发送邮件, 邮件发送失败: receiveMail={}, template={}", email, templateId, e);
+            }
+        });
+    }
+
+    /**
+     * 根据code和平台id获取邮箱模板
+     *
+     * @param platformId 平台id
+     * @param code       模板code
+     * @return EmailTemplate
+     */
+    @Override
+    public EmailTemplate selectByCodeAndPlatform(Integer platformId, String code) {
+        return emailTemplateMapper.selectOne(new QueryWrapper<EmailTemplate>().eq("platform_id", platformId).eq("code", code));
     }
 }

@@ -2,11 +2,10 @@ package com.clever.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.Constant;
 import com.clever.SystemConfigConstant;
 import com.clever.bean.model.OnlineUser;
-import com.clever.bean.system.Platform;
-import com.clever.bean.system.Role;
-import com.clever.bean.system.SystemConfig;
+import com.clever.bean.system.*;
 import com.clever.constant.CacheConstant;
 import com.clever.enums.UserStatus;
 import com.clever.exception.BaseException;
@@ -16,17 +15,20 @@ import com.clever.util.RegularUtil;
 import com.clever.util.SpringUtil;
 import com.clever.util.StringEncryptUtil;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.clever.mapper.UserMapper;
-import com.clever.bean.system.User;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +63,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private SystemConfigService systemConfigService;
+
+    @Resource
+    private EmailTemplateService emailTemplateService;
 
     /**
      * 分页查询用户列表
@@ -330,5 +335,40 @@ public class UserServiceImpl implements UserService {
         userMapper.updateById(updateUser);
         log.info("用户登录, 用户登录成功: account={}, ip={}", account, ip);
         return onlineUser;
+    }
+
+    /**
+     * 发送邮箱验证码
+     *
+     * @param email      邮箱
+     * @param platformId 平台id
+     */
+    @Override
+    public void sendEmailVerifyCode(String email, Integer platformId) {
+        if (StringUtils.isBlank(email) || !RegularUtil.isMatching(RegularUtil.REGULAR_EMAIL, email)) {
+            throw new BaseException(ConstantException.PARAMETER_VERIFICATION_EMAIL_FAIL);
+        }
+        String codeKey = String.format(Constant.KEY_FORMAT, Constant.APP_NAME, "email:code", email);
+        String timeOutKey = String.format(Constant.KEY_FORMAT, Constant.APP_NAME, "email:codeTimeOut", email);
+        //检查是否在验证码发送冷却时间内
+        String flag = redis.getString(timeOutKey);
+        if (StringUtils.isNotBlank(flag)) {
+            log.error("发送邮件, 邮件发送频繁: receiveEmail={}", email);
+            throw new BaseException(ConstantException.EMAIL_SEND_OFTEN);
+        }
+        String code = RandomStringUtils.randomNumeric(6);
+        Map<String, String> variables = new HashMap<>();
+        variables.put("captcha", code);
+        String templateCode = "VerifyCode";
+        EmailTemplate emailTemplate = emailTemplateService.selectByCodeAndPlatform(platformId, templateCode);
+        if (emailTemplate == null) {
+            log.error("发送邮件, 邮件模板不存在: receiveEmail={}, platformId={}", email, platformId);
+            throw new BaseException(ConstantException.DATA_NOT_EXIST.reset("邮箱模板不存在:" + templateCode));
+        }
+        emailTemplateService.sendEmail(email, emailTemplate.getId(), variables);
+        //验证码有效期600秒
+        redis.setString(codeKey, code, 600);
+        //90秒后可重新发送
+        redis.setString(timeOutKey, code, 90);
     }
 }
