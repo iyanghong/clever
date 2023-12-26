@@ -106,7 +106,10 @@ public class BaseGenerator implements IGenerator {
 
                     String comment = columnResultSet.getString("COLUMN_COMMENT");
                     if (StringUtils.isNotBlank(comment)) {
-                        comment = comment.replaceAll("\r|\n", ",").replaceAll(",,", ",").replaceAll("：,", "：").replaceAll(":,", ":");
+                        comment = comment.replaceAll("\r|\n", ",").replaceAll(",,", ",").replaceAll("：,", "：").replaceAll(":,", ":").replaceAll("：", ":");
+                        if (!StringUtils.contains(comment, ":") && StringUtils.contains(comment, ",")) {
+                            comment = comment.replace(",", ":");
+                        }
                     }
                     columnMeta.setColumnComment(comment);
                     columnMeta.setJavaType(mapColumnType(columnMeta.getDataType()));

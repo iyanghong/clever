@@ -104,6 +104,20 @@ public class TableMeta {
     }
 
     /**
+     * 是否存在需要判断不为空的字段
+     *
+     * @return 是否存在需要判断不为空的字段
+     */
+    public boolean isHasNeedNotNullValidate() {
+        for (ColumnMeta column : columns) {
+            if (column.isHasNeedNotBlankValidate() && !column.getJavaType().equalsIgnoreCase("String")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 检测是否存在某个字段名
      *
      * @param name 字段名

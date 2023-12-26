@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,7 @@ import java.util.Date;
  * 系统配置
  *
  * @Author xixi
- * @Date 2023-12-25 17:35:27
+ * @Date 2023-12-26 10:47:41
  */
 public class SystemConfig implements Serializable {
 
@@ -44,9 +46,9 @@ public class SystemConfig implements Serializable {
     @NotBlank(message = "值不能为空")
     private String value;
     /**
-     * 类型,0-字符串,1-数组,2-json对象,3-数字,4-布尔值,5-加密
+     * 类型:0-字符串:1-数组:2-json对象:3-数字:4-布尔值:5-加密
      */
-    @NotNull(message = "类型,0-字符串,1-数组,2-json对象,3-数字,4-布尔值,5-加密不能为空")
+    @NotNull(message = "类型不能为空")
     private Integer type;
     /**
      * 配置项
@@ -54,7 +56,7 @@ public class SystemConfig implements Serializable {
     @NotBlank(message = "配置项不能为空")
     private String options;
     /**
-     * 是否启用此配置,0-不启用,1-启用
+     * 是否启用此配置:0-不启用:1-启用
      */
     private Integer enable;
     /**
@@ -66,6 +68,7 @@ public class SystemConfig implements Serializable {
      * 创建者
      */
     @NotBlank(message = "创建者不能为空")
+    @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**
      * 创建时间
@@ -133,7 +136,7 @@ public class SystemConfig implements Serializable {
     }
 
     /**
-     * 类型,0-字符串,1-数组,2-json对象,3-数字,4-布尔值,5-加密
+     * 类型:0-字符串:1-数组:2-json对象:3-数字:4-布尔值:5-加密
      */
     public Integer getType() {
         return type;
@@ -155,14 +158,14 @@ public class SystemConfig implements Serializable {
     }
 
     /**
-     * 是否启用此配置,0-不启用,1-启用
+     * 是否启用此配置:0-不启用:1-启用
      */
     public Integer getEnable() {
         return enable;
     }
 
     /**
-     * 是否启用此配置,0-不启用,1-启用
+     * 是否启用此配置:0-不启用:1-启用
      */
     public boolean isEnable() {
         return enable == 1;

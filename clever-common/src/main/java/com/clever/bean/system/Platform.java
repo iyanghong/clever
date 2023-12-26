@@ -2,6 +2,7 @@ package com.clever.bean.system;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
@@ -12,14 +13,14 @@ import java.util.Date;
  * 平台
  *
  * @Author xixi
- * @Date 2023-12-25 17:35:27
+ * @Date 2023-12-26 10:47:41
  */
 public class Platform implements Serializable {
 
     /**
      * 平台id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
     /**
      * 平台名称

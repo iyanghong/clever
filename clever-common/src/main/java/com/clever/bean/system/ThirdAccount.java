@@ -13,7 +13,7 @@ import java.util.Date;
  * 第三方平台账号
  *
  * @Author xixi
- * @Date 2023-12-25 17:35:27
+ * @Date 2023-12-26 10:47:41
  */
 public class ThirdAccount implements Serializable {
 
@@ -23,9 +23,9 @@ public class ThirdAccount implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     private String id;
     /**
-     * 第三方平台：qq|weixin|dingtalk|sina|tiktok
+     * 第三方平台:qq|weixin|dingtalk|sina|tiktok
      */
-    @NotBlank(message = "第三方平台：qq|weixin|dingtalk|sina|tiktok不能为空")
+    @NotBlank(message = "第三方平台不能为空")
     private String type;
     /**
      * open_id
@@ -63,7 +63,7 @@ public class ThirdAccount implements Serializable {
     }
 
     /**
-     * 第三方平台：qq|weixin|dingtalk|sina|tiktok
+     * 第三方平台:qq|weixin|dingtalk|sina|tiktok
      */
     public String getType() {
         return type;

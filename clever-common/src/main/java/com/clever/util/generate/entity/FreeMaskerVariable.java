@@ -1,6 +1,7 @@
 package com.clever.util.generate.entity;
 
 import com.clever.util.generate.config.GenerateConfig;
+import org.apache.commons.lang.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,12 +12,15 @@ import java.util.*;
  **/
 public class FreeMaskerVariable {
     private final Map<String, Object> variables = new HashMap<>();
+    private final GenerateConfig config;
 
     public FreeMaskerVariable(GenerateConfig config) {
+        this.config = config;
         resolveConfig(this.variables, config);
     }
 
     public FreeMaskerVariable(GenerateConfig config, TableMeta tableMeta) {
+        this.config = config;
         resolveConfig(this.variables, config);
         resolveTable(this.variables, tableMeta);
 
@@ -50,10 +54,23 @@ public class FreeMaskerVariable {
         map.put("upperCamelCaseName", tableMeta.getUpperCamelCaseName());
         map.put("isHasDateTypeColumn", tableMeta.isHasDateTypeColumn());
         map.put("isHasNeedNotBlankValidate", tableMeta.isHasNeedNotBlankValidate());
+        map.put("isHasNeedNotNullValidate", tableMeta.isHasNeedNotNullValidate());
         map.put("primaryKeyColumn", tableMeta.getPrimaryKeyColumn());
         map.put("commentOrName", tableMeta.getCommentOrName());
         map.put("commentOrUpperCamelCaseName", tableMeta.getCommentOrUpperCamelCaseName());
         map.put("commentOrLowerCamelCaseName", tableMeta.getCommentOrLowerCamelCaseName());
+        boolean isHasAutoInsertColumn = false;
+        boolean isHasAutoUpdateColumn = false;
+        for (ColumnMeta columnMeta : tableMeta.getColumns()) {
+            if (config.getAutoInsertFillField().contains(columnMeta.getColumnName())) {
+                isHasAutoInsertColumn = true;
+            }
+            if (config.getAutoUpdateFillField().contains(columnMeta.getColumnName())) {
+                isHasAutoUpdateColumn = true;
+            }
+        }
+        map.put("isHasAutoInsertColumn", isHasAutoInsertColumn);
+        map.put("isHasAutoUpdateColumn", isHasAutoUpdateColumn);
         List<Map<String, Object>> columns = resolveColumnList(tableMeta.getColumns());
         map.put("columns", columns);
     }
@@ -85,6 +102,17 @@ public class FreeMaskerVariable {
         column.put("commentOrName", columnMeta.getCommentOrName());
         column.put("commentOrUpperCamelCaseName", columnMeta.getCommentOrUpperCamelCaseName());
         column.put("commentOrLowerCamelCaseName", columnMeta.getCommentOrLowerCamelCaseName());
+        column.put("isAutoInsertFill", config.getAutoInsertFillField().contains(columnMeta.getColumnName()));
+        column.put("isAutoUpdateFill", config.getAutoUpdateFillField().contains(columnMeta.getColumnName()));
+        String nameText = StringUtils.isNotBlank(columnMeta.getColumnComment()) ? columnMeta.getColumnComment() : "";
+        if (StringUtils.isNotBlank(nameText)) {
+            nameText = nameText.replaceAll("：", ":");
+            String[] nameArr = nameText.split(":");
+            if (nameArr.length > 0) {
+                nameText = nameArr[0];
+            }
+        }
+        column.put("nameText", StringUtils.isNotBlank(nameText) ? nameText : columnMeta.getCommentOrName());
         return column;
     }
 

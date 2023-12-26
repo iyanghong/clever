@@ -14,7 +14,7 @@ import java.util.Date;
  * 用户状态日志
  *
  * @Author xixi
- * @Date 2023-12-25 17:35:27
+ * @Date 2023-12-26 10:47:41
  */
 public class UserStatusLog implements Serializable {
 

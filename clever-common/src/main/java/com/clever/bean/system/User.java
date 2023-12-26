@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -14,7 +13,7 @@ import java.util.Date;
  * 用户
  *
  * @Author xixi
- * @Date 2023-12-25 17:35:27
+ * @Date 2023-12-26 10:47:41
  */
 public class User implements Serializable {
 
@@ -54,11 +53,11 @@ public class User implements Serializable {
      */
     private String diskId;
     /**
-     * 账号状态：0-未激活,1-正常,2-密码冻结,3-违规,4-注销
+     * 账号状态:0-未激活,1-正常,2-密码冻结,3-违规,4-注销
      */
     private Integer status;
     /**
-     * 性别：0-未知,1-男,2-女
+     * 性别:0-未知,1-男,2-女
      */
     private Integer gender;
     /**
@@ -78,15 +77,15 @@ public class User implements Serializable {
      */
     private Date lastLoginTime;
     /**
-     * 密码错误次数,最大为五
+     * 密码错误次数:最大为五
      */
     private Integer passwordErrorNum;
     /**
-     * 登录时常,最大12
+     * 登录时常:最大12
      */
     private Integer onlineTime;
     /**
-     * 用户所在城市,默认是未知
+     * 用户所在城市:默认是未知
      */
     private Integer address;
     /**
@@ -200,7 +199,7 @@ public class User implements Serializable {
     }
 
     /**
-     * 账号状态：0-未激活,1-正常,2-密码冻结,3-违规,4-注销
+     * 账号状态:0-未激活,1-正常,2-密码冻结,3-违规,4-注销
      */
     public Integer getStatus() {
         return status;
@@ -211,7 +210,7 @@ public class User implements Serializable {
     }
 
     /**
-     * 性别：0-未知,1-男,2-女
+     * 性别:0-未知,1-男,2-女
      */
     public Integer getGender() {
         return gender;
@@ -266,7 +265,7 @@ public class User implements Serializable {
     }
 
     /**
-     * 密码错误次数,最大为五
+     * 密码错误次数:最大为五
      */
     public Integer getPasswordErrorNum() {
         return passwordErrorNum;
@@ -277,7 +276,7 @@ public class User implements Serializable {
     }
 
     /**
-     * 登录时常,最大12
+     * 登录时常:最大12
      */
     public Integer getOnlineTime() {
         return onlineTime;
@@ -288,7 +287,7 @@ public class User implements Serializable {
     }
 
     /**
-     * 用户所在城市,默认是未知
+     * 用户所在城市:默认是未知
      */
     public Integer getAddress() {
         return address;
