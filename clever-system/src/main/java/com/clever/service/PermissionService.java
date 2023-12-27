@@ -128,6 +128,7 @@ public interface PermissionService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+
     /**
      * 根据角色列表获取权限列表
      *

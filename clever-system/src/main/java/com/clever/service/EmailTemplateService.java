@@ -127,6 +127,7 @@ public interface EmailTemplateService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+
     /**
      * 发送邮件
      *
@@ -138,9 +139,10 @@ public interface EmailTemplateService {
 
     /**
      * 根据code和平台id获取邮箱模板
+     *
      * @param platformId 平台id
-     * @param code 模板code
+     * @param code       模板code
      * @return EmailTemplate
      */
-    EmailTemplate selectByCodeAndPlatform(Integer platformId,String code);
+    EmailTemplate selectByCodeAndPlatform(Integer platformId, String code);
 }

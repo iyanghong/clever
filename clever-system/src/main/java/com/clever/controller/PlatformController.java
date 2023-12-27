@@ -34,6 +34,7 @@ public class PlatformController {
 
     @Resource
     private UserPlatformRelService userPlatformRelService;
+
     /**
      * 分页查询平台列表
      *

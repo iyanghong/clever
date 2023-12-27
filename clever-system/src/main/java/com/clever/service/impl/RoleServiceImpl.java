@@ -70,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> selectListByPlatformId(Integer platformId) {
-        return roleMapper.selectList(new QueryWrapper<Role>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return roleMapper.selectList(new QueryWrapper<Role>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -81,7 +81,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> selectListByCreator(String creator) {
-        return roleMapper.selectList(new QueryWrapper<Role>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return roleMapper.selectList(new QueryWrapper<Role>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**
@@ -174,6 +174,7 @@ public class RoleServiceImpl implements RoleService {
         roleMapper.delete(new QueryWrapper<Role>().eq("creator", creator));
         log.info("系统角色, 系统角色信息根据creator删除成功: userId={}, creator={}", onlineUser.getId(), creator);
     }
+
     /**
      * 根据用户id获取角色列表
      *

@@ -76,7 +76,7 @@ public class LogUserLoginServiceImpl implements LogUserLoginService {
      */
     @Override
     public List<LogUserLogin> selectListByPlatformId(Integer platformId) {
-        return logUserLoginMapper.selectList(new QueryWrapper<LogUserLogin>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return logUserLoginMapper.selectList(new QueryWrapper<LogUserLogin>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -87,7 +87,7 @@ public class LogUserLoginServiceImpl implements LogUserLoginService {
      */
     @Override
     public List<LogUserLogin> selectListByUserId(String userId) {
-        return logUserLoginMapper.selectList(new QueryWrapper<LogUserLogin>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return logUserLoginMapper.selectList(new QueryWrapper<LogUserLogin>().eq("user_id", userId).orderByAsc("id"));
     }
 
     /**

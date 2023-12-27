@@ -70,7 +70,7 @@ public class CityServiceImpl implements CityService {
      */
     @Override
     public List<City> selectListByProvinceId(Integer provinceId) {
-        return cityMapper.selectList(new QueryWrapper<City>().eq("province_id", provinceId).orderByAsc("primaryKeyColumn.columnName"));
+        return cityMapper.selectList(new QueryWrapper<City>().eq("province_id", provinceId).orderByAsc("id"));
     }
 
     /**

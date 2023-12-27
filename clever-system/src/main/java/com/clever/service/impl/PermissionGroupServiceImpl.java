@@ -78,7 +78,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      */
     @Override
     public List<PermissionGroup> selectListByPlatformId(String platformId) {
-        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -89,7 +89,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      */
     @Override
     public List<PermissionGroup> selectListByParentId(String parentId) {
-        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("parent_id", parentId).orderByAsc("primaryKeyColumn.columnName"));
+        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("parent_id", parentId).orderByAsc("id"));
     }
 
     /**
@@ -100,7 +100,7 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      */
     @Override
     public List<PermissionGroup> selectListByCreator(String creator) {
-        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return permissionGroupMapper.selectList(new QueryWrapper<PermissionGroup>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**

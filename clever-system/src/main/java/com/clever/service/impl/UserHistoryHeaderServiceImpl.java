@@ -70,7 +70,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
      */
     @Override
     public List<UserHistoryHeader> selectListByUserId(String userId) {
-        return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("user_id", userId).orderByAsc("id"));
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserHistoryHeaderServiceImpl implements UserHistoryHeaderService {
      */
     @Override
     public List<UserHistoryHeader> selectListByDiskId(String diskId) {
-        return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("disk_id", diskId).orderByAsc("primaryKeyColumn.columnName"));
+        return userHistoryHeaderMapper.selectList(new QueryWrapper<UserHistoryHeader>().eq("disk_id", diskId).orderByAsc("id"));
     }
 
     /**

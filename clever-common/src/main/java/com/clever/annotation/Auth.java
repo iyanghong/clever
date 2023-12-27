@@ -40,4 +40,18 @@ public @interface Auth {
      * @return 拦截提示
      */
     String errorMessage() default "无权限，不能这样子哦";
+
+    /**
+     * 是否启用
+     *
+     * @return 是否启用
+     */
+    boolean enable() default true;
+
+    /**
+     * 是否只需要登录
+     *
+     * @return 是否只需要登录
+     */
+    boolean isOnlyLogin() default false;
 }

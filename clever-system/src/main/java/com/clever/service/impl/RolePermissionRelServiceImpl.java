@@ -70,7 +70,7 @@ public class RolePermissionRelServiceImpl implements RolePermissionRelService {
      */
     @Override
     public List<RolePermissionRel> selectListByRoleId(String roleId) {
-        return rolePermissionRelMapper.selectList(new QueryWrapper<RolePermissionRel>().eq("role_id", roleId).orderByAsc("primaryKeyColumn.columnName"));
+        return rolePermissionRelMapper.selectList(new QueryWrapper<RolePermissionRel>().eq("role_id", roleId).orderByAsc("id"));
     }
 
     /**
@@ -81,7 +81,7 @@ public class RolePermissionRelServiceImpl implements RolePermissionRelService {
      */
     @Override
     public List<RolePermissionRel> selectListByPermissionId(String permissionId) {
-        return rolePermissionRelMapper.selectList(new QueryWrapper<RolePermissionRel>().eq("permission_id", permissionId).orderByAsc("primaryKeyColumn.columnName"));
+        return rolePermissionRelMapper.selectList(new QueryWrapper<RolePermissionRel>().eq("permission_id", permissionId).orderByAsc("id"));
     }
 
     /**

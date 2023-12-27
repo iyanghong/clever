@@ -6,11 +6,11 @@ import com.clever.bean.system.Dictionary;
 
 
 /**
-* 字典Mapper
-*
-* @Author xixi
-* @Date 2023-12-27 09:17:16
-*/
+ * 字典Mapper
+ *
+ * @Author xixi
+ * @Date 2023-12-27 09:17:16
+ */
 @Mapper
 public interface DictionaryMapper extends BaseMapper<Dictionary> {
 

@@ -74,7 +74,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<Menu> selectListByPlatformId(Integer platformId) {
-        return menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -85,7 +85,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<Menu> selectListByCreator(String creator) {
-        return menuMapper.selectList(new QueryWrapper<Menu>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return menuMapper.selectList(new QueryWrapper<Menu>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**

@@ -108,6 +108,7 @@ public interface RoleService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+
     /**
      * 根据用户id获取角色列表
      *

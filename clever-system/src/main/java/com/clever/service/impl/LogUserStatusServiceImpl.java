@@ -40,16 +40,16 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
     /**
      * 分页查询用户状态日志列表
      *
-     * @param pageNumber 页码
-     * @param pageSize   每页记录数
-     * @param platformId 平台id
-     * @param userId 用户
+     * @param pageNumber    页码
+     * @param pageSize      每页记录数
+     * @param platformId    平台id
+     * @param userId        用户
      * @param currentStatus 当前状态
-     * @param changeStatus 变更后状态
+     * @param changeStatus  变更后状态
      * @return Page<LogUserStatus>
      */
     @Override
-    public Page<LogUserStatus> selectPage(Integer pageNumber, Integer pageSize,Integer platformId,String userId,Integer currentStatus,Integer changeStatus) {
+    public Page<LogUserStatus> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String userId, Integer currentStatus, Integer changeStatus) {
         QueryWrapper<LogUserStatus> queryWrapper = new QueryWrapper<>();
         if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
@@ -65,6 +65,7 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
         }
         return logUserStatusMapper.selectPage(new Page<LogUserStatus>(pageNumber, pageSize), queryWrapper);
     }
+
     /**
      * 根据自增id获取用户状态日志
      *
@@ -75,6 +76,7 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
     public LogUserStatus selectById(String id) {
         return logUserStatusMapper.selectById(id);
     }
+
     /**
      * 根据平台id获取列表
      *
@@ -83,8 +85,9 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
      */
     @Override
     public List<LogUserStatus> selectListByPlatformId(Integer platformId) {
-        return logUserStatusMapper.selectList(new QueryWrapper<LogUserStatus>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return logUserStatusMapper.selectList(new QueryWrapper<LogUserStatus>().eq("platform_id", platformId).orderByAsc("id"));
     }
+
     /**
      * 根据用户获取列表
      *
@@ -93,15 +96,16 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
      */
     @Override
     public List<LogUserStatus> selectListByUserId(String userId) {
-        return logUserStatusMapper.selectList(new QueryWrapper<LogUserStatus>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return logUserStatusMapper.selectList(new QueryWrapper<LogUserStatus>().eq("user_id", userId).orderByAsc("id"));
     }
+
     /**
-    * 新建用户状态日志
-    *
-    * @param logUserStatus 用户状态日志实体信息
-    * @param onlineUser   当前登录用户
-    * @return LogUserStatus 新建后的用户状态日志信息
-    */
+     * 新建用户状态日志
+     *
+     * @param logUserStatus 用户状态日志实体信息
+     * @param onlineUser    当前登录用户
+     * @return LogUserStatus 新建后的用户状态日志信息
+     */
     @Override
     public LogUserStatus create(LogUserStatus logUserStatus, OnlineUser onlineUser) {
         logUserStatusMapper.insert(logUserStatus);
@@ -110,12 +114,12 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
     }
 
     /**
-    * 修改用户状态日志
-    *
-    * @param logUserStatus 用户状态日志实体信息
-    * @param onlineUser   当前登录用户
-    * @return LogUserStatus 修改后的用户状态日志信息
-    */
+     * 修改用户状态日志
+     *
+     * @param logUserStatus 用户状态日志实体信息
+     * @param onlineUser    当前登录用户
+     * @return LogUserStatus 修改后的用户状态日志信息
+     */
     @Override
     public LogUserStatus update(LogUserStatus logUserStatus, OnlineUser onlineUser) {
         logUserStatusMapper.updateById(logUserStatus);
@@ -124,16 +128,16 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
     }
 
     /**
-    * 保存用户状态日志
-    *
-    * @param logUserStatus 用户状态日志实体信息
-    * @param onlineUser 当前登录用户
-    * @return LogUserStatus 保存后的用户状态日志信息
-    */
+     * 保存用户状态日志
+     *
+     * @param logUserStatus 用户状态日志实体信息
+     * @param onlineUser    当前登录用户
+     * @return LogUserStatus 保存后的用户状态日志信息
+     */
     @Override
     public LogUserStatus save(LogUserStatus logUserStatus, OnlineUser onlineUser) {
         if (StringUtils.isNotBlank(logUserStatus.getId())) {
-           return create(logUserStatus, onlineUser);
+            return create(logUserStatus, onlineUser);
         }
         return update(logUserStatus, onlineUser);
     }
@@ -141,7 +145,7 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
     /**
      * 根据自增id删除用户状态日志信息
      *
-     * @param id 自增id
+     * @param id         自增id
      * @param onlineUser 当前登录用户
      */
     @Override
@@ -161,6 +165,7 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
         logUserStatusMapper.deleteBatchIds(ids);
         log.info("用户状态日志, 用户状态日志信息批量删除成功: userId={}, count={}, logUserStatusIds={}", onlineUser.getId(), ids.size(), ids.toString());
     }
+
     /**
      * 根据平台id删除
      *
@@ -172,10 +177,11 @@ public class LogUserStatusServiceImpl implements LogUserStatusService {
         logUserStatusMapper.delete(new QueryWrapper<LogUserStatus>().eq("platform_id", platformId));
         log.info("用户状态日志, 用户状态日志信息根据platformId删除成功: userId={}, platformId={}", onlineUser.getId(), platformId);
     }
+
     /**
      * 根据用户删除
      *
-     * @param userId 用户
+     * @param userId     用户
      * @param onlineUser 当前登录用户
      */
     @Override

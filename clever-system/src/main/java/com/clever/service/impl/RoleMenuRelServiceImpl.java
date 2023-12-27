@@ -70,7 +70,7 @@ public class RoleMenuRelServiceImpl implements RoleMenuRelService {
      */
     @Override
     public List<RoleMenuRel> selectListByMenuId(String menuId) {
-        return roleMenuRelMapper.selectList(new QueryWrapper<RoleMenuRel>().eq("menu_id", menuId).orderByAsc("primaryKeyColumn.columnName"));
+        return roleMenuRelMapper.selectList(new QueryWrapper<RoleMenuRel>().eq("menu_id", menuId).orderByAsc("id"));
     }
 
     /**
@@ -81,7 +81,7 @@ public class RoleMenuRelServiceImpl implements RoleMenuRelService {
      */
     @Override
     public List<RoleMenuRel> selectListByRoleId(String roleId) {
-        return roleMenuRelMapper.selectList(new QueryWrapper<RoleMenuRel>().eq("role_id", roleId).orderByAsc("primaryKeyColumn.columnName"));
+        return roleMenuRelMapper.selectList(new QueryWrapper<RoleMenuRel>().eq("role_id", roleId).orderByAsc("id"));
     }
 
     /**

@@ -78,7 +78,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
      */
     @Override
     public List<ThirdAccount> selectListByOpenId(String openId) {
-        return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("open_id", openId).orderByAsc("primaryKeyColumn.columnName"));
+        return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("open_id", openId).orderByAsc("id"));
     }
 
     /**
@@ -89,7 +89,7 @@ public class ThirdAccountServiceImpl implements ThirdAccountService {
      */
     @Override
     public List<ThirdAccount> selectListByUserId(String userId) {
-        return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return thirdAccountMapper.selectList(new QueryWrapper<ThirdAccount>().eq("user_id", userId).orderByAsc("id"));
     }
 
     /**

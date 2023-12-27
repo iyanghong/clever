@@ -39,7 +39,7 @@ public class SystemConfigInitRunner implements ApplicationRunner {
     private final List<SqlSessionFactory> sqlSessionFactoryList;
     private final SystemConfigService systemConfigService;
 
-    public SystemConfigInitRunner(SystemConfigService systemConfigService,List<SqlSessionFactory> sqlSessionFactoryList) {
+    public SystemConfigInitRunner(SystemConfigService systemConfigService, List<SqlSessionFactory> sqlSessionFactoryList) {
         this.systemConfigService = systemConfigService;
         this.sqlSessionFactoryList = sqlSessionFactoryList;
     }
@@ -55,7 +55,7 @@ public class SystemConfigInitRunner implements ApplicationRunner {
         log.info("系统启动, 系统所需配置加载完成");
     }
 
-    private void initMybatisInterceptor(){
+    private void initMybatisInterceptor() {
         log.debug("系统启动, 添加Mybatis拦截器");
         for (SqlSessionFactory sqlSessionFactory : sqlSessionFactoryList) {
             sqlSessionFactory.getConfiguration().addInterceptor(new MybatisPrintSqlInterceptor());

@@ -78,7 +78,7 @@ public class StreetServiceImpl implements StreetService {
      */
     @Override
     public List<Street> selectListByAreaId(Integer areaId) {
-        return streetMapper.selectList(new QueryWrapper<Street>().eq("area_id", areaId).orderByAsc("primaryKeyColumn.columnName"));
+        return streetMapper.selectList(new QueryWrapper<Street>().eq("area_id", areaId).orderByAsc("id"));
     }
 
     /**
@@ -89,7 +89,7 @@ public class StreetServiceImpl implements StreetService {
      */
     @Override
     public List<Street> selectListByCityId(Integer cityId) {
-        return streetMapper.selectList(new QueryWrapper<Street>().eq("city_id", cityId).orderByAsc("primaryKeyColumn.columnName"));
+        return streetMapper.selectList(new QueryWrapper<Street>().eq("city_id", cityId).orderByAsc("id"));
     }
 
     /**
@@ -100,7 +100,7 @@ public class StreetServiceImpl implements StreetService {
      */
     @Override
     public List<Street> selectListByProvinceId(Integer provinceId) {
-        return streetMapper.selectList(new QueryWrapper<Street>().eq("province_id", provinceId).orderByAsc("primaryKeyColumn.columnName"));
+        return streetMapper.selectList(new QueryWrapper<Street>().eq("province_id", provinceId).orderByAsc("id"));
     }
 
     /**

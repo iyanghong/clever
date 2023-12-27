@@ -74,7 +74,7 @@ public class AreaServiceImpl implements AreaService {
      */
     @Override
     public List<Area> selectListByCityId(Integer cityId) {
-        return areaMapper.selectList(new QueryWrapper<Area>().eq("city_id", cityId).orderByAsc("primaryKeyColumn.columnName"));
+        return areaMapper.selectList(new QueryWrapper<Area>().eq("city_id", cityId).orderByAsc("id"));
     }
 
     /**
@@ -85,7 +85,7 @@ public class AreaServiceImpl implements AreaService {
      */
     @Override
     public List<Area> selectListByProvinceId(Integer provinceId) {
-        return areaMapper.selectList(new QueryWrapper<Area>().eq("province_id", provinceId).orderByAsc("primaryKeyColumn.columnName"));
+        return areaMapper.selectList(new QueryWrapper<Area>().eq("province_id", provinceId).orderByAsc("id"));
     }
 
     /**

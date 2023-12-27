@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * 字典类型接口
  *
  * @Author xixi
- * @Date 2023-12-27 09:17:16
+ * @Date 2023-12-27 11:15:13
  */
 @RestController
 @Validated
@@ -38,32 +38,47 @@ public class DictionaryTypeController {
      * @param pageNumber 页码
      * @param pageSize   每页记录数
      * @param platformId 平台id
-     * @param name 字典类型名称
-     * @param code 字典类型标识
+     * @param parentId   上级分类id
+     * @param name       字典类型名称
+     * @param code       字典类型标识
      * @return 当前页数据
      */
     @GetMapping("/page/{pageNumber}/{pageSize}")
     @Auth(value = "clever-system.dictionaryType.page", name = "字典类型分页", description = "字典类型分页接口")
-    public Result<Page<DictionaryType>> selectPage(@PathVariable("pageNumber") Integer pageNumber, @PathVariable("pageSize") Integer pageSize,String platformId,String name,String code) {
-        return new Result<>(dictionaryTypeService.selectPage(pageNumber, pageSize, platformId, name, code), "分页数据查询成功");
+    public Result<Page<DictionaryType>> selectPage(@PathVariable("pageNumber") Integer pageNumber, @PathVariable("pageSize") Integer pageSize, String platformId, String parentId, String name, String code) {
+        return new Result<>(dictionaryTypeService.selectPage(pageNumber, pageSize, platformId, parentId, name, code), "分页数据查询成功");
     }
+
     /**
-    * 根据平台id获取列表
-    *
-    * @param platformId 平台id
-    * @return List<DictionaryType> 字典类型列表
-    */
+     * 根据平台id获取列表
+     *
+     * @param platformId 平台id
+     * @return List<DictionaryType> 字典类型列表
+     */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.dictionaryType.listByPlatformId", name = "根据平台id获取字典类型列表", description = "根据平台id获取字典类型列表接口")
     public List<DictionaryType> selectListByPlatformId(@PathVariable("platformId") String platformId) {
         return dictionaryTypeService.selectListByPlatformId(platformId);
     }
+
     /**
-    * 根据创建者id获取列表
-    *
-    * @param creator 创建者id
-    * @return List<DictionaryType> 字典类型列表
-    */
+     * 根据上级分类id获取列表
+     *
+     * @param parentId 上级分类id
+     * @return List<DictionaryType> 字典类型列表
+     */
+    @GetMapping("/listByParentId/{parentId}")
+    @Auth(value = "clever-system.dictionaryType.listByParentId", name = "根据上级分类id获取字典类型列表", description = "根据上级分类id获取字典类型列表接口")
+    public List<DictionaryType> selectListByParentId(@PathVariable("parentId") String parentId) {
+        return dictionaryTypeService.selectListByParentId(parentId);
+    }
+
+    /**
+     * 根据创建者id获取列表
+     *
+     * @param creator 创建者id
+     * @return List<DictionaryType> 字典类型列表
+     */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.dictionaryType.listByCreator", name = "根据创建者id获取字典类型列表", description = "根据创建者id获取字典类型列表接口")
     public List<DictionaryType> selectListByCreator(@PathVariable("creator") String creator) {
@@ -71,34 +86,36 @@ public class DictionaryTypeController {
     }
 
     /**
-    * 根据字典类型id获取字典类型信息
-    *
-    * @param id 字典类型id
-    * @return 字典类型信息
-    */
+     * 根据字典类型id获取字典类型信息
+     *
+     * @param id 字典类型id
+     * @return 字典类型信息
+     */
     @GetMapping("/{id}")
     @Auth(value = "clever-system.platform.selectById", name = "根据字典类型id获取字典类型信息", description = "根据字典类型id获取字典类型信息接口")
     public Result<DictionaryType> selectById(@PathVariable("id") String id) {
-    return new Result<>(dictionaryTypeService.selectById(id), "查询成功");
+        return new Result<>(dictionaryTypeService.selectById(id), "查询成功");
     }
+
     /**
-    * 创建字典类型信息
-    *
-    * @param dictionaryType 字典类型实体信息
-    * @return 创建后的字典类型信息
-    */
+     * 创建字典类型信息
+     *
+     * @param dictionaryType 字典类型实体信息
+     * @return 创建后的字典类型信息
+     */
     @PostMapping("")
     @Auth(value = "clever-system.dictionaryType.create", name = "创建字典类型", description = "创建字典类型信息接口")
     public Result<DictionaryType> create(@Validated DictionaryType dictionaryType) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         return new Result<>(dictionaryTypeService.create(dictionaryType, onlineUser), "创建成功");
     }
+
     /**
-    * 修改字典类型信息
-    *
-    * @param dictionaryType 字典类型实体信息
-    * @return 修改后的字典类型信息
-    */
+     * 修改字典类型信息
+     *
+     * @param dictionaryType 字典类型实体信息
+     * @return 修改后的字典类型信息
+     */
     @PatchMapping("/{id}")
     @Auth(value = "clever-system.dictionaryType.update", name = "修改字典类型", description = "修改字典类型信息接口")
     public Result<DictionaryType> update(@Validated DictionaryType dictionaryType, @PathVariable("id") String id) {

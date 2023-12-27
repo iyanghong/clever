@@ -149,7 +149,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
      */
     @Override
     public List<SystemConfig> selectListByPlatformId(Integer platformId) {
-        return systemConfigMapper.selectList(new QueryWrapper<SystemConfig>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return systemConfigMapper.selectList(new QueryWrapper<SystemConfig>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -160,7 +160,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
      */
     @Override
     public List<SystemConfig> selectListByCreator(String creator) {
-        return systemConfigMapper.selectList(new QueryWrapper<SystemConfig>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return systemConfigMapper.selectList(new QueryWrapper<SystemConfig>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**

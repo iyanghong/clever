@@ -91,7 +91,7 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
      */
     @Override
     public List<EmailSubject> selectListByPlatformId(Integer platformId) {
-        return emailSubjectMapper.selectList(new QueryWrapper<EmailSubject>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return emailSubjectMapper.selectList(new QueryWrapper<EmailSubject>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -102,7 +102,7 @@ public class EmailSubjectServiceImpl implements EmailSubjectService {
      */
     @Override
     public List<EmailSubject> selectListByCreator(String creator) {
-        return emailSubjectMapper.selectList(new QueryWrapper<EmailSubject>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return emailSubjectMapper.selectList(new QueryWrapper<EmailSubject>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**

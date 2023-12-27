@@ -14,7 +14,7 @@ import java.util.Date;
  * 字典类型
  *
  * @Author xixi
- * @Date 2023-12-27 09:17:16
+ * @Date 2023-12-27 11:15:12
  */
 public class DictionaryType implements Serializable {
 
@@ -28,6 +28,10 @@ public class DictionaryType implements Serializable {
      */
     @NotBlank(message = "平台id不能为空")
     private String platformId;
+    /**
+     * 上级分类id
+     */
+    private String parentId;
     /**
      * 字典类型名称
      */
@@ -85,6 +89,16 @@ public class DictionaryType implements Serializable {
 
     public void setPlatformId(String platformId) {
         this.platformId = platformId;
+    }
+    /**
+     * 上级分类id
+     */
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
     /**
      * 字典类型名称

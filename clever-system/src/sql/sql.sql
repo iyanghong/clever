@@ -229,6 +229,7 @@ CREATE TABLE IF NOT EXISTS dictionary_type
 (
     id          varchar(36)  NOT NULL COMMENT '字典类型id',
     platform_id varchar(36)  NOT NULL COMMENT '平台id',
+    parent_id   varchar(36)  NOT NULL DEFAULT '-1' COMMENT '上级分类id',
     name        varchar(50)  NOT NULL COMMENT '字典类型名称',
     code        varchar(100) NOT NULL COMMENT '字典类型标识',
     description varchar(100) NULL COMMENT '字典类型描述',

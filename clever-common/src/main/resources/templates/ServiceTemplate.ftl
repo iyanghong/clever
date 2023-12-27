@@ -88,7 +88,7 @@ public class ${upperCamelCaseName}ServiceImpl implements ${upperCamelCaseName}Se
      */
     @Override
     public List<${upperCamelCaseName}> selectListBy${column.upperCamelCaseName}(${column.javaType} ${column.lowerCamelCaseName}) {
-        return ${lowerCamelCaseName}Mapper.selectList(new QueryWrapper<${upperCamelCaseName}>().eq("${column.columnName}", ${column.lowerCamelCaseName})<#if primaryKeyColumn??>.orderByAsc("primaryKeyColumn.columnName")</#if>);
+        return ${lowerCamelCaseName}Mapper.selectList(new QueryWrapper<${upperCamelCaseName}>().eq("${column.columnName}", ${column.lowerCamelCaseName})<#if primaryKeyColumn??>.orderByAsc("${primaryKeyColumn.columnName}")</#if>);
     }
 </#list>
     /**

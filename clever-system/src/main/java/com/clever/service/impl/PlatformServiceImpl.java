@@ -86,7 +86,7 @@ public class PlatformServiceImpl implements PlatformService {
      */
     @Override
     public Platform create(Platform platform, OnlineUser onlineUser) {
-        if (StringUtils.isBlank(platform.getMaster())){
+        if (StringUtils.isBlank(platform.getMaster())) {
             platform.setMaster(onlineUser.getId());
         }
         QueryWrapper<Platform> queryWrapper = new QueryWrapper<>();

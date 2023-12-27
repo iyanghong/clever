@@ -108,6 +108,7 @@ public interface UserPlatformRelService {
      * @param onlineUser 当前登录用户
      */
     void deleteByPlatformId(Integer platformId, OnlineUser onlineUser);
+
     /**
      * 加入平台
      *

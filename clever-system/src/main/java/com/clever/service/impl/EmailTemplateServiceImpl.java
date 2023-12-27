@@ -104,7 +104,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      */
     @Override
     public List<EmailTemplate> selectListByPlatformId(Integer platformId) {
-        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**
@@ -115,7 +115,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      */
     @Override
     public List<EmailTemplate> selectListBySubjectId(String subjectId) {
-        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("subject_id", subjectId).orderByAsc("primaryKeyColumn.columnName"));
+        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("subject_id", subjectId).orderByAsc("id"));
     }
 
     /**
@@ -126,7 +126,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
      */
     @Override
     public List<EmailTemplate> selectListByCreator(String creator) {
-        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("creator", creator).orderByAsc("primaryKeyColumn.columnName"));
+        return emailTemplateMapper.selectList(new QueryWrapper<EmailTemplate>().eq("creator", creator).orderByAsc("id"));
     }
 
     /**

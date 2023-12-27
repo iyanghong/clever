@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> selectListByDiskId(String diskId) {
-        return userMapper.selectList(new QueryWrapper<User>().eq("disk_id", diskId).orderByAsc("primaryKeyColumn.columnName"));
+        return userMapper.selectList(new QueryWrapper<User>().eq("disk_id", diskId).orderByAsc("id"));
     }
 
     /**
@@ -331,7 +331,7 @@ public class UserServiceImpl implements UserService {
 
 
         // 创建在线用户
-        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions, platformList,ipAttribution);
+        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions, platformList, ipAttribution);
         // 设置在线用户
         redis.setString(CacheConstant.getOnlineKeyName(token), onlineUser, user.getOnlineTime(), TimeUnit.HOURS);
 
@@ -342,7 +342,7 @@ public class UserServiceImpl implements UserService {
         updateUser.setLoginIp(ip);
         updateUser.setPasswordErrorNum(0);
         userMapper.updateById(updateUser);
-        logUserLoginService.recordUserLogin(user.getId(), platformId, ip, request.getHeader("User-Agent"), now,ipAttribution);
+        logUserLoginService.recordUserLogin(user.getId(), platformId, ip, request.getHeader("User-Agent"), now, ipAttribution);
         log.info("用户登录, 用户登录成功: account={}, ip={}", account, ip);
         return onlineUser;
     }

@@ -15,6 +15,7 @@ import java.util.Properties;
 
 /**
  * 邮件发送主体工厂
+ *
  * @Author xixi
  * @Date 2023-12-26 14:50
  **/

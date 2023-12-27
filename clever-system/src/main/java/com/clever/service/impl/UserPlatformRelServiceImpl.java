@@ -77,7 +77,7 @@ public class UserPlatformRelServiceImpl implements UserPlatformRelService {
      */
     @Override
     public List<UserPlatformRel> selectListByUserId(String userId) {
-        return userPlatformRelMapper.selectList(new QueryWrapper<UserPlatformRel>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return userPlatformRelMapper.selectList(new QueryWrapper<UserPlatformRel>().eq("user_id", userId).orderByAsc("id"));
     }
 
     /**
@@ -88,7 +88,7 @@ public class UserPlatformRelServiceImpl implements UserPlatformRelService {
      */
     @Override
     public List<UserPlatformRel> selectListByPlatformId(Integer platformId) {
-        return userPlatformRelMapper.selectList(new QueryWrapper<UserPlatformRel>().eq("platform_id", platformId).orderByAsc("primaryKeyColumn.columnName"));
+        return userPlatformRelMapper.selectList(new QueryWrapper<UserPlatformRel>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
     /**

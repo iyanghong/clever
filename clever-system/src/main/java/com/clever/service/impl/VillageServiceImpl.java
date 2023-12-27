@@ -82,7 +82,7 @@ public class VillageServiceImpl implements VillageService {
      */
     @Override
     public List<Village> selectListByProvinceId(Integer provinceId) {
-        return villageMapper.selectList(new QueryWrapper<Village>().eq("province_id", provinceId).orderByAsc("primaryKeyColumn.columnName"));
+        return villageMapper.selectList(new QueryWrapper<Village>().eq("province_id", provinceId).orderByAsc("id"));
     }
 
     /**
@@ -93,7 +93,7 @@ public class VillageServiceImpl implements VillageService {
      */
     @Override
     public List<Village> selectListByCityId(Integer cityId) {
-        return villageMapper.selectList(new QueryWrapper<Village>().eq("city_id", cityId).orderByAsc("primaryKeyColumn.columnName"));
+        return villageMapper.selectList(new QueryWrapper<Village>().eq("city_id", cityId).orderByAsc("id"));
     }
 
     /**
@@ -104,7 +104,7 @@ public class VillageServiceImpl implements VillageService {
      */
     @Override
     public List<Village> selectListByAreaId(Integer areaId) {
-        return villageMapper.selectList(new QueryWrapper<Village>().eq("area_id", areaId).orderByAsc("primaryKeyColumn.columnName"));
+        return villageMapper.selectList(new QueryWrapper<Village>().eq("area_id", areaId).orderByAsc("id"));
     }
 
     /**
@@ -115,7 +115,7 @@ public class VillageServiceImpl implements VillageService {
      */
     @Override
     public List<Village> selectListByStreetId(Integer streetId) {
-        return villageMapper.selectList(new QueryWrapper<Village>().eq("street_id", streetId).orderByAsc("primaryKeyColumn.columnName"));
+        return villageMapper.selectList(new QueryWrapper<Village>().eq("street_id", streetId).orderByAsc("id"));
     }
 
     /**

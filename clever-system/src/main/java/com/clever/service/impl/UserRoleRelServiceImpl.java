@@ -70,7 +70,7 @@ public class UserRoleRelServiceImpl implements UserRoleRelService {
      */
     @Override
     public List<UserRoleRel> selectListByUserId(String userId) {
-        return userRoleRelMapper.selectList(new QueryWrapper<UserRoleRel>().eq("user_id", userId).orderByAsc("primaryKeyColumn.columnName"));
+        return userRoleRelMapper.selectList(new QueryWrapper<UserRoleRel>().eq("user_id", userId).orderByAsc("id"));
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserRoleRelServiceImpl implements UserRoleRelService {
      */
     @Override
     public List<UserRoleRel> selectListByRoleId(String roleId) {
-        return userRoleRelMapper.selectList(new QueryWrapper<UserRoleRel>().eq("role_id", roleId).orderByAsc("primaryKeyColumn.columnName"));
+        return userRoleRelMapper.selectList(new QueryWrapper<UserRoleRel>().eq("role_id", roleId).orderByAsc("id"));
     }
 
     /**
