@@ -47,7 +47,14 @@ public class BaseGenerator implements IGenerator {
      * @param basePath  基础路径
      */
     public void generate(String tableName, String basePath) {
-        List<TableMeta> tableMetaList = getTableMetaList(tableName);
+        List<TableMeta> tableMetaList = new ArrayList<>();
+        if (StringUtils.isNotBlank(tableName)) {
+            for (String tblName : tableName.split(",")) {
+                tableMetaList.addAll(getTableMetaList(tblName));
+            }
+        } else {
+            tableMetaList = getTableMetaList(tableName);
+        }
         this.handler(tableMetaList, basePath);
     }
 
