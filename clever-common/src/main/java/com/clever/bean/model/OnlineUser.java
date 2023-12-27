@@ -116,10 +116,16 @@ public class OnlineUser implements Serializable {
      */
     private List<Platform> platforms;
 
+    /**
+     * ip归属
+     */
+    private IpAttribution ipAttribution;
+
+
     public OnlineUser() {
     }
 
-    public OnlineUser(User user, String token, List<Role> roles, List<String> permissions, List<Platform> platforms) {
+    public OnlineUser(User user, String token, List<Role> roles, List<String> permissions, List<Platform> platforms, IpAttribution ipAttribution) {
         this.id = user.getId();
         this.account = user.getAccount();
         this.email = user.getEmail();
@@ -147,6 +153,7 @@ public class OnlineUser implements Serializable {
         this.roles = roles;
         this.permissions = permissions;
         this.platforms = platforms;
+        this.ipAttribution = ipAttribution;
     }
 
 

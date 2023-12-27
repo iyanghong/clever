@@ -181,9 +181,10 @@ CREATE TABLE IF NOT EXISTS role_permission_rel
   COLLATE = utf8_general_ci COMMENT = '角色-权限'
   ROW_FORMAT = DYNAMIC;
 
-CREATE TABLE IF NOT EXISTS user_status_log
+CREATE TABLE IF NOT EXISTS log_user_status
 (
     id             VARCHAR(36)  NOT NULL COMMENT '自增id',
+    platform_id int          NOT NULL COMMENT '平台id',
     user_id        VARCHAR(36)  NOT NULL COMMENT '用户',
     current_status TINYINT      NOT NULL COMMENT '当前状态',
     change_status  TINYINT      NOT NULL COMMENT '变更后状态',
@@ -199,6 +200,73 @@ CREATE TABLE IF NOT EXISTS user_status_log
   COMMENT = '用户状态日志'
   ROW_FORMAT = DYNAMIC;
 
+CREATE TABLE IF NOT EXISTS log_user_login
+(
+    id          VARCHAR(36)  NOT NULL COMMENT '自增id',
+    platform_id int          NOT NULL COMMENT '平台id',
+    user_id     VARCHAR(36)  NOT NULL COMMENT '用户',
+    user_agent VARCHAR(255) NOT NULL COMMENT '登录设备',
+    ip          VARCHAR(64)  NOT NULL COMMENT '登录ip',
+    nation     VARCHAR(100)  NULL COMMENT '登录国家',
+    province   VARCHAR(100)  NULL COMMENT '登录省份',
+    city       VARCHAR(100)  NULL COMMENT '登录城市',
+    district    VARCHAR(100)  NULL COMMENT '登录地区',
+    address_code VARCHAR(20)  NULL COMMENT '登录地址编码',
+    longitude  VARCHAR(20)  NULL COMMENT '经度',
+    latitude   VARCHAR(20)  NULL COMMENT '纬度',
+    isp       VARCHAR(100)  NULL COMMENT '运营商',
+    login_time  datetime     NOT NULL COMMENT '登录时间',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX USER (user_id ASC) USING BTREE COMMENT '用户索引'
+) ENGINE = INNODB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+    COMMENT = '用户登录日志'
+  ROW_FORMAT = DYNAMIC;
+
+-- 字典类型表
+CREATE TABLE IF NOT EXISTS dictionary_type
+(
+    id          varchar(36)  NOT NULL COMMENT '字典类型id',
+    platform_id varchar(36)  NOT NULL COMMENT '平台id',
+    name        varchar(50)  NOT NULL COMMENT '字典类型名称',
+    code        varchar(100) NOT NULL COMMENT '字典类型标识',
+    description varchar(100) NULL COMMENT '字典类型描述',
+    sort        int          NOT NULL DEFAULT 0 COMMENT '排序号',
+    tree        tinyint      NOT NULL DEFAULT 0 COMMENT '是否树形结构\r\n0-否\r\n1-是',
+    creator     varchar(36)  NOT NULL COMMENT '创建者id',
+    created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX CODE_IDX (code ASC) USING BTREE COMMENT '字典类型标识索引',
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引'
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '字典类型'
+  ROW_FORMAT = DYNAMIC;
+-- 字典表
+CREATE TABLE IF NOT EXISTS dictionary
+(
+    id          varchar(36)  NOT NULL COMMENT '字典id',
+    platform_id varchar(36)  NOT NULL COMMENT '平台id',
+    type_id     varchar(36)  NOT NULL COMMENT '字典类型id',
+    parent_id   varchar(36)  NOT NULL DEFAULT '-1' COMMENT '上级字典id',
+    name        varchar(50)  NOT NULL COMMENT '字典名称',
+    code        varchar(100) NOT NULL COMMENT '字典标识',
+    value       varchar(100) NOT NULL COMMENT '字典值',
+    description varchar(100) NULL COMMENT '字典描述',
+    sort        int          NOT NULL DEFAULT 0 COMMENT '排序号',
+    creator     varchar(36)  NOT NULL COMMENT '创建者id',
+    created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX CODE_IDX (code ASC) USING BTREE COMMENT '字典标识索引',
+    INDEX PLATFORM_IDX (platform_id ASC) USING BTREE COMMENT '平台id索引',
+    INDEX TYPE_IDX (type_id ASC) USING BTREE COMMENT '字典类型id索引'
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '字典'
+  ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS menu
 (

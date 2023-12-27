@@ -53,3 +53,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+# ip归属地查询第三方接口配置
+ip-attribution:
+  app-code: fe3da34355d84a8795592a720f42c66b

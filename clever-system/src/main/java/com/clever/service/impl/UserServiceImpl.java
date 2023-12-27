@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.Constant;
 import com.clever.SystemConfigConstant;
+import com.clever.bean.model.IpAttribution;
 import com.clever.bean.model.OnlineUser;
 import com.clever.bean.system.*;
 import com.clever.constant.CacheConstant;
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
     private PermissionService permissionService;
 
     @Resource
-    private UserStatusLogService userStatusLogService;
+    private LogUserStatusService logUserStatusService;
 
     @Resource
     private PlatformService platformService;
@@ -66,6 +67,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private EmailTemplateService emailTemplateService;
+
+    @Resource
+    private LogUserLoginService logUserLoginService;
 
     /**
      * 分页查询用户列表
@@ -301,7 +305,7 @@ public class UserServiceImpl implements UserService {
                 redis.setString(passwordErrorManyKey, user.getAccount(), 60 * 30);
                 redis.setString(passwordErrorManyKey, user.getEmail(), 60 * 30);
                 Date duration = DateUtils.addMinutes(now, 30);
-                userStatusLogService.logUserStatusChange(user.getId(), UserStatus.FREEZE.getStatus(), duration, "用户登录密码错误次数过多");
+                logUserStatusService.logUserStatusChange(user.getId(), UserStatus.FREEZE.getStatus(), duration, "用户登录密码错误次数过多");
                 log.error("用户登录, 用户密码错误次数过多, 已锁定: account={}, ip={}", account, ip);
                 throw new BaseException(ConstantException.USER_LOGIN_PASSWORD_ERROR);
             }
@@ -321,8 +325,13 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = roleService.selectRolesByUserId(user.getId());
         // 获取用户权限
         List<String> permissions = permissionService.selectPermissionByRoles(roles);
+
+        // 查询ip归属地
+        IpAttribution ipAttribution = IpAttribution.resolve(ip);
+
+
         // 创建在线用户
-        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions, platformList);
+        OnlineUser onlineUser = new OnlineUser(user, token, roles, permissions, platformList,ipAttribution);
         // 设置在线用户
         redis.setString(CacheConstant.getOnlineKeyName(token), onlineUser, user.getOnlineTime(), TimeUnit.HOURS);
 
@@ -333,6 +342,7 @@ public class UserServiceImpl implements UserService {
         updateUser.setLoginIp(ip);
         updateUser.setPasswordErrorNum(0);
         userMapper.updateById(updateUser);
+        logUserLoginService.recordUserLogin(user.getId(), platformId, ip, request.getHeader("User-Agent"), now,ipAttribution);
         log.info("用户登录, 用户登录成功: account={}, ip={}", account, ip);
         return onlineUser;
     }
