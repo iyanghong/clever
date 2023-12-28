@@ -19,4 +19,13 @@ public interface UserMapper extends BaseMapper<User> {
      * @param userId 用户id
      */
     void updatePasswordErrorCount(String userId);
+
+    User selectByAccountOrEmail(String account, String email);
+
+    /**
+     * 设置账户为正常状态
+     *
+     * @param email email
+     */
+    void updateUserToAvailable(String email);
 }

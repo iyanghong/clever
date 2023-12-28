@@ -1,22 +1,30 @@
 package com.clever.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.bean.system.EmailTemplate;
+import com.clever.bean.system.projo.UserBaseDataInput;
+import com.clever.bean.system.projo.UserRegisterInput;
 import com.clever.util.SpringUtil;
 import com.clever.annotation.Auth;
 import com.clever.annotation.AuthGroup;
 import com.clever.bean.model.OnlineUser;
 import com.clever.bean.model.Result;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.clever.bean.system.User;
 import com.clever.service.UserService;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.ValidationException;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * 用户接口
@@ -187,9 +195,137 @@ public class UserController {
      * @return 验证码
      */
     @PostMapping("/sendEmailVerifyCode")
-    public Result<String> sendEmailVerifyCode(@NotNull(message = "平台id不能为空") Integer platformId) {
+    public Result<String> sendEmailVerifyCode(@NotNull(message = "平台id不能为空") Integer platformId, @RequestParam HashMap<String, String> variables) {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
-        userService.sendEmailVerifyCode(onlineUser.getEmail(), platformId);
+        userService.sendEmailVerifyCode(onlineUser.getEmail(), platformId, variables);
         return Result.ofSuccess("发送成功");
+    }
+
+
+    /**
+     * 发送邮件
+     *
+     * @param platformId   平台id
+     * @param templateCode 模板code
+     * @param email        邮箱
+     * @param variables    占位变量
+     */
+    @PostMapping("/sendEmail/{platformId}/{templateCode}/{email}")
+    @Auth(value = "clever-system.user.sendEmail", name = "发送邮箱", description = "发送邮箱接口")
+    public Result<String> sendEmail(@PathVariable("platformId") Integer platformId, @PathVariable("templateCode") String templateCode, @Email(regexp = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message = "请输入正确的邮箱") @PathVariable("email") String email, @RequestParam HashMap<String, String> variables) {
+        userService.sendEmail(platformId, templateCode, email, variables);
+        return Result.ofSuccess("发送成功");
+    }
+
+    @PostMapping("/register")
+    @Auth(enable = false, value = "clever-system.user.register", name = "用户注册", description = "用户注册接口")
+    public Result<String> register(UserRegisterInput userRegisterInput) {
+        userService.register(userRegisterInput);
+        return Result.ofSuccess("注册成功, 请前往邮箱激活账号");
+    }
+
+    @PostMapping("/online")
+    public Result<OnlineUser> getOnlineUser(String token) {
+        return new Result<>(userService.getOnlineUserByToken(token));
+    }
+
+    @PostMapping("/logout")
+    public Result<String> logout(OnlineUser onlineUser) {
+        userService.logout(onlineUser);
+        return Result.ofSuccess("已安全退出");
+    }
+
+    /**
+     * 发送激活邮件
+     *
+     * @param email 邮箱
+     */
+    @PostMapping("/send/activation")
+    public Result<String> sendActivation(@Email(regexp = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message = "请输入正确的邮箱") String email, String templateCode, @RequestParam HashMap<String, String> variables) {
+        User activeUser = userService.selectByEmail(email);
+        if (activeUser == null) return new Result<>("该邮箱未注册");
+        EmailTemplate emailTemplate = userService.getEmailTemplateByActivation(activeUser.getSourcePlatform(), templateCode);
+        userService.sendActivationEmail(email, emailTemplate.getId(), variables);
+        return new Result<>("激活邮件发送成功");
+    }
+
+    /**
+     * (邮件)激活账号
+     *
+     * @param activationFlag 激活账户
+     */
+    @GetMapping("/activation")
+    @Auth(enable = false, value = "clever-system.user.activationAccount", name = "(邮件)激活账号", description = "(邮件)激活账号接口")
+    public Result<String> activationAccount(String activationFlag) {
+        userService.activationAccount(activationFlag);
+        return Result.ofSuccess("账户激活成功");
+    }
+
+    /**
+     * 管理员批量激活用户
+     *
+     * @param userIds 用户ids
+     */
+    @PostMapping("/admin/activation/{platformId}")
+    @Auth(value = "clever-system.user.activation", name = "用户激活", description = "用户服务用户激活接口")
+    public Result<String> adminActivation(@PathVariable("platformId") Integer platformId, @RequestBody List<String> userIds) {
+        if (CollectionUtils.isEmpty(userIds)) {
+            throw new ValidationException("激活的用户不能为空");
+        }
+        userService.adminActivation(platformId, userIds);
+        return Result.ofSuccess("账户激活成功");
+    }
+
+    @PostMapping("/reset/password/{platformId}")
+    @Auth(value = "user-service.user.reset-password", name = "用户重置密码", description = "用户服务用户重置密码接口")
+    public Result<String> resetPassword(@PathVariable("platformId") Integer platformId, @RequestBody List<String> userIds) {
+        if (CollectionUtils.isEmpty(userIds)) {
+            throw new ValidationException("重置密码的用户不能为空");
+        }
+        userService.resetPassword(platformId, userIds);
+        return Result.ofSuccess("操作成功");
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
+    @PostMapping("/update/password")
+    public Result<String> updatePassword(String oldPassword, @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,20}$", message = "密码格式为6-20位,必须包含一个英文或数字") String newPassword) {
+        userService.updatePassword(oldPassword, newPassword);
+        return Result.ofSuccess("密码修改成功");
+    }
+
+    @PostMapping("/update/role/{id}")
+    @Auth(value = "user-service.user.role", name = "用户角色设置", description = "用户服务用户角色设置接口")
+    public Result<String> updateUserRoles(@PathVariable("id") String userId, @RequestBody List<String> roleIds, OnlineUser onlineUser) {
+        userService.updateUserRoles(userId, roleIds, onlineUser);
+        return Result.ofSuccess("授权成功");
+    }
+
+    /**
+     * 修改用户基本信息
+     *
+     * @param userBaseDataInput 用户基本信息
+     * @param onlineUser        在线用户
+     * @return OnlineUser
+     */
+    @PostMapping("/update/baseData")
+    @Auth(isOnlyLogin = true, value = "user-service.user.updateUserBaseData", name = "修改用户基本信息", description = "修改用户基本信息接口")
+    public Result<OnlineUser> updateUserBaseData(UserBaseDataInput userBaseDataInput, OnlineUser onlineUser) {
+        return new Result<>(userService.updateUserBaseData(userBaseDataInput, onlineUser), "修改成功");
+    }
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @return OnlineUser
+     */
+    @PostMapping("/getCurrentUser")
+    @Auth(isOnlyLogin = true, value = "user-service.user.getCurrentUser", name = "获取当前登录用户信息", description = "获取当前登录用户信息接口")
+    public Result<OnlineUser> getCurrentUser() {
+        return new Result<>(SpringUtil.getOnlineUser(), "已登录");
     }
 }

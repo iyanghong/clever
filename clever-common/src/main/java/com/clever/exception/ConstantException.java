@@ -44,6 +44,8 @@ public class ConstantException {
     public static ConstantException USER_LOGIN_PASSWORD_ERROR = new ConstantException(1004, "账号或密码不正确");
     public static ConstantException PARAMETER_VERIFICATION_FAIL = new ConstantException(1005, "参数校验失败");
     public static ConstantException PARAMETER_VERIFICATION_EMAIL_FAIL = new ConstantException(1006, "错误的邮箱");
+    public static ConstantException ACCOUNT_IS_EXISTED = new ConstantException(1007, "账号已被注册");
+    public static ConstantException ACTIVATION_LINKS_EXPIRED = new ConstantException(1008, "激活链接已失效");
 
 
     public static ConstantException EMAIL_SEND_OFTEN = new ConstantException(2001, "邮件已发送, 请查看您的邮箱");

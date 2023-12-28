@@ -7,4 +7,18 @@
         set password_error_num = password_error_num + 1
         where id = #{userId};
     </update>
+
+    <select id="selectByAccountOrEmail" resultType="com.clever.bean.system.User">
+        select *
+        from `clever-system`.user
+        where account = #{account}
+           or email = #{email};
+    </select>
+
+    <update id="updateUserToAvailable" parameterType="java.lang.String">
+        update user
+        set status = 1
+        where email = #{email}
+          and status = 0;
+    </update>
 </mapper>

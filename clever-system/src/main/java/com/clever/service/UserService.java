@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
 
 import java.util.List;
+import java.util.Map;
 
+import com.clever.bean.system.EmailTemplate;
 import com.clever.bean.system.User;
+import com.clever.bean.system.projo.UserBaseDataInput;
+import com.clever.bean.system.projo.UserRegisterInput;
 
 /**
  * 用户服务接口
@@ -133,10 +137,126 @@ public interface UserService {
     OnlineUser login(String account, String password, Integer platformId);
 
     /**
+     * 登录退出
+     *
+     * @param onlineUser user
+     */
+    void logout(OnlineUser onlineUser);
+
+    /**
+     * 发送邮件
+     *
+     * @param platformId   平台id
+     * @param email        邮箱
+     * @param templateCode 模板code
+     * @param variables    模板变量
+     */
+    void sendEmail(Integer platformId, String templateCode, String email, Map<String, String> variables);
+
+    /**
      * 发送邮箱验证码
      *
      * @param email      邮箱
      * @param platformId 平台id
      */
-    void sendEmailVerifyCode(String email, Integer platformId);
+    void sendEmailVerifyCode(String email, Integer platformId, Map<String, String> variables);
+    /**
+     * 激活邮件发送
+     *
+     * @param email      接收邮箱
+     * @param templateId 模板id
+     * @param variables  邮件占位值
+     */
+    void sendActivationEmail(String email, String templateId, Map<String, String> variables);
+    /**
+     * 根据账号获取用户基本信息
+     *
+     * @param account 账号
+     * @return 用户信息
+     */
+    User getLoginUserInfo(String account);
+
+    /**
+     * 修改用户基本信息
+     *
+     * @param userBaseDataInput 用户基本信息
+     * @param onlineUser        在线用户
+     * @return OnlineUser
+     */
+    OnlineUser updateUserBaseData(UserBaseDataInput userBaseDataInput, OnlineUser onlineUser);
+
+    /**
+     * 修改密码
+     *
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
+    void updatePassword(String oldPassword, String newPassword);
+
+    /**
+     * 管理员批量重置用户密码
+     *
+     * @param platformId 平台id
+     * @param userIds    用户id列表
+     */
+    void resetPassword(Integer platformId, List<String> userIds);
+
+    /**
+     * 忘记密码
+     *
+     * @param account 账号
+     */
+    void forgetPassword(String account);
+
+    /**
+     * 保存用户的角色
+     *
+     * @param userId     用户id
+     * @param roleIds    角色ids
+     * @param onlineUser 操作用户
+     */
+    void updateUserRoles(String userId, List<String> roleIds, OnlineUser onlineUser);
+
+    /**
+     * 更新当前在线用户的信息
+     *
+     * @param token token
+     */
+    OnlineUser refreshOnlineUser(String token);
+
+    /**
+     * 用户注册
+     *
+     * @param userRegisterInput 用户注册信息
+     */
+    void register(UserRegisterInput userRegisterInput);
+
+    /**
+     * 激活专用，获取激活邮箱模板
+     * @param platformId 平台id
+     * @param code 模板code
+     * @return EmailTemplate
+     */
+    EmailTemplate getEmailTemplateByActivation(Integer platformId, String code);
+    /**
+     * 用户激活
+     *
+     * @param activationFlag 激活码
+     */
+    void activationAccount(String activationFlag);
+
+    /**
+     * 管理批量激活用户
+     *
+     * @param platformId 平台id
+     * @param userIds    用户id列表
+     */
+    void adminActivation(Integer platformId, List<String> userIds);
+
+    /**
+     * 根据token获取登录用户信息
+     * @param token token
+     * @return OnlineUser
+     */
+    OnlineUser getOnlineUserByToken(String token);
 }

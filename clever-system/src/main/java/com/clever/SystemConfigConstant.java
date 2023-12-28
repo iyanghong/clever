@@ -17,6 +17,10 @@ public class SystemConfigConstant {
      * 用户默认登录过期时间
      */
     public static final String USER_DEFAULT_LOGIN_EXPIRE_TIME = "sys:config:user:defaultLoginExpireTime";
+    /**
+     * 用户默认激活邮箱模板code
+     */
+    public static final String DEFAULT_ACTIVATION_EMAIL_TEMPLATE_CODE = "sys:config:user:activeEmailTemplate";
 
     /**
      * 用户默认角色
