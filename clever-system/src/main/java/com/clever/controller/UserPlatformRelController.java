@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/userPlatformRel")
-@AuthGroup(name = "用户-平台模块", description = "用户-平台模块权限组")
+@AuthGroup(value = "clever-system.userPlatformRel", name = "用户-平台模块", description = "用户-平台模块权限组")
 public class UserPlatformRelController {
 
     @Resource
@@ -78,7 +78,7 @@ public class UserPlatformRelController {
      * @return 用户-平台信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取用户-平台信息", description = "根据id获取用户-平台信息接口")
+    @Auth(value = "clever-system.userPlatformRel.selectById", name = "根据id获取用户-平台信息", description = "根据id获取用户-平台信息接口")
     public Result<UserPlatformRel> selectById(@PathVariable("id") String id) {
         return new Result<>(userPlatformRelService.selectById(id), "查询成功");
     }

@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import java.util.Date;
  * 系统权限
  *
  * @Author xixi
- * @Date 2023-12-26 11:13:55
+ * @Date 2023-12-29 17:14:55
  */
 public class Permission implements Serializable {
 
@@ -27,8 +27,8 @@ public class Permission implements Serializable {
     /**
      * 平台id
      */
-    @NotBlank(message = "平台id不能为空")
-    private String platformId;
+    @NotNull(message = "平台id不能为空")
+    private Integer platformId;
     /**
      * 权限组id
      */
@@ -55,6 +55,18 @@ public class Permission implements Serializable {
     @NotBlank(message = "权限类型-字典表不能为空")
     private String type;
     /**
+     * 是否启用:0-不启用,1-启用
+     */
+    private Integer enable;
+    /**
+     * 是否只能登录:0-否,1-是
+     */
+    private Integer ifOnlyLogin;
+    /**
+     * 资源路径
+     */
+    private String resourcePath;
+    /**
      * 创建者id
      */
     @TableField(value = "creator", fill = FieldFill.INSERT)
@@ -69,6 +81,7 @@ public class Permission implements Serializable {
     private Date updatedAt;
 
 
+
     /**
      * 权限id
      */
@@ -79,18 +92,16 @@ public class Permission implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
     /**
      * 平台id
      */
-    public String getPlatformId() {
+    public Integer getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(String platformId) {
+    public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
-
     /**
      * 权限组id
      */
@@ -101,7 +112,6 @@ public class Permission implements Serializable {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
-
     /**
      * 权限名称
      */
@@ -112,7 +122,6 @@ public class Permission implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
     /**
      * 权限标识
      */
@@ -123,7 +132,6 @@ public class Permission implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
-
     /**
      * 权限描述
      */
@@ -134,7 +142,6 @@ public class Permission implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
     /**
      * 权限类型-字典表
      */
@@ -145,7 +152,43 @@ public class Permission implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+    /**
+     * 是否启用:0-不启用,1-启用
+     */
+    public Integer getEnable() {
+        return enable;
+    }
 
+    /**
+     * 是否启用:0-不启用,1-启用
+     */
+    public boolean ifEnable() {
+    	return enable == 1;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
+    }
+    /**
+     * 是否只能登录:0-否,1-是
+     */
+    public Integer getIfOnlyLogin() {
+        return ifOnlyLogin;
+    }
+
+    public void setIfOnlyLogin(Integer ifOnlyLogin) {
+        this.ifOnlyLogin = ifOnlyLogin;
+    }
+    /**
+     * 资源路径
+     */
+    public String getResourcePath() {
+        return resourcePath;
+    }
+
+    public void setResourcePath(String resourcePath) {
+        this.resourcePath = resourcePath;
+    }
     /**
      * 创建者id
      */
@@ -156,7 +199,6 @@ public class Permission implements Serializable {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-
     /**
      * 创建时间
      */
@@ -167,7 +209,6 @@ public class Permission implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
     /**
      * 修改时间
      */

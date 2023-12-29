@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/systemConfig")
-@AuthGroup(name = "系统配置模块", description = "系统配置模块权限组")
+@AuthGroup(value = "clever-system.systemConfig", name = "系统配置模块", description = "系统配置模块权限组")
 public class SystemConfigController {
 
     @Resource
@@ -80,7 +80,7 @@ public class SystemConfigController {
      * @return 系统配置信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据配置id获取系统配置信息", description = "根据配置id获取系统配置信息接口")
+    @Auth(value = "clever-system.systemConfig.selectById", name = "根据配置id获取系统配置信息", description = "根据配置id获取系统配置信息接口")
     public Result<SystemConfig> selectById(@PathVariable("id") String id) {
         return new Result<>(systemConfigService.selectById(id), "查询成功");
     }

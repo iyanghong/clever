@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/menu")
-@AuthGroup(name = "导航菜单模块", description = "导航菜单模块权限组")
+@AuthGroup(value = "clever-system.menu", name = "导航菜单模块", description = "导航菜单模块权限组")
 public class MenuController {
 
     @Resource
@@ -79,7 +79,7 @@ public class MenuController {
      * @return 导航菜单信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取导航菜单信息", description = "根据id获取导航菜单信息接口")
+    @Auth(value = "clever-system.menu.selectById", name = "根据id获取导航菜单信息", description = "根据id获取导航菜单信息接口")
     public Result<Menu> selectById(@PathVariable("id") String id) {
         return new Result<>(menuService.selectById(id), "查询成功");
     }

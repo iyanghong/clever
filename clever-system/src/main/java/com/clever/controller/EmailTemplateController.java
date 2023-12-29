@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/emailTemplate")
-@AuthGroup(name = "邮箱模板模块", description = "邮箱模板模块权限组")
+@AuthGroup(value = "clever-system.emailTemplate", name = "邮箱模板模块", description = "邮箱模板模块权限组")
 public class EmailTemplateController {
 
     @Resource
@@ -92,7 +92,7 @@ public class EmailTemplateController {
      * @return 邮箱模板信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取邮箱模板信息", description = "根据id获取邮箱模板信息接口")
+    @Auth(value = "clever-system.emailTemplate.selectById", name = "根据id获取邮箱模板信息", description = "根据id获取邮箱模板信息接口")
     public Result<EmailTemplate> selectById(@PathVariable("id") String id) {
         return new Result<>(emailTemplateService.selectById(id), "查询成功");
     }

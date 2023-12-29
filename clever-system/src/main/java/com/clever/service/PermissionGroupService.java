@@ -5,6 +5,7 @@ import com.clever.bean.model.OnlineUser;
 
 import java.util.List;
 
+import com.clever.bean.system.Permission;
 import com.clever.bean.system.PermissionGroup;
 
 /**
@@ -26,7 +27,7 @@ public interface PermissionGroupService {
      * @param sortCode   排序号
      * @return Page<PermissionGroup>
      */
-    Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, String platformId, String parentId, String name, Integer sortCode);
+    Page<PermissionGroup> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String parentId, String name, Integer sortCode);
 
     /**
      * 根据权限组id获取系统权限组
@@ -42,7 +43,7 @@ public interface PermissionGroupService {
      * @param platformId 平台id
      * @return List<PermissionGroup> 系统权限组列表
      */
-    List<PermissionGroup> selectListByPlatformId(String platformId);
+    List<PermissionGroup> selectListByPlatformId(Integer platformId);
 
     /**
      * 根据上级id获取列表
@@ -51,6 +52,13 @@ public interface PermissionGroupService {
      * @return List<PermissionGroup> 系统权限组列表
      */
     List<PermissionGroup> selectListByParentId(String parentId);
+
+    /**
+     * 初始化一个权限组
+     *
+     * @param permissionGroup 权限组实体信息
+     */
+    PermissionGroup initPermissionGroup(PermissionGroup permissionGroup);
 
     /**
      * 根据创建者id获取列表
@@ -109,7 +117,7 @@ public interface PermissionGroupService {
      * @param platformId 平台id
      * @param onlineUser 当前登录用户
      */
-    void deleteByPlatformId(String platformId, OnlineUser onlineUser);
+    void deleteByPlatformId(Integer platformId, OnlineUser onlineUser);
 
     /**
      * 根据上级id删除
@@ -127,4 +135,20 @@ public interface PermissionGroupService {
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
 
+    /**
+     * 解析需要删除的权限组
+     *
+     * @param platformId           平台id
+     * @param permissionGroupCodes 权限组id列表
+     */
+    void resolvePermissionGroup(Integer platformId, List<String> permissionGroupCodes);
+
+    /**
+     * 解析规则组添加
+     *
+     * @param platformId      平台id
+     * @param permissionGroup 规则组
+     * @param permissionList  规则列表
+     */
+    void resolvePermissionGroup(Integer platformId, PermissionGroup permissionGroup, List<Permission> permissionList);
 }

@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthGroup {
 
+    String value();
     /**
      * 权限组名
      *
@@ -28,11 +29,17 @@ public @interface AuthGroup {
      * @return 描述
      */
     String description() default "";
+    /**
+     * 是否启用
+     *
+     * @return 是否启用
+     */
+    boolean enable() default true;
 
     /**
-     * 所属服务
+     * 是否只需要登录
      *
-     * @return 所属服务
+     * @return 是否只需要登录
      */
-    String service() default "";
+    boolean isOnlyLogin() default false;
 }

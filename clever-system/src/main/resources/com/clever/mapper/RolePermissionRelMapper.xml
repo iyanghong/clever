@@ -12,4 +12,13 @@
         </foreach>
         ) group by p.id, p.code
     </select>
+
+    <delete id="deleteByPermissionGroupIds" parameterType="java.lang.String">
+        delete from role_permission_rel
+        where permission_id in (select id from permission where permission.group_id in(
+        <foreach collection="permissionGroupIds" item="permissionGroupId" separator=",">
+            #{permissionGroupId}
+        </foreach>
+        ))
+    </delete>
 </mapper>

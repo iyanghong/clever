@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/street")
-@AuthGroup(name = "街道模块", description = "街道模块权限组")
+@AuthGroup(value = "clever-system.street", name = "街道模块", description = "街道模块权限组")
 public class StreetController {
 
     @Resource
@@ -92,7 +92,7 @@ public class StreetController {
      * @return 街道信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据街道编号获取街道信息", description = "根据街道编号获取街道信息接口")
+    @Auth(value = "clever-system.street.selectById", name = "根据街道编号获取街道信息", description = "根据街道编号获取街道信息接口")
     public Result<Street> selectById(@PathVariable("id") Integer id) {
         return new Result<>(streetService.selectById(id), "查询成功");
     }

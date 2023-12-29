@@ -28,7 +28,7 @@ public interface PermissionService {
      * @param type       权限类型-字典表
      * @return Page<Permission>
      */
-    Page<Permission> selectPage(Integer pageNumber, Integer pageSize, String platformId, String groupId, String name, String code, String type);
+    Page<Permission> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String groupId, String name, String code, String type);
 
     /**
      * 根据权限id获取系统权限
@@ -44,7 +44,7 @@ public interface PermissionService {
      * @param platformId 平台id
      * @return List<Permission> 系统权限列表
      */
-    List<Permission> selectListByPlatformId(String platformId);
+    List<Permission> selectListByPlatformId(Integer platformId);
 
     /**
      * 根据权限组id获取列表
@@ -111,7 +111,7 @@ public interface PermissionService {
      * @param platformId 平台id
      * @param onlineUser 当前登录用户
      */
-    void deleteByPlatformId(String platformId, OnlineUser onlineUser);
+    void deleteByPlatformId(Integer platformId, OnlineUser onlineUser);
 
     /**
      * 根据权限组id删除

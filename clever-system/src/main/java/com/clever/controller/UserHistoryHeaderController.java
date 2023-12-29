@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/userHistoryHeader")
-@AuthGroup(name = "用户历史头像表模块", description = "用户历史头像表模块权限组")
+@AuthGroup(value = "clever-system.userHistoryHeader", name = "用户历史头像表模块", description = "用户历史头像表模块权限组")
 public class UserHistoryHeaderController {
 
     @Resource
@@ -78,7 +78,7 @@ public class UserHistoryHeaderController {
      * @return 用户历史头像表信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据历史头像id获取用户历史头像表信息", description = "根据历史头像id获取用户历史头像表信息接口")
+    @Auth(value = "clever-system.userHistoryHeader.selectById", name = "根据历史头像id获取用户历史头像表信息", description = "根据历史头像id获取用户历史头像表信息接口")
     public Result<UserHistoryHeader> selectById(@PathVariable("id") String id) {
         return new Result<>(userHistoryHeaderService.selectById(id), "查询成功");
     }

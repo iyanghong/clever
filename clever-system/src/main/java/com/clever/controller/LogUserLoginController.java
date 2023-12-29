@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/logUserLogin")
-@AuthGroup(name = "用户登录日志模块", description = "用户登录日志模块权限组")
+@AuthGroup(value = "clever-system.logUserLogin", name = "用户登录日志模块", description = "用户登录日志模块权限组")
 public class LogUserLoginController {
 
     @Resource
@@ -79,7 +79,7 @@ public class LogUserLoginController {
      * @return 用户登录日志信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据自增id获取用户登录日志信息", description = "根据自增id获取用户登录日志信息接口")
+    @Auth(value = "clever-system.logUserLogin.selectById", name = "根据自增id获取用户登录日志信息", description = "根据自增id获取用户登录日志信息接口")
     public Result<LogUserLogin> selectById(@PathVariable("id") String id) {
         return new Result<>(logUserLoginService.selectById(id), "查询成功");
     }

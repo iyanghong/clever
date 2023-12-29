@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/emailSubject")
-@AuthGroup(name = "邮箱主体模块", description = "邮箱主体模块权限组")
+@AuthGroup(value = "clever-system.emailSubject", name = "邮箱主体模块", description = "邮箱主体模块权限组")
 public class EmailSubjectController {
 
     @Resource
@@ -80,7 +80,7 @@ public class EmailSubjectController {
      * @return 邮箱主体信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取邮箱主体信息", description = "根据id获取邮箱主体信息接口")
+    @Auth(value = "clever-system.emailSubject.selectById", name = "根据id获取邮箱主体信息", description = "根据id获取邮箱主体信息接口")
     public Result<EmailSubject> selectById(@PathVariable("id") String id) {
         return new Result<>(emailSubjectService.selectById(id), "查询成功");
     }

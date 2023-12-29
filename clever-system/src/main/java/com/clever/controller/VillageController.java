@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/village")
-@AuthGroup(name = "村庄模块", description = "村庄模块权限组")
+@AuthGroup(value = "clever-system.village", name = "村庄模块", description = "村庄模块权限组")
 public class VillageController {
 
     @Resource
@@ -105,7 +105,7 @@ public class VillageController {
      * @return 村庄信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取村庄信息", description = "根据id获取村庄信息接口")
+    @Auth(value = "clever-system.village.selectById", name = "根据id获取村庄信息", description = "根据id获取村庄信息接口")
     public Result<Village> selectById(@PathVariable("id") Long id) {
         return new Result<>(villageService.selectById(id), "查询成功");
     }

@@ -45,9 +45,9 @@ public class PermissionServiceImpl implements PermissionService {
      * @return Page<Permission>
      */
     @Override
-    public Page<Permission> selectPage(Integer pageNumber, Integer pageSize, String platformId, String groupId, String name, String code, String type) {
+    public Page<Permission> selectPage(Integer pageNumber, Integer pageSize, Integer platformId, String groupId, String name, String code, String type) {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(platformId)) {
+        if (platformId != null) {
             queryWrapper.eq("platform_id", platformId);
         }
         if (StringUtils.isNotBlank(groupId)) {
@@ -83,7 +83,7 @@ public class PermissionServiceImpl implements PermissionService {
      * @return List<Permission> 系统权限列表
      */
     @Override
-    public List<Permission> selectListByPlatformId(String platformId) {
+    public List<Permission> selectListByPlatformId(Integer platformId) {
         return permissionMapper.selectList(new QueryWrapper<Permission>().eq("platform_id", platformId).orderByAsc("id"));
     }
 
@@ -183,7 +183,7 @@ public class PermissionServiceImpl implements PermissionService {
      * @param onlineUser 当前登录用户
      */
     @Override
-    public void deleteByPlatformId(String platformId, OnlineUser onlineUser) {
+    public void deleteByPlatformId(Integer platformId, OnlineUser onlineUser) {
         permissionMapper.delete(new QueryWrapper<Permission>().eq("platform_id", platformId));
         log.info("系统权限, 系统权限信息根据platformId删除成功: userId={}, platformId={}", onlineUser.getId(), platformId);
     }

@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/${lowerCamelCaseName}")
-@AuthGroup(name = "${commentOrUpperCamelCaseName}模块", description = "${commentOrUpperCamelCaseName}模块权限组")
+@AuthGroup(value = "${appName}.${lowerCamelCaseName}", name = "${commentOrUpperCamelCaseName}模块", description = "${commentOrUpperCamelCaseName}模块权限组")
 public class ${upperCamelCaseName}Controller {
 
     @Resource
@@ -83,7 +83,7 @@ public class ${upperCamelCaseName}Controller {
     * @return ${commentOrUpperCamelCaseName}信息
     */
     @GetMapping("/{${primaryKeyColumn.lowerCamelCaseName}}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据${primaryKeyColumn.commentOrName}获取${commentOrUpperCamelCaseName}信息", description = "根据${primaryKeyColumn.commentOrName}获取${commentOrUpperCamelCaseName}信息接口")
+    @Auth(value = "clever-system.${lowerCamelCaseName}.selectById", name = "根据${primaryKeyColumn.commentOrName}获取${commentOrUpperCamelCaseName}信息", description = "根据${primaryKeyColumn.commentOrName}获取${commentOrUpperCamelCaseName}信息接口")
     public Result<${upperCamelCaseName}> selectById(@PathVariable("${primaryKeyColumn.lowerCamelCaseName}") ${primaryKeyColumn.javaType} ${primaryKeyColumn.lowerCamelCaseName}) {
     return new Result<>(${lowerCamelCaseName}Service.selectById(${primaryKeyColumn.lowerCamelCaseName}), "查询成功");
     }

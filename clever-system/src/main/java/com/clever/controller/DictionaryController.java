@@ -27,7 +27,7 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @Validated
 @RequestMapping("/dictionary")
-@AuthGroup(name = "字典模块", description = "字典模块权限组")
+@AuthGroup(value = "clever-system.dictionary", name = "字典模块", description = "字典模块权限组")
 public class DictionaryController {
 
     @Resource
@@ -107,7 +107,7 @@ public class DictionaryController {
      * @return 字典信息
      */
     @GetMapping("/{id}")
-    @Auth(enable = false, value = "clever-system.platform.selectById", name = "根据字典id获取字典信息", description = "根据字典id获取字典信息接口")
+    @Auth(enable = false, value = "clever-system.dictionary.selectById", name = "根据字典id获取字典信息", description = "根据字典id获取字典信息接口")
     public Result<Dictionary> selectById(@PathVariable("id") String id) {
         return new Result<>(dictionaryService.selectById(id), "查询成功");
     }

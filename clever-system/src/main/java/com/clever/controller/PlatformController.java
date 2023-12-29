@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/platform")
-@AuthGroup(name = "平台模块", description = "平台模块权限组")
+@AuthGroup(value = "clever-system.platform", name = "平台模块", description = "平台模块权限组")
 public class PlatformController {
 
     @Resource

@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import java.util.Date;
  * 系统权限组
  *
  * @Author xixi
- * @Date 2023-12-26 11:13:55
+ * @Date 2023-12-29 17:14:55
  */
 public class PermissionGroup implements Serializable {
 
@@ -27,8 +27,8 @@ public class PermissionGroup implements Serializable {
     /**
      * 平台id
      */
-    @NotBlank(message = "平台id不能为空")
-    private String platformId;
+    @NotNull(message = "平台id不能为空")
+    private Integer platformId;
     /**
      * 上级id
      */
@@ -40,10 +40,19 @@ public class PermissionGroup implements Serializable {
     @NotBlank(message = "权限组名称不能为空")
     private String name;
     /**
+     * 权限组标识
+     */
+    @NotBlank(message = "权限组标识不能为空")
+    private String code;
+    /**
      * 权限组描述
      */
     @NotBlank(message = "权限组描述不能为空")
     private String description;
+    /**
+     * 是否启用:0-不启用,1-启用
+     */
+    private Integer enable;
     /**
      * 创建者id
      */
@@ -63,6 +72,7 @@ public class PermissionGroup implements Serializable {
     private Date updatedAt;
 
 
+
     /**
      * 权限组id
      */
@@ -73,18 +83,16 @@ public class PermissionGroup implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
     /**
      * 平台id
      */
-    public String getPlatformId() {
+    public Integer getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(String platformId) {
+    public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
-
     /**
      * 上级id
      */
@@ -95,7 +103,6 @@ public class PermissionGroup implements Serializable {
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
-
     /**
      * 权限组名称
      */
@@ -106,7 +113,16 @@ public class PermissionGroup implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     * 权限组标识
+     */
+    public String getCode() {
+        return code;
+    }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
     /**
      * 权限组描述
      */
@@ -117,7 +133,23 @@ public class PermissionGroup implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    /**
+     * 是否启用:0-不启用,1-启用
+     */
+    public Integer getEnable() {
+        return enable;
+    }
 
+    /**
+     * 是否启用:0-不启用,1-启用
+     */
+    public boolean ifEnable() {
+    	return enable == 1;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
+    }
     /**
      * 创建者id
      */
@@ -128,7 +160,6 @@ public class PermissionGroup implements Serializable {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-
     /**
      * 排序号
      */
@@ -139,7 +170,6 @@ public class PermissionGroup implements Serializable {
     public void setSortCode(Integer sortCode) {
         this.sortCode = sortCode;
     }
-
     /**
      * 创建时间
      */
@@ -150,7 +180,6 @@ public class PermissionGroup implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
     /**
      * 修改时间
      */

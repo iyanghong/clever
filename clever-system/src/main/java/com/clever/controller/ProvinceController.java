@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/province")
-@AuthGroup(name = "省份模块", description = "省份模块权限组")
+@AuthGroup(value = "clever-system.province", name = "省份模块", description = "省份模块权限组")
 public class ProvinceController {
 
     @Resource
@@ -53,7 +53,7 @@ public class ProvinceController {
      * @return 省份信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据省份编号获取省份信息", description = "根据省份编号获取省份信息接口")
+    @Auth(value = "clever-system.province.selectById", name = "根据省份编号获取省份信息", description = "根据省份编号获取省份信息接口")
     public Result<Province> selectById(@PathVariable("id") Integer id) {
         return new Result<>(provinceService.selectById(id), "查询成功");
     }

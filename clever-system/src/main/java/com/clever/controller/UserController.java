@@ -35,7 +35,7 @@ import javax.validation.constraints.Pattern;
 @RestController
 @Validated
 @RequestMapping("/user")
-@AuthGroup(name = "用户模块", description = "用户模块权限组")
+@AuthGroup(value = "clever-system.user", name = "用户模块", description = "用户模块权限组")
 public class UserController {
 
     @Resource
@@ -81,7 +81,7 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/account/{account}")
-    @Auth(value = "clever-system.platform.selectByAccount", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
+    @Auth(value = "clever-system.user.selectByAccount", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
     public Result<User> selectByAccount(@PathVariable("account") String account) {
         return new Result<>(userService.selectByAccount(account), "查询成功");
     }
@@ -93,7 +93,7 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/email/{email}")
-    @Auth(value = "clever-system.platform.selectByEmail", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
+    @Auth(value = "clever-system.user.selectByEmail", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
     public Result<User> selectByEmail(@PathVariable("email") String email) {
         return new Result<>(userService.selectByEmail(email), "查询成功");
     }
@@ -105,7 +105,7 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/phone/{phone}")
-    @Auth(value = "clever-system.platform.selectByPhone", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
+    @Auth(value = "clever-system.user.selectByPhone", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
     public Result<User> selectByPhone(@PathVariable("phone") String phone) {
         return new Result<>(userService.selectByPhone(phone), "查询成功");
     }
@@ -117,7 +117,7 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
+    @Auth(value = "clever-system.user.selectById", name = "根据用户id获取用户信息", description = "根据用户id获取用户信息接口")
     public Result<User> selectById(@PathVariable("id") String id) {
         return new Result<>(userService.selectById(id), "查询成功");
     }

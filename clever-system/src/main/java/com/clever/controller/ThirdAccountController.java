@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/thirdAccount")
-@AuthGroup(name = "第三方平台账号模块", description = "第三方平台账号模块权限组")
+@AuthGroup(value = "clever-system.thirdAccount", name = "第三方平台账号模块", description = "第三方平台账号模块权限组")
 public class ThirdAccountController {
 
     @Resource
@@ -80,7 +80,7 @@ public class ThirdAccountController {
      * @return 第三方平台账号信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据id获取第三方平台账号信息", description = "根据id获取第三方平台账号信息接口")
+    @Auth(value = "clever-system.thirdAccount.selectById", name = "根据id获取第三方平台账号信息", description = "根据id获取第三方平台账号信息接口")
     public Result<ThirdAccount> selectById(@PathVariable("id") String id) {
         return new Result<>(thirdAccountService.selectById(id), "查询成功");
     }

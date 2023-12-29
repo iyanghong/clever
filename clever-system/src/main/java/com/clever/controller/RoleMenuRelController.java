@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/roleMenuRel")
-@AuthGroup(name = "角色菜单模块", description = "角色菜单模块权限组")
+@AuthGroup(value = "clever-system.roleMenuRel", name = "角色菜单模块", description = "角色菜单模块权限组")
 public class RoleMenuRelController {
 
     @Resource
@@ -78,7 +78,7 @@ public class RoleMenuRelController {
      * @return 角色菜单信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据编号获取角色菜单信息", description = "根据编号获取角色菜单信息接口")
+    @Auth(value = "clever-system.roleMenuRel.selectById", name = "根据编号获取角色菜单信息", description = "根据编号获取角色菜单信息接口")
     public Result<RoleMenuRel> selectById(@PathVariable("id") String id) {
         return new Result<>(roleMenuRelService.selectById(id), "查询成功");
     }

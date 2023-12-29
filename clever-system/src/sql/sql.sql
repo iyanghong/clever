@@ -130,10 +130,12 @@ CREATE TABLE IF NOT EXISTS user_role_rel
 CREATE TABLE IF NOT EXISTS permission_group
 (
     id          varchar(36)  NOT NULL COMMENT '权限组id',
-    platform_id varchar(36)  NOT NULL COMMENT '平台id',
+    platform_id int          NOT NULL COMMENT '平台id',
     parent_id   varchar(36)  not null comment '上级id',
     name        varchar(50)  NOT NULL COMMENT '权限组名称',
+    code        varchar(255) NOT NULL COMMENT '权限组标识',
     description varchar(100) NOT NULL COMMENT '权限组描述',
+    enable        tinyint      NOT NULL DEFAULT 1 COMMENT '是否启用:0-不启用,1-启用',
     creator     varchar(36)  NOT NULL COMMENT '创建者id',
     sort_code   int          not null default 0 comment '排序号',
     created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -148,16 +150,19 @@ CREATE TABLE IF NOT EXISTS permission_group
 
 CREATE TABLE IF NOT EXISTS permission
 (
-    id          varchar(36)  NOT NULL COMMENT '权限id',
-    platform_id varchar(36)  NOT NULL COMMENT '平台id',
-    group_id    varchar(36)  NOT NULL COMMENT '权限组id',
-    name        varchar(100) NOT NULL COMMENT '权限名称',
-    code        varchar(255) NOT NULL COMMENT '权限标识',
-    description varchar(100) NOT NULL COMMENT '权限描述',
-    type        varchar(36)  NOT NULL COMMENT '权限类型-字典表',
-    creator     varchar(36)  NOT NULL COMMENT '创建者id',
-    created_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_at  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    id            varchar(36)  NOT NULL COMMENT '权限id',
+    platform_id   int          NOT NULL COMMENT '平台id',
+    group_id      varchar(36)  NOT NULL COMMENT '权限组id',
+    name          varchar(100) NOT NULL COMMENT '权限名称',
+    code          varchar(255) NOT NULL COMMENT '权限标识',
+    description   varchar(100) NOT NULL COMMENT '权限描述',
+    type          varchar(36)  NOT NULL COMMENT '权限类型-字典表',
+    enable        tinyint      NOT NULL DEFAULT 1 COMMENT '是否启用:0-不启用,1-启用',
+    if_only_login tinyint      NOT NULL DEFAULT 0 COMMENT '是否只能登录:0-否,1-是',
+    resource_path varchar(255) NULL COMMENT '资源路径',
+    creator       varchar(36)  NOT NULL COMMENT '创建者id',
+    created_at    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (id) USING BTREE,
     INDEX CODE_IDX (code ASC) USING BTREE COMMENT '权限标识索引',
     INDEX GROUP_IDX (group_id ASC) USING BTREE COMMENT '权限组id索引',
@@ -184,7 +189,7 @@ CREATE TABLE IF NOT EXISTS role_permission_rel
 CREATE TABLE IF NOT EXISTS log_user_status
 (
     id             VARCHAR(36)  NOT NULL COMMENT '自增id',
-    platform_id int          NOT NULL COMMENT '平台id',
+    platform_id    int          NOT NULL COMMENT '平台id',
     user_id        VARCHAR(36)  NOT NULL COMMENT '用户',
     current_status TINYINT      NOT NULL COMMENT '当前状态',
     change_status  TINYINT      NOT NULL COMMENT '变更后状态',
@@ -197,25 +202,25 @@ CREATE TABLE IF NOT EXISTS log_user_status
 ) ENGINE = INNODB
   CHARACTER SET = utf8
   COLLATE = utf8_general_ci
-  COMMENT = '用户状态日志'
+    COMMENT = '用户状态日志'
   ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS log_user_login
 (
-    id          VARCHAR(36)  NOT NULL COMMENT '自增id',
-    platform_id int          NOT NULL COMMENT '平台id',
-    user_id     VARCHAR(36)  NOT NULL COMMENT '用户',
-    user_agent VARCHAR(255) NOT NULL COMMENT '登录设备',
-    ip          VARCHAR(64)  NOT NULL COMMENT '登录ip',
-    nation     VARCHAR(100)  NULL COMMENT '登录国家',
-    province   VARCHAR(100)  NULL COMMENT '登录省份',
-    city       VARCHAR(100)  NULL COMMENT '登录城市',
-    district    VARCHAR(100)  NULL COMMENT '登录地区',
+    id           VARCHAR(36)  NOT NULL COMMENT '自增id',
+    platform_id  int          NOT NULL COMMENT '平台id',
+    user_id      VARCHAR(36)  NOT NULL COMMENT '用户',
+    user_agent   VARCHAR(255) NOT NULL COMMENT '登录设备',
+    ip           VARCHAR(64)  NOT NULL COMMENT '登录ip',
+    nation       VARCHAR(100) NULL COMMENT '登录国家',
+    province     VARCHAR(100) NULL COMMENT '登录省份',
+    city         VARCHAR(100) NULL COMMENT '登录城市',
+    district     VARCHAR(100) NULL COMMENT '登录地区',
     address_code VARCHAR(20)  NULL COMMENT '登录地址编码',
-    longitude  VARCHAR(20)  NULL COMMENT '经度',
-    latitude   VARCHAR(20)  NULL COMMENT '纬度',
-    isp       VARCHAR(100)  NULL COMMENT '运营商',
-    login_time  datetime     NOT NULL COMMENT '登录时间',
+    longitude    VARCHAR(20)  NULL COMMENT '经度',
+    latitude     VARCHAR(20)  NULL COMMENT '纬度',
+    isp          VARCHAR(100) NULL COMMENT '运营商',
+    login_time   datetime     NOT NULL COMMENT '登录时间',
     PRIMARY KEY (id) USING BTREE,
     INDEX USER (user_id ASC) USING BTREE COMMENT '用户索引'
 ) ENGINE = INNODB

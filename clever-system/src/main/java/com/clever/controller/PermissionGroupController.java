@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/permissionGroup")
-@AuthGroup(name = "系统权限组模块", description = "系统权限组模块权限组")
+@AuthGroup(value = "clever-system.permissionGroup", name = "系统权限组模块", description = "系统权限组模块权限组")
 public class PermissionGroupController {
 
     @Resource
@@ -45,7 +45,7 @@ public class PermissionGroupController {
      */
     @GetMapping("/page/{pageNumber}/{pageSize}")
     @Auth(value = "clever-system.permissionGroup.page", name = "系统权限组分页", description = "系统权限组分页接口")
-    public Result<Page<PermissionGroup>> selectPage(@PathVariable("pageNumber") Integer pageNumber, @PathVariable("pageSize") Integer pageSize, String platformId, String parentId, String name, Integer sortCode) {
+    public Result<Page<PermissionGroup>> selectPage(@PathVariable("pageNumber") Integer pageNumber, @PathVariable("pageSize") Integer pageSize, Integer platformId, String parentId, String name, Integer sortCode) {
         return new Result<>(permissionGroupService.selectPage(pageNumber, pageSize, platformId, parentId, name, sortCode), "分页数据查询成功");
     }
 
@@ -57,7 +57,7 @@ public class PermissionGroupController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.permissionGroup.listByPlatformId", name = "根据平台id获取系统权限组列表", description = "根据平台id获取系统权限组列表接口")
-    public List<PermissionGroup> selectListByPlatformId(@PathVariable("platformId") String platformId) {
+    public List<PermissionGroup> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
         return permissionGroupService.selectListByPlatformId(platformId);
     }
 
@@ -92,7 +92,7 @@ public class PermissionGroupController {
      * @return 系统权限组信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据权限组id获取系统权限组信息", description = "根据权限组id获取系统权限组信息接口")
+    @Auth(value = "clever-system.permissionGroup.selectById", name = "根据权限组id获取系统权限组信息", description = "根据权限组id获取系统权限组信息接口")
     public Result<PermissionGroup> selectById(@PathVariable("id") String id) {
         return new Result<>(permissionGroupService.selectById(id), "查询成功");
     }

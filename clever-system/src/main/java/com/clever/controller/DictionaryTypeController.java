@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @Validated
 @RequestMapping("/dictionaryType")
-@AuthGroup(name = "字典类型模块", description = "字典类型模块权限组")
+@AuthGroup(value = "clever-system.dictionaryType", name = "字典类型模块", description = "字典类型模块权限组")
 public class DictionaryTypeController {
 
     @Resource
@@ -92,7 +92,7 @@ public class DictionaryTypeController {
      * @return 字典类型信息
      */
     @GetMapping("/{id}")
-    @Auth(value = "clever-system.platform.selectById", name = "根据字典类型id获取字典类型信息", description = "根据字典类型id获取字典类型信息接口")
+    @Auth(value = "clever-system.dictionaryType.selectById", name = "根据字典类型id获取字典类型信息", description = "根据字典类型id获取字典类型信息接口")
     public Result<DictionaryType> selectById(@PathVariable("id") String id) {
         return new Result<>(dictionaryTypeService.selectById(id), "查询成功");
     }
