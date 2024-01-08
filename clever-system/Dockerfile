@@ -6,5 +6,5 @@ CMD ["--server.port=9502"]
 # EXPOSE：声明端口
 EXPOSE 9502
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar","--spring.profiles.active=pro --spring.application.key=92644664"]
 # ENTRYPOINT：docker启动时，运行的命令，这里容器启动时直接运行jar服务。
