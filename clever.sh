@@ -34,25 +34,32 @@ pull(){
 }
 
 deploy(){
+  # 拉取最新代码
+  pull
   # 编译
   build
+  echo -e "\033[32m 删除未命名的镜像 \033[0m"
   # 删除未命名的镜像
   docker image prune -f
   # 停止正在运行的容器
-  docker-compose down
+  cd "${actionServicePath}/scripts" || exit
+  pwd
+  echo -e "\033[32m 停止正在运行的容器 \033[0m"
+  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
 #  docker build -t clever-$actionService .
   # 强制重启正在运行的容器
-  docker-compose up -d --force-recreate
+  echo -e "\033[32m 启动容器 \033[0m"
+  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" up -d --force-recreate
 }
 
 
 restart(){
-  docker-compose down
-  docker-compose up -d
+  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" up -d
 }
 
 stop(){
-  docker-compose down
+  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
 }
 
 checkDockerContainerIsRunning(){
