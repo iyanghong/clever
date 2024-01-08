@@ -6,6 +6,6 @@ services:
     container_name: install-clever
     volumes:
       - ./:/app/clever
-      - ~/.m2:/root/.m2
+      - /var/.m2:/root/.m2
     working_dir: /app/clever
     command: mvn clean install -Dmaven.test.skip=true
