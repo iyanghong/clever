@@ -8,4 +8,3 @@ services:
       - ./:/app/clever
       - /var/.m2:/root/.m2
     working_dir: /app/clever
-    command: mvn clean install -Dmaven.test.skip=true
