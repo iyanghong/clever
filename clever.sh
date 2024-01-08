@@ -44,6 +44,7 @@ deploy(){
   # 停止正在运行的容器
   echo -e "\033[32m 停止正在运行的容器 \033[0m"
   docker-compose -f "${actionServicePath}/docker-composer.yml" down
+  docker rm -f clever-$actionService
   docker rmi clever-$actionService
 #  docker build -t clever-$actionService .
   # 强制重启正在运行的容器
