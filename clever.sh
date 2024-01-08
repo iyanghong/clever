@@ -8,7 +8,7 @@ serviceGit=git@github.com:iyanghong/clever.git
 serviceList=("system" "blog")
 
 
-updateCode(){
+pull(){
     if [ -d ${serviceGit} ]; then
         git pull "${serviceGit}"
         echo -e "\033[32m 后端服务代码更新成功 \033[0m"
@@ -45,6 +45,7 @@ stop(){
 }
 
 checkInServiceList(){
+    ["pull" = "$action"] && return 1
     [ -z "$actionService" ] && return 0
     for item in "${serviceList[@]}"
     do
@@ -64,6 +65,9 @@ run(){
           ;;
       stop)
           stop
+          ;;
+      pull)
+          pull
           ;;
       *)
           echo "Usage: $0 {deploy}"
