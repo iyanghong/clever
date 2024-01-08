@@ -253,32 +253,43 @@ public class PermissionGroupServiceImpl implements PermissionGroupService {
      */
     public void resolvePermissionGroup(Integer platformId, PermissionGroup permissionGroup, List<Permission> permissionList) {
         PermissionGroup oldPermissionGroup = permissionGroupMapper.selectOne(new QueryWrapper<PermissionGroup>().eq("platform_id", platformId).eq("code", permissionGroup.getCode()));
+        OnlineUser onlineUser = new OnlineUser();
+        onlineUser.setId("system");
         if (oldPermissionGroup == null) {
             // 新增
             permissionGroup.setPlatformId(platformId);
-            create(permissionGroup, new OnlineUser());
+            create(permissionGroup, onlineUser);
             permissionList.forEach(permission -> {
                 permission.setPlatformId(platformId);
                 permission.setGroupId(permissionGroup.getId());
-                permissionService.create(permission, new OnlineUser());
+                permissionService.create(permission, onlineUser);
             });
         } else {
             // 修改
             permissionGroup.setId(oldPermissionGroup.getId());
-            update(permissionGroup, new OnlineUser());
+            update(permissionGroup, onlineUser);
+            List<Permission> hasUpdateList = permissionMapper.selectList(new QueryWrapper<Permission>().eq("platform_id", platformId).eq("group_id", oldPermissionGroup.getId()).in("code", permissionList.stream().map(Permission::getCode).collect(Collectors.toList())));
+            hasUpdateList.forEach(permission -> {
+                Permission newPermission = permissionList.stream().filter(it -> it.getCode().equals(permission.getCode())).findFirst().orElse(null);
+                if (newPermission != null) {
+                    newPermission.setId(permission.getId());
+                }
+                permissionMapper.updateById(newPermission);
+            });
+
+
             List<String> oldPermissionList = permissionMapper.selectList(new QueryWrapper<Permission>().eq("platform_id", platformId).eq("group_id", oldPermissionGroup.getId())).stream().map(Permission::getCode).collect(Collectors.toList());
             CollectionUtil.compareAndRemove(permissionList.stream().map(Permission::getCode).collect(Collectors.toList()), oldPermissionList);
             if (!CollectionUtils.isEmpty(oldPermissionList)) {
                 // 需要删除的权限
-                OnlineUser onlineUser = new OnlineUser();
-                onlineUser.setId("system");
                 permissionService.deleteBatchIds(oldPermissionList, onlineUser);
             }
-            permissionList.forEach(permission -> {
+            permissionList.stream().filter(it -> it.getId() == null).collect(Collectors.toList()).forEach(permission -> {
                 permission.setPlatformId(platformId);
                 permission.setGroupId(permissionGroup.getId());
-                permissionService.save(permission, new OnlineUser());
+                permissionService.create(permission, onlineUser);
             });
+
         }
     }
 
