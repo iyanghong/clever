@@ -48,7 +48,7 @@ checkInServiceList(){
     [ -z "$actionService" ] && return 0
     for item in "${serviceList[@]}"
     do
-        [ "${item}" = "$1" ] && return 1
+        [ "${item}" = "${actionService}" ] && return 1
     done
     return 0
 }
@@ -70,7 +70,9 @@ run(){
           exit 1
   esac
 }
-checkInServerList
+
+
+checkInServiceList
 if [  $? -eq 0 ];then
     echo "service is not found!"
     exit 1
