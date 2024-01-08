@@ -5,6 +5,7 @@ services:
     build:
       context: .                    # dockerfile的镜像
       dockerfile: Dockerfile        # 读取dockerfile文件进行打包获取镜像
+    image: clever-system      # 镜像名称
     container_name: clever-system
     ports:
       - "9502:9502"
