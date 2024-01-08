@@ -42,24 +42,24 @@ deploy(){
   # 删除未命名的镜像
   docker image prune -f
   # 停止正在运行的容器
-  cd "${actionServicePath}/scripts" || exit
+  cd "${actionServicePath}" || exit
   pwd
   echo -e "\033[32m 停止正在运行的容器 \033[0m"
-  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/docker-composer.yml" down
 #  docker build -t clever-$actionService .
   # 强制重启正在运行的容器
   echo -e "\033[32m 启动容器 \033[0m"
-  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" up -d --force-recreate
+  docker-compose -f "${actionServicePath}/docker-composer.yml" up -d --force-recreate
 }
 
 
 restart(){
-  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
-  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" up -d
+  docker-compose -f "${actionServicePath}/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/docker-composer.yml" up -d
 }
 
 stop(){
-  docker-compose -f "${actionServicePath}/scripts/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/docker-composer.yml" down
 }
 
 checkDockerContainerIsRunning(){
@@ -83,7 +83,7 @@ checkInServiceList(){
 }
 
 run(){
-  cd "${actionServicePath}/scripts" || exit
+  cd "${actionServicePath}" || exit
   case "$action" in
       deploy)
           deploy
