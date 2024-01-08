@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  clever-system:
+    image: clever-system:latest
+    container_name: clever-system
+    ports:
+      - "9502:9502"
+    environment:
+      - SPRING_PROFILES_ACTIVE=pro
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=http://120.78.152.120:8848
