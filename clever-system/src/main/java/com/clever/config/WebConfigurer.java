@@ -33,15 +33,13 @@ public class WebConfigurer implements WebMvcConfigurer {
 
     @Value("${spring.cloud.nacos.discovery.server-addr}")
     private String nacosServiceAddress;
-
-    public WebConfigurer() {
-        log.info("加载Web配置");
-
-    }
+    @Value("${spring.datasource.druid.master.url}")
+    private String mysqlUrl;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         log.info("启动加载配置文件类型：{}", profilesActive);
         log.info("Nacos地址：{}", nacosServiceAddress);
+        log.info("Mysql地址：{}", mysqlUrl);
         log.info("加载跨域拦截");
         registry.addMapping("/**")
                 .allowedOrigins("*")
