@@ -11,9 +11,13 @@ spring:
       discovery:
         namespace: PRO
         server-addr: http://120.78.152.120:8848
+        username: root
+        password: Ts962464
       config:
         namespace: PRO
         server-addr: http://120.78.152.120:8848
+        username: root
+        password: Ts962464
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:

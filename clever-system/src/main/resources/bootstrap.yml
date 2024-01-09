@@ -1,16 +1,16 @@
 server:
   port: 9502
 spring:
-  cloud:
-    nacos:
-      discovery:
-        password: Ts962464
-        server-addr: http://127.0.0.1:8848
-        username: root
-      config:
-        password: Ts962464
-        server-addr: http://127.0.0.1:8848
-        username: root
+#  cloud:
+#    nacos:
+#      discovery:
+#        password: Ts962464
+#        server-addr: http://127.0.0.1:8848
+#        username: root
+#      config:
+#        password: Ts962464
+#        server-addr: http://127.0.0.1:8848
+#        username: root
   profiles:
     active: dev
   application:
