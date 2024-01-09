@@ -36,11 +36,12 @@ public class WebConfigurer implements WebMvcConfigurer {
 
     public WebConfigurer() {
         log.info("加载Web配置");
-        log.info("启动加载配置文件类型：{}", profilesActive);
-        log.info("Nacos地址：{}", nacosServiceAddress);
+
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        log.info("启动加载配置文件类型：{}", profilesActive);
+        log.info("Nacos地址：{}", nacosServiceAddress);
         log.info("加载跨域拦截");
         registry.addMapping("/**")
                 .allowedOrigins("*")
