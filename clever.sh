@@ -51,7 +51,7 @@ deploy(){
   docker-compose -f "${actionServicePath}/docker-composer.yml" down
   docker rm -f clever-"$actionService"
   docker rmi clever-"$actionService"
-  docker build -t clever-"$actionService" "$projectPath"
+  docker build -t clever-"$actionService" "$actionServicePath"
   # 强制重启正在运行的容器
   echo -e "\033[32m 启动容器 \033[0m"
   docker-compose -f "${actionServicePath}/docker-composer.yml" up -d --force-recreate

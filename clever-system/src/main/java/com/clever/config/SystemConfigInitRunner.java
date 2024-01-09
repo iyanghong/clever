@@ -36,11 +36,6 @@ public class SystemConfigInitRunner implements ApplicationRunner {
     @Value("${spring.application.key}")
     private String key;
 
-    @Value("${spring.profiles.active}")
-    private String profilesActive;
-
-    @Value("${spring.cloud.nacos.discovery.server-addr}")
-    private String nacosServiceAddress;
 
     private final List<SqlSessionFactory> sqlSessionFactoryList;
     private final SystemConfigService systemConfigService;
@@ -52,8 +47,6 @@ public class SystemConfigInitRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("启动加载配置文件类型：{}", profilesActive);
-        log.info("Nacos地址：{}", nacosServiceAddress);
         initMybatisInterceptor();
         Constant.APP_NAME = appName;
         Constant.APP_URL = appUrl;
