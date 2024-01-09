@@ -10,7 +10,10 @@ spring:
     nacos:
       discovery:
         namespace: DEV
-        ip: 120.78.152.120
+        server-addr: http://127.0.0.1:8848
+      config:
+        namespace: DEV
+        server-addr: http://127.0.0.1:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:

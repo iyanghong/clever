@@ -19,15 +19,15 @@ public class RunInfoRunner implements ApplicationRunner {
     @Value("${spring.profiles.active}")
     private String profilesActive;
 
-    @Value("${spring.cloud.nacos.discovery.ip}")
-    private String nacosServiceIp;
+    @Value("${spring.cloud.nacos.discovery.server-addr}")
+    private String nacosServiceAddr;
     @Value("${spring.datasource.druid.master.url}")
     private String mysqlUrl;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("启动加载配置文件类型：{}", profilesActive);
-        log.info("Nacos地址：{}", nacosServiceIp);
+        log.info("Nacos地址：{}", nacosServiceAddr);
         log.info("Mysql主库地址：{}", mysqlUrl);
     }
 }
