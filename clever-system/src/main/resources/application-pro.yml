@@ -65,7 +65,24 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-
+  redis:
+    host: db-redis.iyanghong.cn
+    port: 58825
+    database: 2
+    password: Ts962464.
+    jedis:
+      pool:
+        max-wait: 5000
+        max-active: 999
+        max-idle: 100
+        min-idle: 0
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
 # ip归属地查询第三方接口配置
 ip-attribution:
   app-code: fe3da34355d84a8795592a720f42c66b
