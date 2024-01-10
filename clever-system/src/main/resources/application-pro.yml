@@ -66,8 +66,8 @@ spring:
           config:
             multi-statement-allow: true
   redis:
-    host: db-redis.iyanghong.cn
-    port: 58825
+    host: 192.168.1.12
+    port: 6379
     database: 2
     password: Ts962464.
     jedis:
