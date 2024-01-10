@@ -15,7 +15,7 @@ build(){
   checkDockerContainerIsRunning install-clever
   if [ $? -eq 0 ]; then
       echo -e "\033[32m 启动编译容器 \033[0m"
-      docker-compose -f "${projectPath}/docker-composer.yml" up -d
+      docker-compose -f "${projectPath}/docker-compose.yml" up -d
   fi
   echo -e "\033[32m [${actionService}]开始编译 \033[0m"
   # "${actionServicePath}" || exit
@@ -48,23 +48,23 @@ deploy(){
   docker image prune -f
   # 停止正在运行的容器
   echo -e "\033[32m 停止正在运行的容器 \033[0m"
-  docker-compose -f "${actionServicePath}/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/docker-compose.yml" down
   docker rm -f clever-"$actionService"
   docker rmi clever-"$actionService"
   docker build -t clever-"$actionService" "$actionServicePath"
   # 强制重启正在运行的容器
   echo -e "\033[32m 启动容器 \033[0m"
-  docker-compose -f "${actionServicePath}/docker-composer.yml" up -d --force-recreate
+  docker-compose -f "${actionServicePath}/docker-compose.yml" up -d --force-recreate
 }
 
 
 restart(){
-  docker-compose -f "${actionServicePath}/docker-composer.yml" down
-  docker-compose -f "${actionServicePath}/docker-composer.yml" up -d
+  docker-compose -f "${actionServicePath}/docker-compose.yml" down
+  docker-compose -f "${actionServicePath}/docker-compose.yml" up -d
 }
 
 stop(){
-  docker-compose -f "${actionServicePath}/docker-composer.yml" down
+  docker-compose -f "${actionServicePath}/docker-compose.yml" down
 }
 
 checkDockerContainerIsRunning(){
