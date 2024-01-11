@@ -1,5 +1,7 @@
 server:
   port: 9502
+  servlet:
+    context-path: /system-service
 spring:
   cloud:
     nacos:
@@ -26,7 +28,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
 #线程池
 clever:
   threadPool:
