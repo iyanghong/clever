@@ -65,19 +65,27 @@ public class JavaToTsConverter {
             String line;
             Boolean isComment = false;
             StringBuilder comment = new StringBuilder();
+            Boolean isSkip = false;
             while ((line = reader.readLine()) != null) {
-                if (line.matches("\\s*public\\s+class\\s+([\\w_$]+).*")) {
+                if (isSkip) {
+                    isComment = false;
+                    comment = new StringBuilder();
+                    isSkip = false;
+                } else if (line.matches("\\s*public\\s+class\\s+([\\w_$]+).*")) {
                     // Match class declaration and extract class name
                     Matcher matcher = Pattern.compile("\\s*public\\s+class\\s+([\\w_$]+).*").matcher(line);
                     if (matcher.matches()) {
                         className = matcher.group(1);
-                        tsInterface.append("declare interface ").append(className).append(" {\n");
+                        tsInterface.append(comment);
+                        comment = new StringBuilder();
+                        tsInterface.append("export default interface ").append(className).append(" {\n");
                     }
                 } else if (!line.contains("private static") && !line.contains("final static") && line.matches("\\s*private\\s+([\\w_$<>]+)\\s+([\\w_$]+).*")) {
                     // Match private field declaration and extract field type and name
                     Matcher matcher = Pattern.compile("\\s*private\\s+([\\w_$<>]+)\\s+([\\w_$]+).*").matcher(line);
                     if (matcher.matches()) {
                         tsInterface.append(comment);
+                        comment = new StringBuilder();
                         String fieldType = matcher.group(1);
                         String fieldName = matcher.group(2);
                         tsInterface.append("\t").append(fieldName).append(": ").append(getTsType(fieldType)).append(";\n");
@@ -88,7 +96,7 @@ public class JavaToTsConverter {
                     if (matcher.matches()) {
                         tsInterface.append("\t// ").append(matcher.group(1)).append("\n");
                     }
-                }else if (line.trim().startsWith("/*")){
+                } else if (line.trim().startsWith("/*")) {
                     comment = new StringBuilder();
                     // Match multi-line comment and add it as a comment in TypeScript
                     comment.append(line).append("\n");
@@ -96,8 +104,10 @@ public class JavaToTsConverter {
                 } else if (line.trim().endsWith("*/")) {
                     comment.append(line).append("\n");
                     isComment = false;
-                }else if (isComment){
+                } else if (isComment) {
                     comment.append(line).append("\n");
+                } else if (line.trim().equals("@Resource") || line.trim().equals("@Autowired")) {
+                    isSkip = true;
                 }
             }
 
