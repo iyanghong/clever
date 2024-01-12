@@ -1,6 +1,7 @@
 package com.clever.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.clever.bean.system.projo.MenuTreeVo;
 import com.clever.util.SpringUtil;
 import com.clever.annotation.Auth;
 import com.clever.annotation.AuthGroup;
@@ -135,5 +136,12 @@ public class MenuController {
         OnlineUser onlineUser = SpringUtil.getOnlineUser();
         menuService.delete(id, onlineUser);
         return Result.ofSuccess("删除成功");
+    }
+
+
+    @GetMapping("/getCurrentUserMenu")
+    @Auth(value = "clever-system.menu.getCurrentUserMenu", name = "获取当前用户菜单", description = "获取当前用户菜单接口")
+    public Result<List<MenuTreeVo>> getCurrentUserMenu(Integer platformId) {
+        return new Result<>(menuService.getCurrentUserMenu(platformId), "查询成功");
     }
 }

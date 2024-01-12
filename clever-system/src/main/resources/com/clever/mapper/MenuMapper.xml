@@ -2,5 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clever.mapper.MenuMapper">
-
+    <select id="selectUserHasMenu" resultType="com.clever.bean.system.Menu">
+        select m.*
+        from menu m
+        where m.platform_id = #{platformId}
+          and m.id in (select menu_id
+                       from role_menu_rel
+                       where role_id in (select role_id from user_role_rel where user_id = #{userId}))
+    </select>
 </mapper>

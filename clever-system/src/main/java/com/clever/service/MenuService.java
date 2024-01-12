@@ -6,6 +6,7 @@ import com.clever.bean.model.OnlineUser;
 import java.util.List;
 
 import com.clever.bean.system.Menu;
+import com.clever.bean.system.projo.MenuTreeVo;
 
 /**
  * 导航菜单服务接口
@@ -109,5 +110,14 @@ public interface MenuService {
      * @param onlineUser 当前登录用户
      */
     void deleteByCreator(String creator, OnlineUser onlineUser);
+
+
+    /**
+     * 获取当前用户菜单，树型结构
+     *
+     * @param platformId 平台ID
+     * @return List<MenuTreeVo> 菜单列表
+     */
+    List<MenuTreeVo> getCurrentUserMenu(Integer platformId);
 
 }

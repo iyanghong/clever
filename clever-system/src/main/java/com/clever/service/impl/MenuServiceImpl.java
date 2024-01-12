@@ -3,12 +3,17 @@ package com.clever.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clever.bean.model.OnlineUser;
+import com.clever.bean.system.projo.MenuTreeVo;
+import com.clever.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.clever.mapper.MenuMapper;
 import com.clever.bean.system.Menu;
@@ -177,5 +182,31 @@ public class MenuServiceImpl implements MenuService {
     public void deleteByCreator(String creator, OnlineUser onlineUser) {
         menuMapper.delete(new QueryWrapper<Menu>().eq("creator", creator));
         log.info("导航菜单, 导航菜单信息根据creator删除成功: userId={}, creator={}", onlineUser.getId(), creator);
+    }
+
+    /**
+     * 获取当前用户菜单，树型结构
+     *
+     * @param platformId 平台ID
+     * @return List<MenuTreeVo> 菜单列表
+     */
+    @Override
+    public List<MenuTreeVo> getCurrentUserMenu(Integer platformId) {
+        OnlineUser onlineUser = SpringUtil.getOnlineUser();
+        List<Menu> menus = menuMapper.selectUserHasMenu(platformId, onlineUser.getId());
+        return recursiveTraversalMenu(menus, "-1");
+    }
+
+    private List<MenuTreeVo> recursiveTraversalMenu(List<Menu> menus, String parentId) {
+        // 递归获取菜单树形结构
+        List<MenuTreeVo> menuTreeVos = new ArrayList<>();
+        for (Menu menu : menus) {
+            if (parentId.equals(menu.getParent())) {
+                MenuTreeVo menuTreeVo = new MenuTreeVo(menu);
+                menuTreeVo.setChildren(recursiveTraversalMenu(menus, menu.getId()));
+                menuTreeVos.add(menuTreeVo);
+            }
+        }
+        return menuTreeVos.stream().sorted(Comparator.comparing(MenuTreeVo::getSort).reversed()).collect(Collectors.toList());
     }
 }
