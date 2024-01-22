@@ -3,7 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/clever-common/src/main/java/com/clever/util/generate/GenerateEntity.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/clever-system/src/sql/sql.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/../laboratory-system/laboratory-system-server/service/user/model/user_service.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
