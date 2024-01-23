@@ -9,12 +9,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        namespace: PRO
         server-addr: http://192.168.1.12:8848
         username: root
         password: Ts962464
       config:
-        namespace: PRO
         server-addr: http://192.168.1.12:8848
         username: root
         password: Ts962464
