@@ -78,8 +78,9 @@ public class MenuServiceImpl implements MenuService {
      * @return List<Menu> 导航菜单列表
      */
     @Override
-    public List<Menu> selectListByPlatformId(Integer platformId) {
-        return menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("id"));
+    public List<MenuTreeVo> selectListByPlatformId(Integer platformId) {
+        List<Menu> menuList = menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("id"));
+        return recursiveTraversalMenu(menuList, "-1");
     }
 
     /**

@@ -42,7 +42,7 @@ public interface MenuService {
      * @param platformId 平台ID
      * @return List<Menu> 导航菜单列表
      */
-    List<Menu> selectListByPlatformId(Integer platformId);
+    List<MenuTreeVo> selectListByPlatformId(Integer platformId);
 
     /**
      * 根据创建人获取列表
