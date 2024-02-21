@@ -37,12 +37,12 @@ public interface MenuService {
     Menu selectById(String id);
 
     /**
-     * 根据平台ID获取列表
+     * 根据平台ID获取树型菜单
      *
      * @param platformId 平台ID
-     * @return List<Menu> 导航菜单列表
+     * @return List<MenuTreeVo> 导航菜单树型列表
      */
-    List<MenuTreeVo> selectListByPlatformId(Integer platformId);
+    List<MenuTreeVo> selectTreeByPlatformId(Integer platformId);
 
     /**
      * 根据创建人获取列表

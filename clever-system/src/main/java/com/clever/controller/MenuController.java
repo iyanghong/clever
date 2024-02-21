@@ -55,10 +55,10 @@ public class MenuController {
      * @param platformId 平台ID
      * @return List<Menu> 导航菜单列表
      */
-    @GetMapping("/listByPlatformId/{platformId}")
-    @Auth(value = "clever-system.menu.listByPlatformId", name = "根据平台ID获取导航菜单列表", description = "根据平台ID获取导航菜单列表接口")
+    @GetMapping("/treeByPlatformId/{platformId}")
+    @Auth(value = "clever-system.menu.treeByPlatformId", name = "根据平台ID获取导航菜单树型列表", description = "根据平台ID获取导航菜单树型列表")
     public List<MenuTreeVo> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return menuService.selectListByPlatformId(platformId);
+        return menuService.selectTreeByPlatformId(platformId);
     }
 
     /**

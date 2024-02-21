@@ -72,13 +72,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 根据平台ID获取列表
+     * 根据平台ID获取树型菜单
      *
      * @param platformId 平台ID
-     * @return List<Menu> 导航菜单列表
+     * @return List<MenuTreeVo> 导航菜单树型列表
      */
     @Override
-    public List<MenuTreeVo> selectListByPlatformId(Integer platformId) {
+    public List<MenuTreeVo> selectTreeByPlatformId(Integer platformId) {
         List<Menu> menuList = menuMapper.selectList(new QueryWrapper<Menu>().eq("platform_id", platformId).orderByAsc("id"));
         return recursiveTraversalMenu(menuList, "-1");
     }
