@@ -20,19 +20,26 @@ public class MenuTreeVo {
     /**
      * id
      */
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
     /**
      * 平台ID
      */
+    @NotNull(message = "平台ID不能为空")
     private Integer platformId;
     /**
      * 菜单名称
      */
+    @NotBlank(message = "菜单名称不能为空")
     private String name;
     /**
      * 菜单Code
      */
     private String code;
+    /**
+     * 菜单类型:1-目录，2-页面组件，3-链接
+     */
+    private Integer type;
     /**
      * 菜单图标
      */
@@ -56,6 +63,7 @@ public class MenuTreeVo {
     /**
      * 创建人
      */
+    @TableField(value = "creator", fill = FieldFill.INSERT)
     private String creator;
     /**
      * 添加时间
@@ -126,6 +134,17 @@ public class MenuTreeVo {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    /**
+     * 菜单类型:1-目录，2-页面组件，3-链接
+     */
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getIcon() {

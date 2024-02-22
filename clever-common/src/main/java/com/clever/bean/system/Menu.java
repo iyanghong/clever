@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +15,7 @@ import java.util.Date;
  * 导航菜单
  *
  * @Author xixi
- * @Date 2023-12-26 11:13:55
+ * @Date 2024-02-22 10:04:14
  */
 public class Menu implements Serializable {
 
@@ -39,6 +38,10 @@ public class Menu implements Serializable {
      * 菜单Code
      */
     private String code;
+    /**
+     * 菜单类型:1-目录，2-页面组件，3-链接
+     */
+    private Integer type;
     /**
      * 菜单图标
      */
@@ -74,6 +77,7 @@ public class Menu implements Serializable {
     private Date updatedAt;
 
 
+
     /**
      * id
      */
@@ -84,7 +88,6 @@ public class Menu implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
     /**
      * 平台ID
      */
@@ -95,7 +98,6 @@ public class Menu implements Serializable {
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
-
     /**
      * 菜单名称
      */
@@ -106,7 +108,6 @@ public class Menu implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
     /**
      * 菜单Code
      */
@@ -117,7 +118,16 @@ public class Menu implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+    /**
+     * 菜单类型:1-目录，2-页面组件，3-链接
+     */
+    public Integer getType() {
+        return type;
+    }
 
+    public void setType(Integer type) {
+        this.type = type;
+    }
     /**
      * 菜单图标
      */
@@ -128,7 +138,6 @@ public class Menu implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
     /**
      * 菜单路径
      */
@@ -139,7 +148,6 @@ public class Menu implements Serializable {
     public void setView(String view) {
         this.view = view;
     }
-
     /**
      * 打开方式:1-当前标签:2-新标签
      */
@@ -150,7 +158,6 @@ public class Menu implements Serializable {
     public void setTarget(Integer target) {
         this.target = target;
     }
-
     /**
      * 上级菜单
      */
@@ -161,7 +168,6 @@ public class Menu implements Serializable {
     public void setParent(String parent) {
         this.parent = parent;
     }
-
     /**
      * 权重
      */
@@ -172,7 +178,6 @@ public class Menu implements Serializable {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-
     /**
      * 创建人
      */
@@ -183,7 +188,6 @@ public class Menu implements Serializable {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-
     /**
      * 添加时间
      */
@@ -194,7 +198,6 @@ public class Menu implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
     /**
      * 修改时间
      */

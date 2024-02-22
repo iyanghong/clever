@@ -280,6 +280,7 @@ CREATE TABLE IF NOT EXISTS menu
     platform_id int          NOT NULL COMMENT '平台ID',
     name        varchar(50)  NOT NULL COMMENT '菜单名称',
     code        varchar(100) NULL     DEFAULT NULL COMMENT '菜单Code',
+    type        tinyint NOT NULL     DEFAULT 1 COMMENT '菜单类型:1-目录，2-页面组件，3-链接',
     icon        varchar(100) NULL     DEFAULT NULL COMMENT '菜单图标',
     view        varchar(200) NULL     DEFAULT NULL COMMENT '菜单路径',
     target      tinyint      NOT NULL DEFAULT 0 COMMENT '打开方式,1-当前标签,2-新标签',
