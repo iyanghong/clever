@@ -55,8 +55,8 @@ public class RoleMenuRelController {
      */
     @GetMapping("/listByMenuId/{menuId}")
     @Auth(value = "clever-system.roleMenuRel.listByMenuId", name = "根据菜单唯一标识获取角色菜单列表", description = "根据菜单唯一标识获取角色菜单列表接口")
-    public List<RoleMenuRel> selectListByMenuId(@PathVariable("menuId") String menuId) {
-        return roleMenuRelService.selectListByMenuId(menuId);
+    public Result<List<RoleMenuRel>> selectListByMenuId(@PathVariable("menuId") String menuId) {
+        return new Result<>(roleMenuRelService.selectListByMenuId(menuId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class RoleMenuRelController {
      */
     @GetMapping("/listByRoleId/{roleId}")
     @Auth(value = "clever-system.roleMenuRel.listByRoleId", name = "根据角色唯一标识获取角色菜单列表", description = "根据角色唯一标识获取角色菜单列表接口")
-    public List<RoleMenuRel> selectListByRoleId(@PathVariable("roleId") String roleId) {
-        return roleMenuRelService.selectListByRoleId(roleId);
+    public Result<List<RoleMenuRel>> selectListByRoleId(@PathVariable("roleId") String roleId) {
+        return new Result<>(roleMenuRelService.selectListByRoleId(roleId), "查询成功");
     }
 
     /**

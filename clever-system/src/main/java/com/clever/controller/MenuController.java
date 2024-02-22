@@ -57,8 +57,8 @@ public class MenuController {
      */
     @GetMapping("/treeByPlatformId/{platformId}")
     @Auth(value = "clever-system.menu.treeByPlatformId", name = "根据平台ID获取导航菜单树型列表", description = "根据平台ID获取导航菜单树型列表")
-    public List<MenuTreeVo> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return menuService.selectTreeByPlatformId(platformId);
+    public Result<List<MenuTreeVo>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(menuService.selectTreeByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class MenuController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.menu.listByCreator", name = "根据创建人获取导航菜单列表", description = "根据创建人获取导航菜单列表接口")
-    public List<Menu> selectListByCreator(@PathVariable("creator") String creator) {
-        return menuService.selectListByCreator(creator);
+    public Result<List<Menu>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(menuService.selectListByCreator(creator), "查询成功");
     }
 
     /**

@@ -57,8 +57,8 @@ public class SystemConfigController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.systemConfig.listByPlatformId", name = "根据平台ID获取系统配置列表", description = "根据平台ID获取系统配置列表接口")
-    public List<SystemConfig> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return systemConfigService.selectListByPlatformId(platformId);
+    public Result<List<SystemConfig>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(systemConfigService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class SystemConfigController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.systemConfig.listByCreator", name = "根据创建者获取系统配置列表", description = "根据创建者获取系统配置列表接口")
-    public List<SystemConfig> selectListByCreator(@PathVariable("creator") String creator) {
-        return systemConfigService.selectListByCreator(creator);
+    public Result<List<SystemConfig>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(systemConfigService.selectListByCreator(creator), "查询成功");
     }
 
     /**

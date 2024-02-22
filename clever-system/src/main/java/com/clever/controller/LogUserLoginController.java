@@ -56,8 +56,8 @@ public class LogUserLoginController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.logUserLogin.listByPlatformId", name = "根据平台id获取用户登录日志列表", description = "根据平台id获取用户登录日志列表接口")
-    public List<LogUserLogin> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return logUserLoginService.selectListByPlatformId(platformId);
+    public Result<List<LogUserLogin>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(logUserLoginService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -68,8 +68,8 @@ public class LogUserLoginController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.logUserLogin.listByUserId", name = "根据用户获取用户登录日志列表", description = "根据用户获取用户登录日志列表接口")
-    public List<LogUserLogin> selectListByUserId(@PathVariable("userId") String userId) {
-        return logUserLoginService.selectListByUserId(userId);
+    public Result<List<LogUserLogin>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(logUserLoginService.selectListByUserId(userId), "查询成功");
     }
 
     /**

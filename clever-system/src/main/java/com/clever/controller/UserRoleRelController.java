@@ -55,8 +55,8 @@ public class UserRoleRelController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.userRoleRel.listByUserId", name = "根据用户获取用户-角色列表", description = "根据用户获取用户-角色列表接口")
-    public List<UserRoleRel> selectListByUserId(@PathVariable("userId") String userId) {
-        return userRoleRelService.selectListByUserId(userId);
+    public Result<List<UserRoleRel>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(userRoleRelService.selectListByUserId(userId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class UserRoleRelController {
      */
     @GetMapping("/listByRoleId/{roleId}")
     @Auth(value = "clever-system.userRoleRel.listByRoleId", name = "根据角色获取用户-角色列表", description = "根据角色获取用户-角色列表接口")
-    public List<UserRoleRel> selectListByRoleId(@PathVariable("roleId") String roleId) {
-        return userRoleRelService.selectListByRoleId(roleId);
+    public Result<List<UserRoleRel>> selectListByRoleId(@PathVariable("roleId") String roleId) {
+        return new Result<>(userRoleRelService.selectListByRoleId(roleId), "查询成功");
     }
 
     /**

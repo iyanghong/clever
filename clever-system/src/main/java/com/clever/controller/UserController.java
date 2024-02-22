@@ -70,8 +70,8 @@ public class UserController {
      */
     @GetMapping("/listByDiskId/{diskId}")
     @Auth(value = "clever-system.user.listByDiskId", name = "根据磁盘id获取用户列表", description = "根据磁盘id获取用户列表接口")
-    public List<User> selectListByDiskId(@PathVariable("diskId") String diskId) {
-        return userService.selectListByDiskId(diskId);
+    public Result<List<User>> selectListByDiskId(@PathVariable("diskId") String diskId) {
+        return new Result<>(userService.selectListByDiskId(diskId), "查询成功");
     }
 
     /**

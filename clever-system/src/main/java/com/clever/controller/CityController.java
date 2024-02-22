@@ -55,8 +55,8 @@ public class CityController {
      */
     @GetMapping("/listByProvinceId/{provinceId}")
     @Auth(value = "clever-system.city.listByProvinceId", name = "根据省份编号获取城市列表", description = "根据省份编号获取城市列表接口")
-    public List<City> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
-        return cityService.selectListByProvinceId(provinceId);
+    public Result<List<City>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+        return new Result<>(cityService.selectListByProvinceId(provinceId), "查询成功");
     }
 
     /**

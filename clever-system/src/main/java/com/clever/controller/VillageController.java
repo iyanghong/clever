@@ -58,8 +58,8 @@ public class VillageController {
      */
     @GetMapping("/listByProvinceId/{provinceId}")
     @Auth(value = "clever-system.village.listByProvinceId", name = "根据省份编号获取村庄列表", description = "根据省份编号获取村庄列表接口")
-    public List<Village> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
-        return villageService.selectListByProvinceId(provinceId);
+    public Result<List<Village>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+        return new Result<>(villageService.selectListByProvinceId(provinceId), "查询成功");
     }
 
     /**
@@ -70,8 +70,8 @@ public class VillageController {
      */
     @GetMapping("/listByCityId/{cityId}")
     @Auth(value = "clever-system.village.listByCityId", name = "根据城市编号获取村庄列表", description = "根据城市编号获取村庄列表接口")
-    public List<Village> selectListByCityId(@PathVariable("cityId") Integer cityId) {
-        return villageService.selectListByCityId(cityId);
+    public Result<List<Village>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
+        return new Result<>(villageService.selectListByCityId(cityId), "查询成功");
     }
 
     /**
@@ -82,8 +82,8 @@ public class VillageController {
      */
     @GetMapping("/listByAreaId/{areaId}")
     @Auth(value = "clever-system.village.listByAreaId", name = "根据区/县编号获取村庄列表", description = "根据区/县编号获取村庄列表接口")
-    public List<Village> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
-        return villageService.selectListByAreaId(areaId);
+    public Result<List<Village>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
+        return new Result<>(villageService.selectListByAreaId(areaId), "查询成功");
     }
 
     /**
@@ -94,8 +94,8 @@ public class VillageController {
      */
     @GetMapping("/listByStreetId/{streetId}")
     @Auth(value = "clever-system.village.listByStreetId", name = "根据街道编号获取村庄列表", description = "根据街道编号获取村庄列表接口")
-    public List<Village> selectListByStreetId(@PathVariable("streetId") Integer streetId) {
-        return villageService.selectListByStreetId(streetId);
+    public Result<List<Village>> selectListByStreetId(@PathVariable("streetId") Integer streetId) {
+        return new Result<>(villageService.selectListByStreetId(streetId), "查询成功");
     }
 
     /**

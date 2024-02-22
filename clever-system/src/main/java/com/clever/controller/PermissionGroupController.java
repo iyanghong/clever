@@ -57,8 +57,8 @@ public class PermissionGroupController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.permissionGroup.listByPlatformId", name = "根据平台id获取系统权限组列表", description = "根据平台id获取系统权限组列表接口")
-    public List<PermissionGroup> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return permissionGroupService.selectListByPlatformId(platformId);
+    public Result<List<PermissionGroup>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(permissionGroupService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class PermissionGroupController {
      */
     @GetMapping("/listByParentId/{parentId}")
     @Auth(value = "clever-system.permissionGroup.listByParentId", name = "根据上级id获取系统权限组列表", description = "根据上级id获取系统权限组列表接口")
-    public List<PermissionGroup> selectListByParentId(@PathVariable("parentId") String parentId) {
-        return permissionGroupService.selectListByParentId(parentId);
+    public Result<List<PermissionGroup>> selectListByParentId(@PathVariable("parentId") String parentId) {
+        return new Result<>(permissionGroupService.selectListByParentId(parentId), "查询成功");
     }
 
     /**
@@ -81,8 +81,8 @@ public class PermissionGroupController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.permissionGroup.listByCreator", name = "根据创建者id获取系统权限组列表", description = "根据创建者id获取系统权限组列表接口")
-    public List<PermissionGroup> selectListByCreator(@PathVariable("creator") String creator) {
-        return permissionGroupService.selectListByCreator(creator);
+    public Result<List<PermissionGroup>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(permissionGroupService.selectListByCreator(creator), "查询成功");
     }
 
     /**

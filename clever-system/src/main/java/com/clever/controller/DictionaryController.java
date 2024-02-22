@@ -60,8 +60,8 @@ public class DictionaryController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.dictionary.listByPlatformId", name = "根据平台id获取字典列表", description = "根据平台id获取字典列表接口")
-    public List<Dictionary> selectListByPlatformId(@PathVariable("platformId") String platformId) {
-        return dictionaryService.selectListByPlatformId(platformId);
+    public Result<List<Dictionary>> selectListByPlatformId(@PathVariable("platformId") String platformId) {
+        return new Result<>(dictionaryService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -72,8 +72,8 @@ public class DictionaryController {
      */
     @GetMapping("/listByTypeId/{typeId}")
     @Auth(value = "clever-system.dictionary.listByTypeId", name = "根据字典类型id获取字典列表", description = "根据字典类型id获取字典列表接口")
-    public List<Dictionary> selectListByTypeId(@PathVariable("typeId") String typeId) {
-        return dictionaryService.selectListByTypeId(typeId);
+    public Result<List<Dictionary>> selectListByTypeId(@PathVariable("typeId") String typeId) {
+        return new Result<>(dictionaryService.selectListByTypeId(typeId), "查询成功");
     }
 
     /**
@@ -84,8 +84,8 @@ public class DictionaryController {
      */
     @GetMapping("/listByParentId/{parentId}")
     @Auth(value = "clever-system.dictionary.listByParentId", name = "根据上级字典id获取字典列表", description = "根据上级字典id获取字典列表接口")
-    public List<Dictionary> selectListByParentId(@PathVariable("parentId") String parentId) {
-        return dictionaryService.selectListByParentId(parentId);
+    public Result<List<Dictionary>> selectListByParentId(@PathVariable("parentId") String parentId) {
+        return new Result<>(dictionaryService.selectListByParentId(parentId), "查询成功");
     }
 
     /**
@@ -96,8 +96,8 @@ public class DictionaryController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.dictionary.listByCreator", name = "根据创建者id获取字典列表", description = "根据创建者id获取字典列表接口")
-    public List<Dictionary> selectListByCreator(@PathVariable("creator") String creator) {
-        return dictionaryService.selectListByCreator(creator);
+    public Result<List<Dictionary>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(dictionaryService.selectListByCreator(creator), "查询成功");
     }
 
     /**

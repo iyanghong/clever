@@ -55,8 +55,8 @@ public class UserPlatformRelController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.userPlatformRel.listByUserId", name = "根据用户id获取用户-平台列表", description = "根据用户id获取用户-平台列表接口")
-    public List<UserPlatformRel> selectListByUserId(@PathVariable("userId") String userId) {
-        return userPlatformRelService.selectListByUserId(userId);
+    public Result<List<UserPlatformRel>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(userPlatformRelService.selectListByUserId(userId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class UserPlatformRelController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.userPlatformRel.listByPlatformId", name = "根据平台id获取用户-平台列表", description = "根据平台id获取用户-平台列表接口")
-    public List<UserPlatformRel> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return userPlatformRelService.selectListByPlatformId(platformId);
+    public Result<List<UserPlatformRel>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(userPlatformRelService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**

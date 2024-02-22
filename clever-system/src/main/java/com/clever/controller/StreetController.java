@@ -57,8 +57,8 @@ public class StreetController {
      */
     @GetMapping("/listByAreaId/{areaId}")
     @Auth(value = "clever-system.street.listByAreaId", name = "根据地区编号获取街道列表", description = "根据地区编号获取街道列表接口")
-    public List<Street> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
-        return streetService.selectListByAreaId(areaId);
+    public Result<List<Street>> selectListByAreaId(@PathVariable("areaId") Integer areaId) {
+        return new Result<>(streetService.selectListByAreaId(areaId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class StreetController {
      */
     @GetMapping("/listByCityId/{cityId}")
     @Auth(value = "clever-system.street.listByCityId", name = "根据城市编号获取街道列表", description = "根据城市编号获取街道列表接口")
-    public List<Street> selectListByCityId(@PathVariable("cityId") Integer cityId) {
-        return streetService.selectListByCityId(cityId);
+    public Result<List<Street>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
+        return new Result<>(streetService.selectListByCityId(cityId), "查询成功");
     }
 
     /**
@@ -81,8 +81,8 @@ public class StreetController {
      */
     @GetMapping("/listByProvinceId/{provinceId}")
     @Auth(value = "clever-system.street.listByProvinceId", name = "根据省份编号获取街道列表", description = "根据省份编号获取街道列表接口")
-    public List<Street> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
-        return streetService.selectListByProvinceId(provinceId);
+    public Result<List<Street>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+        return new Result<>(streetService.selectListByProvinceId(provinceId), "查询成功");
     }
 
     /**

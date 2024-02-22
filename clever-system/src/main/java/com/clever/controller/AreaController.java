@@ -56,8 +56,8 @@ public class AreaController {
      */
     @GetMapping("/listByCityId/{cityId}")
     @Auth(value = "clever-system.area.listByCityId", name = "根据城市编号获取城区地址列表", description = "根据城市编号获取城区地址列表接口")
-    public List<Area> selectListByCityId(@PathVariable("cityId") Integer cityId) {
-        return areaService.selectListByCityId(cityId);
+    public Result<List<Area>> selectListByCityId(@PathVariable("cityId") Integer cityId) {
+        return new Result<>(areaService.selectListByCityId(cityId), "查询成功");
     }
 
     /**
@@ -68,8 +68,8 @@ public class AreaController {
      */
     @GetMapping("/listByProvinceId/{provinceId}")
     @Auth(value = "clever-system.area.listByProvinceId", name = "根据省份编号获取城区地址列表", description = "根据省份编号获取城区地址列表接口")
-    public List<Area> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
-        return areaService.selectListByProvinceId(provinceId);
+    public Result<List<Area>> selectListByProvinceId(@PathVariable("provinceId") Integer provinceId) {
+        return new Result<>(areaService.selectListByProvinceId(provinceId), "查询成功");
     }
 
     /**

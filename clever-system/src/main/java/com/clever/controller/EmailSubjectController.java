@@ -57,8 +57,8 @@ public class EmailSubjectController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.emailSubject.listByPlatformId", name = "根据平台id获取邮箱主体列表", description = "根据平台id获取邮箱主体列表接口")
-    public List<EmailSubject> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return emailSubjectService.selectListByPlatformId(platformId);
+    public Result<List<EmailSubject>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(emailSubjectService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class EmailSubjectController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.emailSubject.listByCreator", name = "根据创建人获取邮箱主体列表", description = "根据创建人获取邮箱主体列表接口")
-    public List<EmailSubject> selectListByCreator(@PathVariable("creator") String creator) {
-        return emailSubjectService.selectListByCreator(creator);
+    public Result<List<EmailSubject>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(emailSubjectService.selectListByCreator(creator), "查询成功");
     }
 
     /**

@@ -57,8 +57,8 @@ public class DictionaryTypeController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.dictionaryType.listByPlatformId", name = "根据平台id获取字典类型列表", description = "根据平台id获取字典类型列表接口")
-    public List<DictionaryType> selectListByPlatformId(@PathVariable("platformId") String platformId) {
-        return dictionaryTypeService.selectListByPlatformId(platformId);
+    public Result<List<DictionaryType>> selectListByPlatformId(@PathVariable("platformId") String platformId) {
+        return new Result<>(dictionaryTypeService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class DictionaryTypeController {
      */
     @GetMapping("/listByParentId/{parentId}")
     @Auth(value = "clever-system.dictionaryType.listByParentId", name = "根据上级分类id获取字典类型列表", description = "根据上级分类id获取字典类型列表接口")
-    public List<DictionaryType> selectListByParentId(@PathVariable("parentId") String parentId) {
-        return dictionaryTypeService.selectListByParentId(parentId);
+    public Result<List<DictionaryType>> selectListByParentId(@PathVariable("parentId") String parentId) {
+        return new Result<>(dictionaryTypeService.selectListByParentId(parentId), "查询成功");
     }
 
     /**
@@ -81,8 +81,8 @@ public class DictionaryTypeController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.dictionaryType.listByCreator", name = "根据创建者id获取字典类型列表", description = "根据创建者id获取字典类型列表接口")
-    public List<DictionaryType> selectListByCreator(@PathVariable("creator") String creator) {
-        return dictionaryTypeService.selectListByCreator(creator);
+    public Result<List<DictionaryType>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(dictionaryTypeService.selectListByCreator(creator), "查询成功");
     }
 
     /**

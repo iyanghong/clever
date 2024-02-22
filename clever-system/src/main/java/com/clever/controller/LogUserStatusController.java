@@ -57,8 +57,8 @@ public class LogUserStatusController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.logUserStatus.listByPlatformId", name = "根据平台id获取用户状态日志列表", description = "根据平台id获取用户状态日志列表接口")
-    public List<LogUserStatus> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return logUserStatusService.selectListByPlatformId(platformId);
+    public Result<List<LogUserStatus>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(logUserStatusService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -69,8 +69,8 @@ public class LogUserStatusController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.logUserStatus.listByUserId", name = "根据用户获取用户状态日志列表", description = "根据用户获取用户状态日志列表接口")
-    public List<LogUserStatus> selectListByUserId(@PathVariable("userId") String userId) {
-        return logUserStatusService.selectListByUserId(userId);
+    public Result<List<LogUserStatus>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(logUserStatusService.selectListByUserId(userId), "查询成功");
     }
 
     /**

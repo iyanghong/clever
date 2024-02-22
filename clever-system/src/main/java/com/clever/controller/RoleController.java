@@ -55,8 +55,8 @@ public class RoleController {
      */
     @GetMapping("/listByPlatformId/{platformId}")
     @Auth(value = "clever-system.role.listByPlatformId", name = "根据平台id获取系统角色列表", description = "根据平台id获取系统角色列表接口")
-    public List<Role> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
-        return roleService.selectListByPlatformId(platformId);
+    public Result<List<Role>> selectListByPlatformId(@PathVariable("platformId") Integer platformId) {
+        return new Result<>(roleService.selectListByPlatformId(platformId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class RoleController {
      */
     @GetMapping("/listByCreator/{creator}")
     @Auth(value = "clever-system.role.listByCreator", name = "根据创建者id获取系统角色列表", description = "根据创建者id获取系统角色列表接口")
-    public List<Role> selectListByCreator(@PathVariable("creator") String creator) {
-        return roleService.selectListByCreator(creator);
+    public Result<List<Role>> selectListByCreator(@PathVariable("creator") String creator) {
+        return new Result<>(roleService.selectListByCreator(creator), "查询成功");
     }
 
     /**

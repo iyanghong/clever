@@ -56,8 +56,8 @@ public class ${upperCamelCaseName}Controller {
     */
     @GetMapping("/listBy${column.upperCamelCaseName}/{${column.lowerCamelCaseName}}")
     @Auth(value = "${appName}.${lowerCamelCaseName}.listBy${column.upperCamelCaseName}", name = "根据${column.commentOrName}获取${commentOrUpperCamelCaseName}列表", description = "根据${column.commentOrName}获取${commentOrUpperCamelCaseName}列表接口")
-    public List<${upperCamelCaseName}> selectListBy${column.upperCamelCaseName}(@PathVariable("${column.lowerCamelCaseName}") ${column.javaType} ${column.lowerCamelCaseName}) {
-        return ${lowerCamelCaseName}Service.selectListBy${column.upperCamelCaseName}(${column.lowerCamelCaseName});
+    public Result<List<${upperCamelCaseName}>> selectListBy${column.upperCamelCaseName}(@PathVariable("${column.lowerCamelCaseName}") ${column.javaType} ${column.lowerCamelCaseName}) {
+        return new Result<>(${lowerCamelCaseName}Service.selectListBy${column.upperCamelCaseName}(${column.lowerCamelCaseName}), "查询成功");
     }
 </#list>
 <#list getByUniqueColumns as column>

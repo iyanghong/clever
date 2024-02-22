@@ -57,8 +57,8 @@ public class ThirdAccountController {
      */
     @GetMapping("/listByOpenId/{openId}")
     @Auth(value = "clever-system.thirdAccount.listByOpenId", name = "根据open_id获取第三方平台账号列表", description = "根据open_id获取第三方平台账号列表接口")
-    public List<ThirdAccount> selectListByOpenId(@PathVariable("openId") String openId) {
-        return thirdAccountService.selectListByOpenId(openId);
+    public Result<List<ThirdAccount>> selectListByOpenId(@PathVariable("openId") String openId) {
+        return new Result<>(thirdAccountService.selectListByOpenId(openId));
     }
 
     /**
@@ -69,8 +69,8 @@ public class ThirdAccountController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.thirdAccount.listByUserId", name = "根据用户id获取第三方平台账号列表", description = "根据用户id获取第三方平台账号列表接口")
-    public List<ThirdAccount> selectListByUserId(@PathVariable("userId") String userId) {
-        return thirdAccountService.selectListByUserId(userId);
+    public Result<List<ThirdAccount>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(thirdAccountService.selectListByUserId(userId));
     }
 
     /**

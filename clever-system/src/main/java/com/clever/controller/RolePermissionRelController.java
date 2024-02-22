@@ -55,8 +55,8 @@ public class RolePermissionRelController {
      */
     @GetMapping("/listByRoleId/{roleId}")
     @Auth(value = "clever-system.rolePermissionRel.listByRoleId", name = "根据角色获取角色-权限列表", description = "根据角色获取角色-权限列表接口")
-    public List<RolePermissionRel> selectListByRoleId(@PathVariable("roleId") String roleId) {
-        return rolePermissionRelService.selectListByRoleId(roleId);
+    public Result<List<RolePermissionRel>> selectListByRoleId(@PathVariable("roleId") String roleId) {
+        return new Result<>(rolePermissionRelService.selectListByRoleId(roleId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class RolePermissionRelController {
      */
     @GetMapping("/listByPermissionId/{permissionId}")
     @Auth(value = "clever-system.rolePermissionRel.listByPermissionId", name = "根据权限获取角色-权限列表", description = "根据权限获取角色-权限列表接口")
-    public List<RolePermissionRel> selectListByPermissionId(@PathVariable("permissionId") String permissionId) {
-        return rolePermissionRelService.selectListByPermissionId(permissionId);
+    public Result<List<RolePermissionRel>> selectListByPermissionId(@PathVariable("permissionId") String permissionId) {
+        return new Result<>(rolePermissionRelService.selectListByPermissionId(permissionId), "查询成功");
     }
 
     /**

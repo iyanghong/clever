@@ -55,8 +55,8 @@ public class UserHistoryHeaderController {
      */
     @GetMapping("/listByUserId/{userId}")
     @Auth(value = "clever-system.userHistoryHeader.listByUserId", name = "根据用户id获取用户历史头像表列表", description = "根据用户id获取用户历史头像表列表接口")
-    public List<UserHistoryHeader> selectListByUserId(@PathVariable("userId") String userId) {
-        return userHistoryHeaderService.selectListByUserId(userId);
+    public Result<List<UserHistoryHeader>> selectListByUserId(@PathVariable("userId") String userId) {
+        return new Result<>(userHistoryHeaderService.selectListByUserId(userId), "查询成功");
     }
 
     /**
@@ -67,8 +67,8 @@ public class UserHistoryHeaderController {
      */
     @GetMapping("/listByDiskId/{diskId}")
     @Auth(value = "clever-system.userHistoryHeader.listByDiskId", name = "根据磁盘id获取用户历史头像表列表", description = "根据磁盘id获取用户历史头像表列表接口")
-    public List<UserHistoryHeader> selectListByDiskId(@PathVariable("diskId") String diskId) {
-        return userHistoryHeaderService.selectListByDiskId(diskId);
+    public Result<List<UserHistoryHeader>> selectListByDiskId(@PathVariable("diskId") String diskId) {
+        return new Result<>(userHistoryHeaderService.selectListByDiskId(diskId), "查询成功");
     }
 
     /**
